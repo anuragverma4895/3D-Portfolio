@@ -40,13 +40,13 @@ type TConfig = {
 
 export const config: TConfig = {
   html: {
-    title: "Anurag Verma — Portfolio",
+    title: "Anurag Verma",
     fullName: "Anurag Verma",
     email: "anuragverma4895@gmail.com",
   },
   hero: {
     name: "Anurag Verma",
-    p: ["I build scalable applications", "and innovative AI solutions"],
+    p: ["I engineer robust full-stack web applications,", "scalable architectures, and intelligent AI solutions."],
   },
   contact: {
     p: "Get in touch",
@@ -67,11 +67,7 @@ export const config: TConfig = {
     about: {
       p: "Introduction",
       h2: "Overview.",
-      content: `I'm a skilled software developer with experience in TypeScript and
-      JavaScript, and expertise in frameworks like React, Node.js, and
-      Three.js. I'm a quick learner and collaborate closely with clients to
-      create efficient, scalable, and user-friendly solutions that solve
-      real-world problems. Let's work together to bring your ideas to life!`,
+      content: `I am a passionate Full-Stack Software Engineer with specialized expertise in the MERN stack (MongoDB, Express, React, Node.js). I thrive on building highly scalable applications, ranging from real-time communication platforms using WebRTC and Socket.io, to robust payment processing systems and AI-integrated web applications. With a strong foundation in JavaScript, TypeScript, and modern web architectures, I am dedicated to architecting secure, efficient, and user-centric solutions that tackle complex, real-world challenges. Let's collaborate to build something remarkable.`,
     },
     experience: {
       p: "What I have done so far",
