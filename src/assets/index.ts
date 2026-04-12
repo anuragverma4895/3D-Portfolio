@@ -26,9 +26,11 @@ import shopify from "./company/shopify.png";
 import starbucks from "./company/starbucks.png";
 import tesla from "./company/tesla.png";
 
-import carrent from "./carrent.png";
-import jobit from "./jobit.png";
-import tripguide from "./tripguide.png";
+import aiVideoAds from "./AI-Short-Video-Ads-Generator1.png";
+import videoInterview from "./video-calling-interview-platform1.png";
+import paymentSystem from "./payment1.png";
+import socialMedia from "./SocialMedia1.png";
+import techStore from "./TechStore1.png";
 
 export {
   logo,
@@ -56,7 +58,9 @@ export {
   shopify,
   starbucks,
   tesla,
-  carrent,
-  jobit,
-  tripguide,
+  aiVideoAds,
+  videoInterview,
+  paymentSystem,
+  socialMedia,
+  techStore,
 };

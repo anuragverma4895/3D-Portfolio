@@ -28,9 +28,11 @@ import {
   starbucks,
   tesla,
   shopify,
-  carrent,
-  jobit,
-  tripguide,
+  aiVideoAds,
+  videoInterview,
+  paymentSystem,
+  socialMedia,
+  techStore,
   threejs,
 } from "../assets";
 
@@ -224,8 +226,9 @@ const projects: TProject[] = [
         color: "pink-text-gradient",
       },
     ],
-    image: carrent,
+    image: aiVideoAds,
     sourceCodeLink: "https://github.com/anuragverma4895/AI-Short-Video-Ads-Generator",
+    deployLink: "#",
   },
   {
     name: "Video Calling Interview Platform",
@@ -245,8 +248,9 @@ const projects: TProject[] = [
         color: "pink-text-gradient",
       },
     ],
-    image: jobit,
+    image: videoInterview,
     sourceCodeLink: "https://github.com/anuragverma4895/Video-Calling-Interview-Platform",
+    deployLink: "#",
   },
   {
     name: "Payment Processing System",
@@ -266,8 +270,9 @@ const projects: TProject[] = [
         color: "pink-text-gradient",
       },
     ],
-    image: tripguide,
+    image: paymentSystem,
     sourceCodeLink: "https://github.com/anuragverma4895/payment-processing-system",
+    deployLink: "#",
   },
   {
     name: "Social Media Platform",
@@ -287,8 +292,9 @@ const projects: TProject[] = [
         color: "pink-text-gradient",
       },
     ],
-    image: carrent,
+    image: socialMedia,
     sourceCodeLink: "https://github.com/anuragverma4895/Social-Media-Platform",
+    deployLink: "#",
   },
   {
     name: "Ecommerce Tech Store",
@@ -308,8 +314,9 @@ const projects: TProject[] = [
         color: "pink-text-gradient",
       },
     ],
-    image: jobit,
+    image: techStore,
     sourceCodeLink: "https://github.com/anuragverma4895/Ecommerce-Tech-Store",
+    deployLink: "#",
   },
 ];
 
