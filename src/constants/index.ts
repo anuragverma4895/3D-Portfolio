@@ -1,0 +1,316 @@
+import type {
+  TNavLink,
+  TService,
+  TTechnology,
+  TExperience,
+  TTestimonial,
+  TProject,
+} from "../types";
+
+import {
+  mobile,
+  backend,
+  creator,
+  web,
+  javascript,
+  typescript,
+  html,
+  css,
+  reactjs,
+  redux,
+  tailwind,
+  nodejs,
+  mongodb,
+  git,
+  figma,
+  docker,
+  meta,
+  starbucks,
+  tesla,
+  shopify,
+  carrent,
+  jobit,
+  tripguide,
+  threejs,
+} from "../assets";
+
+export const navLinks: TNavLink[] = [
+  {
+    id: "about",
+    title: "About",
+  },
+  {
+    id: "work",
+    title: "Work",
+  },
+  {
+    id: "contact",
+    title: "Contact",
+  },
+];
+
+const services: TService[] = [
+  {
+    title: "Web Developer",
+    icon: web,
+  },
+  {
+    title: "React Native Developer",
+    icon: mobile,
+  },
+  {
+    title: "Backend Developer",
+    icon: backend,
+  },
+  {
+    title: "Content Creator",
+    icon: creator,
+  },
+];
+
+const technologies: TTechnology[] = [
+  {
+    name: "HTML 5",
+    icon: html,
+  },
+  {
+    name: "CSS 3",
+    icon: css,
+  },
+  {
+    name: "JavaScript",
+    icon: javascript,
+  },
+  {
+    name: "TypeScript",
+    icon: typescript,
+  },
+  {
+    name: "React JS",
+    icon: reactjs,
+  },
+  {
+    name: "Redux Toolkit",
+    icon: redux,
+  },
+  {
+    name: "Tailwind CSS",
+    icon: tailwind,
+  },
+  {
+    name: "Node JS",
+    icon: nodejs,
+  },
+  {
+    name: "MongoDB",
+    icon: mongodb,
+  },
+  {
+    name: "Three JS",
+    icon: threejs,
+  },
+  {
+    name: "git",
+    icon: git,
+  },
+  {
+    name: "figma",
+    icon: figma,
+  },
+  {
+    name: "docker",
+    icon: docker,
+  },
+];
+
+const experiences: TExperience[] = [
+  {
+    title: "React.js Developer",
+    companyName: "Starbucks",
+    icon: starbucks,
+    iconBg: "#383E56",
+    date: "March 2020 - April 2021",
+    points: [
+      "Developing and maintaining web applications using React.js and other related technologies.",
+      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+      "Implementing responsive design and ensuring cross-browser compatibility.",
+      "Participating in code reviews and providing constructive feedback to other developers.",
+    ],
+  },
+  {
+    title: "React Native Developer",
+    companyName: "Tesla",
+    icon: tesla,
+    iconBg: "#E6DEDD",
+    date: "Jan 2021 - Feb 2022",
+    points: [
+      "Developing and maintaining web applications using React.js and other related technologies.",
+      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+      "Implementing responsive design and ensuring cross-browser compatibility.",
+      "Participating in code reviews and providing constructive feedback to other developers.",
+    ],
+  },
+  {
+    title: "Web Developer",
+    companyName: "Shopify",
+    icon: shopify,
+    iconBg: "#383E56",
+    date: "Jan 2022 - Jan 2023",
+    points: [
+      "Developing and maintaining web applications using React.js and other related technologies.",
+      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+      "Implementing responsive design and ensuring cross-browser compatibility.",
+      "Participating in code reviews and providing constructive feedback to other developers.",
+    ],
+  },
+  {
+    title: "Full stack Developer",
+    companyName: "Meta",
+    icon: meta,
+    iconBg: "#E6DEDD",
+    date: "Jan 2023 - Present",
+    points: [
+      "Developing and maintaining web applications using React.js and other related technologies.",
+      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+      "Implementing responsive design and ensuring cross-browser compatibility.",
+      "Participating in code reviews and providing constructive feedback to other developers.",
+    ],
+  },
+];
+
+const testimonials: TTestimonial[] = [
+  {
+    testimonial:
+      "I thought it was impossible to make a website as beautiful as our product, but Rick proved me wrong.",
+    name: "Sara Lee",
+    designation: "CFO",
+    company: "Acme Co",
+    image: "https://randomuser.me/api/portraits/women/4.jpg",
+  },
+  {
+    testimonial:
+      "I've never met a web developer who truly cares about their clients' success like Rick does.",
+    name: "Chris Brown",
+    designation: "COO",
+    company: "DEF Corp",
+    image: "https://randomuser.me/api/portraits/men/5.jpg",
+  },
+  {
+    testimonial:
+      "After Rick optimized our website, our traffic increased by 50%. We can't thank them enough!",
+    name: "Lisa Wang",
+    designation: "CTO",
+    company: "456 Enterprises",
+    image: "https://randomuser.me/api/portraits/women/6.jpg",
+  },
+];
+
+const projects: TProject[] = [
+  {
+    name: "AI Short Video Ads Generator",
+    description:
+      "AI-powered platform to generate high-quality short video advertisements using product and model images with customizable outputs.",
+    tags: [
+      {
+        name: "react",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "nodejs",
+        color: "green-text-gradient",
+      },
+      {
+        name: "ai",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: carrent,
+    sourceCodeLink: "https://github.com/anuragverma4895/AI-Short-Video-Ads-Generator",
+  },
+  {
+    name: "Video Calling Interview Platform",
+    description:
+      "A full-stack real-time interview platform enabling seamless 1-on-1 technical interviews with integrated video calling, live code editor, real-time chat, and automated code evaluation.",
+    tags: [
+      {
+        name: "react",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "webrtc",
+        color: "green-text-gradient",
+      },
+      {
+        name: "socketio",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: jobit,
+    sourceCodeLink: "https://github.com/anuragverma4895/Video-Calling-Interview-Platform",
+  },
+  {
+    name: "Payment Processing System",
+    description:
+      "Production-grade full-stack payment gateway system inspired by Razorpay with idempotent transactions, retry mechanisms, webhook simulation, and secure payment processing.",
+    tags: [
+      {
+        name: "react",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "nodejs",
+        color: "green-text-gradient",
+      },
+      {
+        name: "mongodb",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: tripguide,
+    sourceCodeLink: "https://github.com/anuragverma4895/payment-processing-system",
+  },
+  {
+    name: "Social Media Platform",
+    description:
+      "A full-stack MERN social media platform with AI-powered post generation, authentication, real-time interactions, and modern UI.",
+    tags: [
+      {
+        name: "mern",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "ai",
+        color: "green-text-gradient",
+      },
+      {
+        name: "socketio",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: carrent,
+    sourceCodeLink: "https://github.com/anuragverma4895/Social-Media-Platform",
+  },
+  {
+    name: "Ecommerce Tech Store",
+    description:
+      "Full-stack tech e-commerce website built with React, Node.js, Express & MongoDB.",
+    tags: [
+      {
+        name: "react",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "express",
+        color: "green-text-gradient",
+      },
+      {
+        name: "mongodb",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: jobit,
+    sourceCodeLink: "https://github.com/anuragverma4895/Ecommerce-Tech-Store",
+  },
+];
+
+export { services, technologies, experiences, testimonials, projects };
