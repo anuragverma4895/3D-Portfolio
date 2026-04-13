@@ -76,9 +76,14 @@ const Navbar = () => {
               key={nav.id}
               className={`${
                 active === nav.id ? "text-white" : "text-secondary"
-              } cursor-pointer text-[18px] font-medium hover:text-white`}
+              } cursor-pointer text-[18px] font-medium transition-colors duration-300`}
             >
-              <a href={`#${nav.id}`}>{nav.title}</a>
+              <a href={`#${nav.id}`} className="hover-link">
+                <span className="hover-in">
+                  {nav.title}
+                  <div className="text-white">{nav.title}</div>
+                </span>
+              </a>
             </li>
           ))}
         </ul>

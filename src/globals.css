@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --accentColor: #915EFF;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,6 +15,30 @@
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
   color-scheme: dark;
+}
+
+.hover-link {
+  position: relative;
+  display: flex;
+  text-wrap: nowrap;
+  overflow: hidden;
+}
+
+.hover-in {
+  position: relative;
+  transition: 0.3s;
+}
+
+.hover-in div {
+  display: flex;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+.hover-link:hover .hover-in {
+  transform: translateY(-100%);
+  color: var(--accentColor);
 }
 
 .hash-span {
@@ -201,4 +229,28 @@
       -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.5),
       -2.6em 0em 0 0em rgba(255, 255, 255, 0.7), -1.8em -1.8em 0 0em #ffffff;
   }
+}
+
+.techstack {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.techstack h2 {
+  position: absolute;
+  top: 50px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.tech-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1;
 }

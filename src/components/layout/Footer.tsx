@@ -104,8 +104,11 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="group inline-flex items-center gap-2 text-white text-[16px] font-medium hover:text-[#915EFF] transition-all duration-300 w-fit"
                 >
-                  <span className="border-b border-white/30 group-hover:border-[#915EFF] pb-0.5 transition-colors duration-300">
-                    {link.name}
+                  <span className="hover-link border-b border-white/30 group-hover:border-[#915EFF] pb-0.5">
+                    <span className="hover-in">
+                      {link.name}
+                      <div className="text-[#915EFF]">{link.name}</div>
+                    </span>
                   </span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
