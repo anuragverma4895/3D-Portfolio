@@ -10,6 +10,9 @@ import {
   Tech,
   Works,
   StarsCanvas,
+  SocialSidebar,
+  ResumeButton,
+  Footer,
 } from "./components";
 import { useEffect } from "react";
 import { config } from "./constants/config";
@@ -37,6 +40,9 @@ const App = () => {
           <Contact />
           <StarsCanvas />
         </div>
+        <Footer />
+        <SocialSidebar />
+        <ResumeButton />
       </div>
     </BrowserRouter>
   );

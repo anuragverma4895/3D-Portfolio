@@ -14,6 +14,9 @@ import Works from "./sections/Works";
 import Feedbacks from "./sections/Feedbacks";
 import Contact from "./sections/Contact";
 import CanvasLoader from "./layout/Loader";
+import SocialSidebar from "./layout/SocialSidebar";
+import ResumeButton from "./layout/ResumeButton";
+import Footer from "./layout/Footer";
 
 export {
   Hero,
@@ -29,4 +32,7 @@ export {
   BallCanvas,
   ComputersCanvas,
   StarsCanvas,
+  SocialSidebar,
+  ResumeButton,
+  Footer,
 };
