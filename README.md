@@ -7,7 +7,7 @@ Welcome to the source code of my 3D Portfolio! This is a modern, fully responsiv
 ## 🌐 Live Demo
 
 Explore the live demonstration of the project:
-[Anurag Verma Portfolio](https://reactjs18-3-d-portfolio.vercel.app/) *(Update this link to your actual deployment!)*
+[Anurag Verma Portfolio](https://portfolio-anurag-verma.vercel.app/) *(Update this link to your actual deployment!)*
 
 ## 📝 About Me
 
