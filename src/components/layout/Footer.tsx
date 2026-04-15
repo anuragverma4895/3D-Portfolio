@@ -1,30 +1,29 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { StarsCanvas } from "../canvas";
-import { styles } from "../../constants/styles";
+import { motion } from 'framer-motion';
+import { StarsCanvas } from '../canvas';
+import { styles } from '../../constants/styles';
 
 const contactInfo = {
-  email: "anuragverma4895@gmail.com",
-  phone: "+91 8874096365",
-  education: "B.Tech in CSE (AI) — NIET, Greater Noida",
+  email: 'anuragverma4895@gmail.com',
+  phone: '+91 8874096365',
+  education: 'B.Tech in CSE (AI) — NIET, Greater Noida',
 };
 
 const socialLinks = [
   {
-    name: "Github",
-    url: "https://github.com/anuragverma4895",
+    name: 'Github',
+    url: 'https://github.com/anuragverma4895',
   },
   {
-    name: "Linkedin",
-    url: "https://www.linkedin.com/in/anuragverma4895/",
+    name: 'Linkedin',
+    url: 'https://www.linkedin.com/in/anuragverma4895/',
   },
   {
-    name: "LeetCode",
-    url: "https://leetcode.com/u/AnuragVerma2035/",
+    name: 'LeetCode',
+    url: 'https://leetcode.com/u/AnuragVerma2035/',
   },
   {
-    name: "CodeChef",
-    url: "https://www.codechef.com/users/anuragverma203",
+    name: 'CodeChef',
+    url: 'https://www.codechef.com/users/anuragverma203',
   },
 ];
 
@@ -42,22 +41,7 @@ const Footer = () => {
       <div className={`${styles.paddingX} mx-auto max-w-7xl`}>
         {/* Top Branding Section */}
         <div className="flex flex-col items-center text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="mb-6"
-          >
-            <h2 className="text-white font-black md:text-[80px] sm:text-[60px] xs:text-[50px] text-[40px] leading-tight tracking-tighter opacity-10 select-none absolute left-1/2 -translate-x-1/2 top-0 pointer-events-none w-full">
-              ANURAG VERMA
-            </h2>
-            <h2 className="text-white font-black md:text-[80px] sm:text-[60px] xs:text-[50px] text-[40px] leading-tight tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white via-white/80 to-[#915EFF] drop-shadow-[0_0_15px_rgba(145,94,255,0.3)]">
-              ANURAG VERMA
-            </h2>
-          </motion.div>
-          
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -82,10 +66,16 @@ const Footer = () => {
               CONTACT ME
             </h4>
             <div className="flex flex-col gap-4">
-              <a href={`mailto:${contactInfo.email}`} className="text-white text-[16px] hover:text-[#915EFF] transition-colors truncate">
+              <a
+                href={`mailto:${contactInfo.email}`}
+                className="text-white text-[16px] hover:text-[#915EFF] transition-colors truncate"
+              >
                 {contactInfo.email}
               </a>
-              <a href={`tel:${contactInfo.phone}`} className="text-white text-[16px] hover:text-[#915EFF] transition-colors">
+              <a
+                href={`tel:${contactInfo.phone}`}
+                className="text-white text-[16px] hover:text-[#915EFF] transition-colors"
+              >
                 {contactInfo.phone}
               </a>
               <p className="text-secondary text-[14px] mt-2 border-t border-white/5 pt-4">
@@ -107,7 +97,7 @@ const Footer = () => {
               FOLLOW ME
             </h4>
             <div className="grid grid-cols-2 gap-4">
-              {socialLinks.map((link) => (
+              {socialLinks.map(link => (
                 <a
                   key={link.name}
                   href={link.url}
@@ -133,10 +123,8 @@ const Footer = () => {
             className="p-8 rounded-3xl bg-[#915EFF]/10 backdrop-blur-xl border border-[#915EFF]/20 hover:border-[#915EFF]/50 transition-all shadow-2xl flex flex-col items-center justify-center text-center relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-20 h-20 bg-[#915EFF]/20 blur-3xl rounded-full -mr-10 -mt-10" />
-            <h4 className="text-white font-bold text-[22px] mb-4">
-              Ready to start a project?
-            </h4>
-            <a 
+            <h4 className="text-white font-bold text-[22px] mb-4">Ready to start a project?</h4>
+            <a
               href="#contact"
               className="px-6 py-3 bg-[#915EFF] text-white rounded-xl font-bold hover:bg-[#804dee] transition-all hover:shadow-[0_0_20px_rgba(145,94,255,0.5)] active:scale-95"
             >
@@ -147,14 +135,18 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 text-secondary text-[14px] gap-4">
-          <p>© {currentYear} Anurag Verma. All rights reserved.</p>
+          <p>© {currentYear}. All rights reserved.</p>
           <div className="flex gap-6">
-            <span className="hover:text-white transition-colors cursor-default">Privacy Policy</span>
-            <span className="hover:text-white transition-colors cursor-default">Terms of Service</span>
+            <span className="hover:text-white transition-colors cursor-default">
+              Privacy Policy
+            </span>
+            <span className="hover:text-white transition-colors cursor-default">
+              Terms of Service
+            </span>
           </div>
         </div>
       </div>
-      
+
       {/* Bottom Glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] h-1 bg-[#915EFF] blur-lg opacity-50" />
     </footer>
