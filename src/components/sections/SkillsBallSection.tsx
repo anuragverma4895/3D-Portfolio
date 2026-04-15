@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, Html, Preload, useProgress, useTexture } from '@react-three/drei';
+import { Decal, Environment, Html, Preload, useProgress, useTexture } from '@react-three/drei';
 import { EffectComposer, N8AO } from '@react-three/postprocessing';
 import {
   BallCollider,
@@ -32,8 +32,92 @@ type SphereItem = {
   position: [number, number, number];
 };
 
-const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
-const scaleValues = [0.78, 0.88, 0.98, 1.08, 1.18];
+const sphereGeometry = new THREE.SphereGeometry(1, 52, 52);
+const scaleValues = [0.88, 0.98, 1.08, 1.18, 1.28];
+const spherePalette = [
+  '#55c7ff',
+  '#7dd3fc',
+  '#8b5cf6',
+  '#22d3ee',
+  '#fb7185',
+  '#f97316',
+  '#facc15',
+  '#34d399',
+];
+
+function getCompactLabel(label: string) {
+  const customLabels: Record<string, string> = {
+    'HTML 5': 'HTML',
+    'CSS 3': 'CSS',
+    JavaScript: 'JavaScript',
+    TypeScript: 'TypeScript',
+    'React JS': 'React',
+    'Redux Toolkit': 'Redux',
+    'Tailwind CSS': 'Tailwind',
+    'Node JS': 'Node',
+    MongoDB: 'MongoDB',
+    'Three JS': 'Three',
+    git: 'Git',
+    figma: 'Figma',
+    docker: 'Docker',
+  };
+
+  return customLabels[label] ?? label;
+}
+
+function createSkillBadgeTexture(iconSource: CanvasImageSource, label: string, accentColor: string) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 1024;
+
+  const context = canvas.getContext('2d');
+  if (!context) {
+    return new THREE.CanvasTexture(canvas);
+  }
+
+  context.clearRect(0, 0, canvas.width, canvas.height);
+
+  const glow = context.createRadialGradient(512, 430, 60, 512, 430, 360);
+  glow.addColorStop(0, 'rgba(255,255,255,0.22)');
+  glow.addColorStop(0.4, `${accentColor}26`);
+  glow.addColorStop(1, 'rgba(255,255,255,0)');
+  context.fillStyle = glow;
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  context.beginPath();
+  context.arc(512, 392, 188, 0, Math.PI * 2);
+  context.fillStyle = 'rgba(255,255,255,0.12)';
+  context.fill();
+
+  context.beginPath();
+  context.arc(512, 392, 182, 0, Math.PI * 2);
+  context.strokeStyle = 'rgba(255,255,255,0.28)';
+  context.lineWidth = 10;
+  context.stroke();
+
+  context.drawImage(iconSource, 346, 226, 332, 332);
+
+  context.shadowColor = 'rgba(0, 0, 0, 0.35)';
+  context.shadowBlur = 18;
+  context.fillStyle = 'rgba(255,255,255,0.95)';
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  context.font = '700 92px Arial';
+
+  const words = getCompactLabel(label).split(' ');
+  const lines = words.length > 1 ? [words[0], words.slice(1).join(' ')] : [words[0]];
+
+  lines.slice(0, 2).forEach((line, index) => {
+    context.fillText(line, canvas.width / 2, 720 + index * 92);
+  });
+  context.shadowBlur = 0;
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+
+  return texture;
+}
 
 function CanvasLoader() {
   const { progress } = useProgress();
@@ -69,10 +153,12 @@ function PointerOrb() {
 
 function LogoSphere({
   material,
+  labelMap,
   scale,
   position,
 }: {
   material: THREE.MeshPhysicalMaterial;
+  labelMap: THREE.Texture;
   scale: number;
   position: [number, number, number];
 }) {
@@ -100,9 +186,9 @@ function LogoSphere({
     api.current.applyImpulse(impulseDirection.current, true);
     api.current.applyTorqueImpulse(
       {
-        x: safeDelta * 0.22 * scale,
-        y: safeDelta * 0.3 * scale,
-        z: safeDelta * 0.18 * scale,
+        x: safeDelta * 0.14 * scale,
+        y: safeDelta * 0.18 * scale,
+        z: safeDelta * 0.12 * scale,
       },
       true
     );
@@ -119,7 +205,14 @@ function LogoSphere({
       restitution={0.9}
     >
       <BallCollider args={[scale]} />
-      <mesh castShadow receiveShadow geometry={sphereGeometry} material={material} scale={scale} />
+      <mesh castShadow receiveShadow geometry={sphereGeometry} material={material} scale={scale}>
+        <Decal
+          position={[0, 0, 0.98]}
+          rotation={[0, 0, 0]}
+          scale={[0.95, 0.95, 0.95]}
+          map={labelMap}
+        />
+      </mesh>
     </RigidBody>
   );
 }
@@ -128,12 +221,12 @@ function Bounds() {
   return (
     <>
       <RigidBody type="fixed" colliders={false}>
-        <CuboidCollider args={[7.5, 0.4, 6]} position={[0, -5.4, 0]} />
-        <CuboidCollider args={[7.5, 0.4, 6]} position={[0, 5.4, 0]} />
-        <CuboidCollider args={[0.35, 5.2, 6]} position={[-7.4, 0, 0]} />
-        <CuboidCollider args={[0.35, 5.2, 6]} position={[7.4, 0, 0]} />
-        <CuboidCollider args={[7.5, 5.2, 0.35]} position={[0, 0, -4.5]} />
-        <CuboidCollider args={[7.5, 5.2, 0.35]} position={[0, 0, 4.5]} />
+        <CuboidCollider args={[5.8, 0.35, 5]} position={[0, -3.8, 0]} />
+        <CuboidCollider args={[5.8, 0.35, 5]} position={[0, 3.8, 0]} />
+        <CuboidCollider args={[0.35, 3.7, 5]} position={[-5.8, 0, 0]} />
+        <CuboidCollider args={[0.35, 3.7, 5]} position={[5.8, 0, 0]} />
+        <CuboidCollider args={[5.8, 3.7, 0.35]} position={[0, 0, -3.8]} />
+        <CuboidCollider args={[5.8, 3.7, 0.35]} position={[0, 0, 3.8]} />
       </RigidBody>
     </>
   );
@@ -146,16 +239,17 @@ function TechOrbScene({ skills, density }: { skills: SkillItem[]; density: numbe
   const sphereItems = useMemo<SphereItem[]>(() => {
     return Array.from({ length: density }, (_, index) => {
       const angle = (index / density) * Math.PI * 2;
-      const depthBand = (index % 5) - 2;
+      const ring = 1.7 + (index % 4) * 0.42;
+      const depthBand = ((index % 5) - 2) * 0.34;
 
       return {
         id: `sphere-${index}`,
         iconIndex: index % skills.length,
         scale: scaleValues[index % scaleValues.length],
         position: [
-          Math.sin(angle * 1.3) * (3.1 + (index % 4) * 0.75),
-          Math.cos(angle) * (2 + (index % 3) * 0.95),
-          depthBand * 0.55,
+          Math.sin(angle * 1.2) * ring,
+          Math.cos(angle * 1.05) * (1.25 + (index % 3) * 0.55) + ((index % 4) - 1.5) * 0.2,
+          depthBand,
         ],
       };
     });
@@ -163,24 +257,36 @@ function TechOrbScene({ skills, density }: { skills: SkillItem[]; density: numbe
 
   const materials = useMemo(
     () =>
-      textures.map(texture => {
+      textures.map((texture, index) => {
         texture.colorSpace = THREE.SRGBColorSpace;
         texture.anisotropy = 8;
 
+        const baseColor = new THREE.Color(spherePalette[index % spherePalette.length]);
+
         return new THREE.MeshPhysicalMaterial({
-          map: texture,
-          emissive: new THREE.Color('#ffffff'),
-          emissiveMap: texture,
-          emissiveIntensity: 0.42,
-          metalness: 0.1,
-          roughness: 0.24,
+          color: baseColor,
+          emissive: baseColor.clone().multiplyScalar(0.22),
+          emissiveIntensity: 0.38,
+          metalness: 0.06,
+          roughness: 0.12,
           clearcoat: 1,
-          clearcoatRoughness: 0.18,
+          clearcoatRoughness: 0.06,
           reflectivity: 1,
-          transparent: true,
         });
       }),
     [textures]
+  );
+
+  const labelTextures = useMemo(
+    () =>
+      textures.map((texture, index) =>
+        createSkillBadgeTexture(
+          texture.image as CanvasImageSource,
+          skills[index].name,
+          spherePalette[index % spherePalette.length]
+        )
+      ),
+    [skills, textures]
   );
 
   return (
@@ -188,18 +294,18 @@ function TechOrbScene({ skills, density }: { skills: SkillItem[]; density: numbe
       <color attach="background" args={['#070b13']} />
       <fog attach="fog" args={['#070b13', 12, 28]} />
 
-      <ambientLight intensity={1.1} />
-      <directionalLight position={[4, 6, 3]} intensity={1.7} color="#dbeafe" />
+      <ambientLight intensity={0.85} />
+      <directionalLight position={[4, 6, 3]} intensity={1.35} color="#dbeafe" />
       <spotLight
         position={[0, 8, 8]}
         angle={0.36}
-        intensity={28}
+        intensity={18}
         penumbra={1}
         color="#67e8f9"
         castShadow
       />
-      <pointLight position={[-5, -2, 5]} intensity={18} color="#a855f7" />
-      <pointLight position={[6, 2, -2]} intensity={14} color="#22d3ee" />
+      <pointLight position={[-5, -2, 5]} intensity={11} color="#a855f7" />
+      <pointLight position={[6, 2, -2]} intensity={9} color="#22d3ee" />
 
       <Physics gravity={[0, 0, 0]}>
         <PointerOrb />
@@ -208,6 +314,7 @@ function TechOrbScene({ skills, density }: { skills: SkillItem[]; density: numbe
           <LogoSphere
             key={item.id}
             material={materials[item.iconIndex]}
+            labelMap={labelTextures[item.iconIndex]}
             scale={item.scale}
             position={item.position}
           />
@@ -216,7 +323,7 @@ function TechOrbScene({ skills, density }: { skills: SkillItem[]; density: numbe
 
       <Environment preset="city" />
       <EffectComposer multisampling={0} enableNormalPass={false}>
-        <N8AO aoRadius={1.8} intensity={1.35} color="#09111d" />
+        <N8AO aoRadius={1.4} intensity={0.9} color="#09111d" />
       </EffectComposer>
       <Preload all />
     </>
@@ -245,11 +352,11 @@ function SkillsBallSection({
   skills,
   id = 'skills',
 }: SkillsBallSectionProps) {
-  const [density, setDensity] = useState(26);
+  const [density, setDensity] = useState(18);
 
   useEffect(() => {
     const updateDensity = () => {
-      setDensity(window.innerWidth < 768 ? 14 : 26);
+      setDensity(window.innerWidth < 768 ? 12 : 18);
     };
 
     updateDensity();
@@ -277,19 +384,22 @@ function SkillsBallSection({
 
         <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#070b13] shadow-[0_30px_120px_rgba(2,8,23,0.65)]">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.18),_transparent_32%),radial-gradient(circle_at_bottom,_rgba(168,85,247,0.18),_transparent_28%)]" />
-          <div className="pointer-events-none absolute left-1/2 top-12 z-10 -translate-x-1/2 rounded-full border border-white/10 bg-black/25 px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.5em] text-white/60 backdrop-blur-md">
-            Interactive Stack Field
+          <div className="pointer-events-none absolute inset-x-0 top-12 z-0 text-center font-light uppercase tracking-[0.08em] text-white/16">
+            <div className="text-[clamp(2.8rem,8vw,7rem)] leading-none">My Tech Stack</div>
+            <div className="mt-3 text-[clamp(0.8rem,1.5vw,1rem)] tracking-[0.55em] text-white/18">
+              Colorful. Clean. Interactive.
+            </div>
           </div>
 
           <div className="h-[26rem] w-full sm:h-[34rem] lg:h-[42rem]">
             <Canvas
               shadows
               dpr={[1, 1.8]}
-              camera={{ position: [0, 0, 18], fov: 32, near: 0.1, far: 100 }}
+              camera={{ position: [0, 0, 14.5], fov: 34, near: 0.1, far: 100 }}
               gl={{ antialias: true, alpha: true }}
               onCreated={({ gl }) => {
                 gl.toneMapping = THREE.ACESFilmicToneMapping;
-                gl.toneMappingExposure = 1.2;
+                gl.toneMappingExposure = 1.1;
               }}
             >
               <Suspense fallback={<CanvasLoader />}>
