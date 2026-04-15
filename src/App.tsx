@@ -7,7 +7,7 @@ import {
   Feedbacks,
   Hero,
   Navbar,
-  Tech,
+  SkillsBallSection,
   Works,
   StarsCanvas,
   SocialSidebar,
@@ -16,6 +16,7 @@ import {
 } from './components';
 import { useEffect } from 'react';
 import { config } from './constants/config';
+import { technologies } from './constants';
 
 const App = () => {
   useEffect(() => {
@@ -33,7 +34,7 @@ const App = () => {
         </div>
         <About />
         {/* <Experience /> */}
-        <Tech />
+        <SkillsBallSection skills={technologies} />
         <Works />
         <Feedbacks />
         <div className="relative z-0">
