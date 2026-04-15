@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Decal, Environment, Html, Preload, useProgress, useTexture } from '@react-three/drei';
@@ -33,7 +33,7 @@ type SphereItem = {
 };
 
 const sphereGeometry = new THREE.SphereGeometry(1, 52, 52);
-const scaleValues = [0.72, 0.8, 0.88, 0.96, 1.04];
+const scaleValues = [0.58, 0.66, 0.74, 0.82, 0.9];
 const spherePalette = [
   '#55c7ff',
   '#7dd3fc',
@@ -44,111 +44,6 @@ const spherePalette = [
   '#facc15',
   '#34d399',
 ];
-
-function getCompactLabel(label: string) {
-  const customLabels: Record<string, string> = {
-    'HTML 5': 'HTML5',
-    'CSS 3': 'CSS3',
-    JavaScript: 'JavaScript',
-    TypeScript: 'TypeScript',
-    'React JS': 'React',
-    'Redux Toolkit': 'Redux',
-    'Tailwind CSS': 'Tailwind',
-    'Node JS': 'Node.js',
-    MongoDB: 'MongoDB',
-    'Three JS': 'Three.js',
-    git: 'Git',
-    figma: 'Figma',
-    docker: 'Docker',
-  };
-
-  return customLabels[label] ?? label;
-}
-
-function getLabelLines(label: string) {
-  const compactLabel = getCompactLabel(label);
-
-  if (compactLabel.length <= 10) {
-    return [compactLabel];
-  }
-
-  const words = compactLabel.split(' ');
-  if (words.length === 1) {
-    return [compactLabel];
-  }
-
-  if (words.length === 2) {
-    return words;
-  }
-
-  return [words.slice(0, 2).join(' '), words.slice(2).join(' ')];
-}
-
-function createSkillBadgeTexture(iconSource: CanvasImageSource, label: string, accentColor: string) {
-  const canvas = document.createElement('canvas');
-  canvas.width = 1024;
-  canvas.height = 1024;
-
-  const context = canvas.getContext('2d');
-  if (!context) {
-    return new THREE.CanvasTexture(canvas);
-  }
-
-  context.clearRect(0, 0, canvas.width, canvas.height);
-
-  const glow = context.createRadialGradient(512, 512, 120, 512, 512, 360);
-  glow.addColorStop(0, `${accentColor}33`);
-  glow.addColorStop(0.55, `${accentColor}14`);
-  glow.addColorStop(1, 'rgba(255,255,255,0)');
-  context.fillStyle = glow;
-  context.fillRect(0, 0, canvas.width, canvas.height);
-
-  context.beginPath();
-  context.roundRect(232, 238, 560, 548, 168);
-  context.fillStyle = 'rgba(255,255,255,0.92)';
-  context.fill();
-
-  context.beginPath();
-  context.roundRect(232, 238, 560, 548, 168);
-  context.strokeStyle = 'rgba(255,255,255,0.45)';
-  context.lineWidth = 8;
-  context.stroke();
-
-  context.beginPath();
-  context.roundRect(340, 278, 344, 214, 108);
-  context.fillStyle = 'rgba(245,247,250,0.92)';
-  context.fill();
-
-  context.drawImage(iconSource, 388, 302, 248, 166);
-
-  context.fillStyle = accentColor;
-  context.fillRect(390, 544, 244, 10);
-
-  context.shadowColor = 'rgba(0, 0, 0, 0.12)';
-  context.shadowBlur = 12;
-  context.fillStyle = '#111827';
-  context.textAlign = 'center';
-  context.textBaseline = 'middle';
-  const lines = getLabelLines(label);
-  let fontSize = lines.length > 1 ? 82 : 98;
-  context.font = `700 ${fontSize}px Arial`;
-
-  while (fontSize > 50 && lines.some(line => context.measureText(line).width > 455)) {
-    fontSize -= 4;
-    context.font = `700 ${fontSize}px Arial`;
-  }
-
-  lines.slice(0, 2).forEach((line, index) => {
-    context.fillText(line, canvas.width / 2, 636 + index * 84);
-  });
-  context.shadowBlur = 0;
-
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.needsUpdate = true;
-
-  return texture;
-}
 
 function CanvasLoader() {
   const { progress } = useProgress();
@@ -184,12 +79,12 @@ function PointerOrb() {
 
 function LogoSphere({
   material,
-  labelMap,
+  decalMap,
   scale,
   position,
 }: {
   material: THREE.MeshPhysicalMaterial;
-  labelMap: THREE.Texture;
+  decalMap: THREE.Texture;
   scale: number;
   position: [number, number, number];
 }) {
@@ -215,14 +110,6 @@ function LogoSphere({
       .multiplyScalar(safeDelta * scale * 3.8);
 
     api.current.applyImpulse(impulseDirection.current, true);
-    api.current.applyTorqueImpulse(
-      {
-        x: safeDelta * 0.14 * scale,
-        y: safeDelta * 0.18 * scale,
-        z: safeDelta * 0.12 * scale,
-      },
-      true
-    );
   });
 
   return (
@@ -231,17 +118,18 @@ function LogoSphere({
       colliders={false}
       position={position}
       linearDamping={0.8}
-      angularDamping={0.35}
+      angularDamping={1}
       friction={0.2}
       restitution={0.9}
+      enabledRotations={[false, false, false]}
     >
       <BallCollider args={[scale]} />
       <mesh castShadow receiveShadow geometry={sphereGeometry} material={material} scale={scale}>
         <Decal
-          position={[0, 0, 0.98]}
+          position={[0, 0, 0.99]}
           rotation={[0, 0, 0]}
-          scale={[0.72, 0.72, 0.72]}
-          map={labelMap}
+          scale={[0.84, 0.84, 0.84]}
+          map={decalMap}
         />
       </mesh>
     </RigidBody>
@@ -263,61 +151,51 @@ function Bounds() {
   );
 }
 
-function TechOrbScene({ skills, density }: { skills: SkillItem[]; density: number }) {
+function TechOrbScene({ skills }: { skills: SkillItem[] }) {
   const iconUrls = useMemo(() => skills.map(skill => skill.icon), [skills]);
-  const textures = useTexture(iconUrls) as THREE.Texture[];
+  const iconTextures = useTexture(iconUrls) as THREE.Texture[];
 
   const sphereItems = useMemo<SphereItem[]>(() => {
-    return Array.from({ length: density }, (_, index) => {
-      const angle = (index / density) * Math.PI * 2;
-      const ring = 1.7 + (index % 4) * 0.42;
-      const depthBand = ((index % 5) - 2) * 0.34;
+    return skills.map((skill, index) => {
+      const total = skills.length;
+      const angle = (index / total) * Math.PI * 2;
+      const ring = index % 3 === 0 ? 1.2 : index % 3 === 1 ? 1.75 : 2.15;
+      const depthBand = ((index % 5) - 2) * 0.24;
 
       return {
-        id: `sphere-${index}`,
-        iconIndex: index % skills.length,
+        id: `sphere-${skill.name}`,
+        iconIndex: index,
         scale: scaleValues[index % scaleValues.length],
         position: [
-          Math.sin(angle * 1.2) * ring,
-          Math.cos(angle * 1.05) * (1.25 + (index % 3) * 0.55) + ((index % 4) - 1.5) * 0.2,
+          Math.sin(angle * 1.18) * ring,
+          Math.cos(angle) * (0.95 + (index % 3) * 0.35) + ((index % 4) - 1.5) * 0.14,
           depthBand,
         ],
       };
     });
-  }, [density, skills.length]);
+  }, [skills]);
 
   const materials = useMemo(
     () =>
-      textures.map((texture, index) => {
+      iconTextures.map((texture, index) => {
         texture.colorSpace = THREE.SRGBColorSpace;
         texture.anisotropy = 8;
 
-        const baseColor = new THREE.Color(spherePalette[index % spherePalette.length]);
+        const accent = new THREE.Color(spherePalette[index % spherePalette.length]);
 
         return new THREE.MeshPhysicalMaterial({
-          color: baseColor,
-          emissive: baseColor.clone().multiplyScalar(0.22),
-          emissiveIntensity: 0.38,
-          metalness: 0.06,
-          roughness: 0.12,
+          color: new THREE.Color('#f5f7fb'),
+          emissive: accent.clone().multiplyScalar(0.1),
+          emissiveIntensity: 0.28,
+          metalness: 0.03,
+          roughness: 0.08,
           clearcoat: 1,
-          clearcoatRoughness: 0.06,
+          clearcoatRoughness: 0.04,
           reflectivity: 1,
+          envMapIntensity: 1.1,
         });
       }),
-    [textures]
-  );
-
-  const labelTextures = useMemo(
-    () =>
-      textures.map((texture, index) =>
-        createSkillBadgeTexture(
-          texture.image as CanvasImageSource,
-          skills[index].name,
-          spherePalette[index % spherePalette.length]
-        )
-      ),
-    [skills, textures]
+    [iconTextures]
   );
 
   return (
@@ -345,7 +223,7 @@ function TechOrbScene({ skills, density }: { skills: SkillItem[]; density: numbe
           <LogoSphere
             key={item.id}
             material={materials[item.iconIndex]}
-            labelMap={labelTextures[item.iconIndex]}
+            decalMap={iconTextures[item.iconIndex]}
             scale={item.scale}
             position={item.position}
           />
@@ -363,14 +241,18 @@ function TechOrbScene({ skills, density }: { skills: SkillItem[]; density: numbe
 
 function SkillsTicker({ skills }: { skills: SkillItem[] }) {
   return (
-    <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-      {skills.map(skill => (
+    <div className="mx-auto mt-8 grid max-w-5xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      {skills.map((skill, index) => (
         <div
           key={skill.name}
-          className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/75 backdrop-blur-sm"
+          className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white/80 shadow-[0_10px_40px_rgba(8,15,34,0.35)] backdrop-blur-md"
         >
+          <span
+            className="h-2.5 w-2.5 rounded-full"
+            style={{ backgroundColor: spherePalette[index % spherePalette.length] }}
+          />
           <img src={skill.icon} alt={skill.name} className="h-4 w-4 object-contain" loading="lazy" />
-          <span>{skill.name}</span>
+          <span className="truncate">{skill.name}</span>
         </div>
       ))}
     </div>
@@ -383,19 +265,6 @@ function SkillsBallSection({
   skills,
   id = 'skills',
 }: SkillsBallSectionProps) {
-  const [density, setDensity] = useState(18);
-
-  useEffect(() => {
-    const updateDensity = () => {
-      setDensity(window.innerWidth < 768 ? 12 : 18);
-    };
-
-    updateDensity();
-    window.addEventListener('resize', updateDensity);
-
-    return () => window.removeEventListener('resize', updateDensity);
-  }, []);
-
   return (
     <section id={id} className="relative overflow-hidden py-20 sm:py-24">
       <div className="pointer-events-none absolute inset-0">
@@ -409,7 +278,7 @@ function SkillsBallSection({
           <p className={styles.sectionSubText}>{subtitle}</p>
           <h2 className={styles.sectionHeadText}>{title}</h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-white/65 sm:text-base">
-            Drag your cursor through the stack and watch the tools float, collide, and reform.
+            A cleaner interactive stack field with glossy logo spheres and a sharper presentation.
           </p>
         </div>
 
@@ -421,6 +290,7 @@ function SkillsBallSection({
               Colorful. Clean. Interactive.
             </div>
           </div>
+          <div className="pointer-events-none absolute bottom-10 left-1/2 h-28 w-[26rem] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
 
           <div className="h-[26rem] w-full sm:h-[34rem] lg:h-[42rem]">
             <Canvas
@@ -434,7 +304,7 @@ function SkillsBallSection({
               }}
             >
               <Suspense fallback={<CanvasLoader />}>
-                <TechOrbScene skills={skills} density={density} />
+                <TechOrbScene skills={skills} />
               </Suspense>
             </Canvas>
           </div>
