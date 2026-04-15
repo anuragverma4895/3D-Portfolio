@@ -1,7 +1,7 @@
-import { BallCanvas } from "../canvas";
-import { SectionWrapper } from "../../hoc";
-import { technologies } from "../../constants";
-import { styles } from "../../constants/styles";
+import { BallCanvas } from '../canvas';
+import { SectionWrapper } from '../../hoc';
+import { technologies } from '../../constants';
+import { styles } from '../../constants/styles';
 
 const Tech = () => {
   return (
@@ -12,9 +12,12 @@ const Tech = () => {
       </div>
 
       <div className="flex flex-row flex-wrap justify-center gap-10">
-        {technologies.map((technology) => (
-          <div className="h-28 w-28" key={technology.name}>
-            <BallCanvas icon={technology.icon} />
+        {technologies.map(technology => (
+          <div
+            className="h-28 w-28 flex items-center justify-center bg-white/10 rounded-xl backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all"
+            key={technology.name}
+          >
+            <img src={technology.icon} alt={technology.name} className="h-16 w-16 object-contain" />
           </div>
         ))}
       </div>
@@ -22,4 +25,4 @@ const Tech = () => {
   );
 };
 
-export default SectionWrapper(Tech, "tech");
+export default SectionWrapper(Tech, 'tech');

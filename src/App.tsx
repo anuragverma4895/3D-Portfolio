@@ -1,9 +1,9 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
 
 import {
   About,
   Contact,
-  Experience,
+  // Experience,
   Feedbacks,
   Hero,
   Navbar,
@@ -13,9 +13,9 @@ import {
   SocialSidebar,
   ResumeButton,
   Footer,
-} from "./components";
-import { useEffect } from "react";
-import { config } from "./constants/config";
+} from './components';
+import { useEffect } from 'react';
+import { config } from './constants/config';
 
 const App = () => {
   useEffect(() => {
@@ -32,7 +32,7 @@ const App = () => {
           <Hero />
         </div>
         <About />
-        <Experience />
+        {/* <Experience /> */}
         <Tech />
         <Works />
         <Feedbacks />

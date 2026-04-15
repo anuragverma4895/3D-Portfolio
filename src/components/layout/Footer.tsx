@@ -103,8 +103,15 @@ const Footer = () => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover-link group"
+                  className="hover-link group flex items-center gap-2"
                 >
+                  {link.name === 'CodeChef' ? (
+                    <img
+                      src="https://vinitshahdeo.github.io/CodeChef-VIT-Website/img/about/logo.jpeg"
+                      alt="CodeChef"
+                      className="w-6 h-6 object-contain rounded"
+                    />
+                  ) : null}
                   <span className="hover-in text-white text-[16px]">
                     {link.name}
                     <div className="text-[#915EFF]">{link.name}</div>
