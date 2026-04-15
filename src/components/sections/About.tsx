@@ -16,11 +16,10 @@ interface IServiceCard {
 
 const ServiceCard: React.FC<IServiceCard> = ({ index, title, icon }) => (
   <Tilt
-    glareEnable
+    glareEnable={false}
     tiltEnable
     tiltMaxAngleX={30}
     tiltMaxAngleY={30}
-    glareColor="#aaa6c3"
   >
     <div className="max-w-[250px] w-full xs:w-[250px]">
       <motion.div

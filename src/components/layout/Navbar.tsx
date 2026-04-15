@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
 import { styles } from "../../constants/styles";
@@ -10,6 +10,7 @@ const Navbar = () => {
   const [active, setActive] = useState<string | null>();
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,31 +21,36 @@ const Navbar = () => {
         setScrolled(false);
         setActive("");
       }
+
+      // Debounced section highlighting
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      scrollTimeoutRef.current = setTimeout(() => {
+        const sections = document.querySelectorAll("section[id]");
+
+        sections.forEach((current) => {
+          const sectionId = current.getAttribute("id");
+          // @ts-ignore
+          const sectionHeight = current.offsetHeight;
+          const sectionTop =
+            current.getBoundingClientRect().top - sectionHeight * 0.2;
+
+          if (sectionTop < 0 && sectionTop + sectionHeight > 0) {
+            setActive(sectionId);
+          }
+        });
+      }, 50);
     };
 
-    window.addEventListener("scroll", handleScroll);
-
-    const navbarHighlighter = () => {
-      const sections = document.querySelectorAll("section[id]");
-
-      sections.forEach((current) => {
-        const sectionId = current.getAttribute("id");
-        // @ts-ignore
-        const sectionHeight = current.offsetHeight;
-        const sectionTop =
-          current.getBoundingClientRect().top - sectionHeight * 0.2;
-
-        if (sectionTop < 0 && sectionTop + sectionHeight > 0) {
-          setActive(sectionId);
-        }
-      });
-    };
-
-    window.addEventListener("scroll", navbarHighlighter);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("scroll", navbarHighlighter);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
     };
   }, []);
 

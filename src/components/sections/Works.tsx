@@ -24,11 +24,10 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
       className="w-full sm:w-[calc(50%-14px)]"
     >
       <Tilt
-        glareEnable
+        glareEnable={false}
         tiltEnable
         tiltMaxAngleX={30}
         tiltMaxAngleY={30}
-        glareColor="#aaa6c3"
         className="w-full"
       >
         <div className="bg-tertiary group w-full rounded-2xl p-5">
