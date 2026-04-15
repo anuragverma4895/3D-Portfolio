@@ -2,71 +2,75 @@
 
 ![Portfolio Preview](./src/assets/herobg.png)
 
-Welcome to the source code of my 3D Portfolio! This is a modern, fully responsive web experience built using React.js, Tailwind CSS, and Three.js for interactive 3D graphics. It showcases my professional expertise, full-stack MERN capabilities, and recent real-world projects.
+A modern, fully responsive 3D portfolio showcasing my expertise as a Full-Stack Software Engineer. Built with React.js, Three.js, and Tailwind CSS, featuring interactive 3D graphics, smooth animations, and real-world project demonstrations.
 
-## 🌐 Live Demo
+**Live Demo:** [anurag-verma-portfolio.vercel.app](https://portfolio-anurag-verma.vercel.app/)
 
-Explore the live demonstration of the project:
-[Anurag Verma Portfolio](https://portfolio-anurag-verma.vercel.app/) *(Update this link to your actual deployment!)*
+## 🎯 Featured Work
 
-## 📝 About Me
+- **AI Short Video Ads Generator** - AI-powered platform for generating high-quality short video advertisements with customizable outputs
+- **Video Calling Interview Platform** - Real-time interview platform with WebRTC video calling, live code editor, and automated evaluation
+- **Payment Processing System** - Production-grade payment gateway inspired by Razorpay with idempotent transactions and webhook simulation
+- **Social Media Platform** - Full-stack MERN platform with AI-powered post generation and real-time interactions
+- **Ecommerce Tech Store** - Complete tech e-commerce solution with React, Node.js, and MongoDB
 
-I am a passionate Full-Stack Software Engineer with specialized expertise in the MERN stack (MongoDB, Express, React, Node.js). I thrive on building highly scalable applications, ranging from real-time communication platforms using WebRTC and Socket.io, to robust payment processing systems and AI-integrated web applications.
+## 💻 Tech Stack
 
-## ✨ Core Skills & Technologies
+**Frontend:** React.js, TypeScript, Tailwind CSS, Three.js, Framer Motion, React Three Fiber
 
-- **Frontend:** HTML5, CSS3, JavaScript, TypeScript, React.js, Redux Toolkit, Tailwind CSS, Three.js, Framer Motion
-- **Backend:** Node.js, Express.js
-- **Database:** MongoDB
-- **Tools & DevOps:** Git, GitHub, Docker, Figma, Vite, Vercel
+**Backend:** Node.js, Express.js
 
-## 🚀 Featured Projects
+**Database:** MongoDB
 
-- **AI Short Video Ads Generator:** An AI-powered platform to generate high-quality short video advertisements using product and model images with customizable outputs.
-- **Video Calling Interview Platform:** A full-stack real-time interview platform enabling seamless 1-on-1 technical interviews with integrated video calling, live code editor, real-time chat, and automated code evaluation.
-- **Payment Processing System:** Production-grade full-stack payment gateway system inspired by Razorpay with idempotent transactions, retry mechanisms, webhook simulation, and secure payment processing.
-- **Social Media Platform:** A full-stack MERN social media platform with AI-powered post generation, authentication, real-time interactions, and modern UI.
-- **Ecommerce Tech Store:** Full-stack tech e-commerce website built with React, Node.js, Express & MongoDB.
+**Real-time:** WebRTC, Socket.io
 
-## 🧰 Getting Started Locally
+**DevOps & Tools:** Git, Docker, Vite, Vercel
 
-To get this project up and running in your development environment, follow these step-by-step instructions.
+## 🚀 Quick Start
 
-### 📋 Prerequisites
-- [Node.js](https://nodejs.org/en/)
-- [NPM](https://www.npmjs.com/get-npm)
-- [Git](https://git-scm.com/downloads)
+### Prerequisites
+- Node.js 16+ ([Download](https://nodejs.org/en/))
+- Git ([Download](https://git-scm.com/downloads))
 
-### ⚙️ Installation
+### Setup
 
-**Step 1:** Download or clone this repo by using the link below:
-```bash
-git clone https://github.com/anuragverma4895/3D-Portofolio.git
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/anuragverma4895/3D-Portofolio.git
+   cd 3D-Portofolio
+   ```
 
-**Step 2:** Execute the following command in the root directory of the downloaded repo in order to install dependencies:
-```bash
-npm install
-```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-**Step 3:** Setup your `.env` variables for EmailJS functionality (Contact form):
-```env
-VITE_APP_EMAILJS_SERVICE_ID=<YOUR_SERVICE_ID>
-VITE_APP_EMAILJS_TEMPLATE_ID=<YOUR_TEMPLATE_ID>
-VITE_APP_EMAILJS_PUBLIC_KEY=<YOUR_PUBLIC_KEY>
-```
+3. **Setup environment variables** (`.env`):
+   ```env
+   VITE_APP_EMAILJS_SERVICE_ID=<YOUR_SERVICE_ID>
+   VITE_APP_EMAILJS_TEMPLATE_ID=<YOUR_TEMPLATE_ID>
+   VITE_APP_EMAILJS_PUBLIC_KEY=<YOUR_PUBLIC_KEY>
+   ```
 
-**Step 4:** Execute the following command to run the development server:
-```bash
-npm run dev
-```
+4. **Start development server:**
+   ```bash
+   npm run dev
+   ```
 
-**Step 5:** Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
+5. **Open** [http://localhost:5173](http://localhost:5173) in your browser
 
-## 📞 Contact
+## 📦 Available Scripts
 
-- **Email**: anuragverma4895@gmail.com
-- **GitHub**: [@anuragverma4895](https://github.com/anuragverma4895)
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run ts:check` - Type check the project
+
+## ✉️ Contact
+
+- **Email:** anuragverma4895@gmail.com
+- **GitHub:** [@anuragverma4895](https://github.com/anuragverma4895)
 
 ---
-*Built with passion to solve complex real-world logic patterns to deliver seamless, secure, and user-centric solutions.*
+
+*Engineering scalable, user-centric solutions that solve real-world problems.*
