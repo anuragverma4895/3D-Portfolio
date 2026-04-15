@@ -33,7 +33,7 @@ type SphereItem = {
 };
 
 const sphereGeometry = new THREE.SphereGeometry(1, 52, 52);
-const scaleValues = [0.88, 0.98, 1.08, 1.18, 1.28];
+const scaleValues = [0.72, 0.8, 0.88, 0.96, 1.04];
 const spherePalette = [
   '#55c7ff',
   '#7dd3fc',
@@ -47,22 +47,41 @@ const spherePalette = [
 
 function getCompactLabel(label: string) {
   const customLabels: Record<string, string> = {
-    'HTML 5': 'HTML',
-    'CSS 3': 'CSS',
+    'HTML 5': 'HTML5',
+    'CSS 3': 'CSS3',
     JavaScript: 'JavaScript',
     TypeScript: 'TypeScript',
     'React JS': 'React',
     'Redux Toolkit': 'Redux',
     'Tailwind CSS': 'Tailwind',
-    'Node JS': 'Node',
+    'Node JS': 'Node.js',
     MongoDB: 'MongoDB',
-    'Three JS': 'Three',
+    'Three JS': 'Three.js',
     git: 'Git',
     figma: 'Figma',
     docker: 'Docker',
   };
 
   return customLabels[label] ?? label;
+}
+
+function getLabelLines(label: string) {
+  const compactLabel = getCompactLabel(label);
+
+  if (compactLabel.length <= 10) {
+    return [compactLabel];
+  }
+
+  const words = compactLabel.split(' ');
+  if (words.length === 1) {
+    return [compactLabel];
+  }
+
+  if (words.length === 2) {
+    return words;
+  }
+
+  return [words.slice(0, 2).join(' '), words.slice(2).join(' ')];
 }
 
 function createSkillBadgeTexture(iconSource: CanvasImageSource, label: string, accentColor: string) {
@@ -77,38 +96,50 @@ function createSkillBadgeTexture(iconSource: CanvasImageSource, label: string, a
 
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  const glow = context.createRadialGradient(512, 430, 60, 512, 430, 360);
-  glow.addColorStop(0, 'rgba(255,255,255,0.22)');
-  glow.addColorStop(0.4, `${accentColor}26`);
+  const glow = context.createRadialGradient(512, 512, 120, 512, 512, 360);
+  glow.addColorStop(0, `${accentColor}33`);
+  glow.addColorStop(0.55, `${accentColor}14`);
   glow.addColorStop(1, 'rgba(255,255,255,0)');
   context.fillStyle = glow;
   context.fillRect(0, 0, canvas.width, canvas.height);
 
   context.beginPath();
-  context.arc(512, 392, 188, 0, Math.PI * 2);
-  context.fillStyle = 'rgba(255,255,255,0.12)';
+  context.roundRect(232, 238, 560, 548, 168);
+  context.fillStyle = 'rgba(255,255,255,0.92)';
   context.fill();
 
   context.beginPath();
-  context.arc(512, 392, 182, 0, Math.PI * 2);
-  context.strokeStyle = 'rgba(255,255,255,0.28)';
-  context.lineWidth = 10;
+  context.roundRect(232, 238, 560, 548, 168);
+  context.strokeStyle = 'rgba(255,255,255,0.45)';
+  context.lineWidth = 8;
   context.stroke();
 
-  context.drawImage(iconSource, 346, 226, 332, 332);
+  context.beginPath();
+  context.roundRect(340, 278, 344, 214, 108);
+  context.fillStyle = 'rgba(245,247,250,0.92)';
+  context.fill();
 
-  context.shadowColor = 'rgba(0, 0, 0, 0.35)';
-  context.shadowBlur = 18;
-  context.fillStyle = 'rgba(255,255,255,0.95)';
+  context.drawImage(iconSource, 388, 302, 248, 166);
+
+  context.fillStyle = accentColor;
+  context.fillRect(390, 544, 244, 10);
+
+  context.shadowColor = 'rgba(0, 0, 0, 0.12)';
+  context.shadowBlur = 12;
+  context.fillStyle = '#111827';
   context.textAlign = 'center';
   context.textBaseline = 'middle';
-  context.font = '700 92px Arial';
+  const lines = getLabelLines(label);
+  let fontSize = lines.length > 1 ? 82 : 98;
+  context.font = `700 ${fontSize}px Arial`;
 
-  const words = getCompactLabel(label).split(' ');
-  const lines = words.length > 1 ? [words[0], words.slice(1).join(' ')] : [words[0]];
+  while (fontSize > 50 && lines.some(line => context.measureText(line).width > 455)) {
+    fontSize -= 4;
+    context.font = `700 ${fontSize}px Arial`;
+  }
 
   lines.slice(0, 2).forEach((line, index) => {
-    context.fillText(line, canvas.width / 2, 720 + index * 92);
+    context.fillText(line, canvas.width / 2, 636 + index * 84);
   });
   context.shadowBlur = 0;
 
@@ -209,7 +240,7 @@ function LogoSphere({
         <Decal
           position={[0, 0, 0.98]}
           rotation={[0, 0, 0]}
-          scale={[0.95, 0.95, 0.95]}
+          scale={[0.72, 0.72, 0.72]}
           map={labelMap}
         />
       </mesh>
