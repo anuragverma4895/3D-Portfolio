@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 
-import { StarsCanvas } from '../canvas';
 import { styles } from '../../constants/styles';
 
 const contactInfo = {
@@ -95,10 +94,7 @@ const Footer = () => {
 
   return (
     <footer className="relative z-0 overflow-hidden border-t border-white/5 bg-primary pb-10 pt-20">
-      <div className="absolute inset-0 z-[-1]">
-        <StarsCanvas />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/50 via-transparent to-primary" />
-      </div>
+      <div className="absolute inset-0 z-[-1] bg-gradient-to-b from-primary/50 via-transparent to-primary" />
 
       <div className={`${styles.paddingX} mx-auto max-w-7xl`}>
         <div className="mb-16 flex flex-col items-center text-center">
