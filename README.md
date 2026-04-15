@@ -45,14 +45,7 @@ A modern, fully responsive 3D portfolio showcasing my expertise as a Full-Stack 
    npm install
    ```
 
-3. **Setup environment variables** (`.env`):
-   ```env
-   VITE_APP_EMAILJS_SERVICE_ID=<YOUR_SERVICE_ID>
-   VITE_APP_EMAILJS_TEMPLATE_ID=<YOUR_TEMPLATE_ID>
-   VITE_APP_EMAILJS_PUBLIC_KEY=<YOUR_PUBLIC_KEY>
-   ```
-
-4. **Start development server:**
+3. **Start development server:**
    ```bash
    npm run dev
    ```
