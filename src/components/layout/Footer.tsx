@@ -7,7 +7,17 @@ const contactInfo = {
   email: 'anuragverma4895@gmail.com',
   phone: '+91 8874096365',
   education: 'B.Tech in CSE (AI) - NIET, Greater Noida',
+  location: 'Greater Noida, India',
+  responseTime: 'Usually within 24 hours',
 };
+
+const contactHighlights = [
+  { label: 'Location', value: contactInfo.location },
+  { label: 'Availability', value: 'Open to freelance and full-time roles' },
+  { label: 'Response', value: contactInfo.responseTime },
+];
+
+const ctaHighlights = ['Web Apps', 'Realtime Systems', 'AI Integrations', 'MERN Stack'];
 
 const socialLinks = [
   {
@@ -132,6 +142,19 @@ const Footer = () => {
                 {contactInfo.education}
               </p>
             </div>
+            <div className="mt-6 grid gap-3">
+              {contactHighlights.map(item => (
+                <div
+                  key={item.label}
+                  className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-3"
+                >
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-[#915EFF]/80">
+                    {item.label}
+                  </p>
+                  <p className="mt-1 text-[14px] text-white/85">{item.value}</p>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div
@@ -179,13 +202,29 @@ const Footer = () => {
             className="relative flex flex-col items-center justify-center overflow-hidden rounded-3xl border border-[#915EFF]/20 bg-[#915EFF]/10 p-8 text-center shadow-2xl backdrop-blur-xl transition-all hover:border-[#915EFF]/50"
           >
             <div className="absolute right-0 top-0 -mr-10 -mt-10 h-20 w-20 rounded-full bg-[#915EFF]/20 blur-3xl" />
+            <div className="absolute bottom-0 left-0 -mb-10 -ml-6 h-24 w-24 rounded-full bg-cyan-400/10 blur-3xl" />
             <h4 className="mb-4 text-[22px] font-bold text-white">Ready to start a project?</h4>
+            <p className="mb-5 max-w-xs text-[15px] leading-7 text-white/70">
+              From polished frontend experiences to scalable backend systems, let&apos;s build
+              something sharp and reliable.
+            </p>
+            <div className="mb-6 flex flex-wrap justify-center gap-2">
+              {ctaHighlights.map(item => (
+                <span
+                  key={item}
+                  className="rounded-full border border-white/10 bg-white/[0.08] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
             <a
               href="#contact"
               className="rounded-xl bg-[#915EFF] px-6 py-3 font-bold text-white transition-all hover:bg-[#804dee] hover:shadow-[0_0_20px_rgba(145,94,255,0.5)] active:scale-95"
             >
               Get in Touch
             </a>
+            <p className="mt-4 text-[13px] text-white/60">Fast replies. Clear communication.</p>
           </motion.div>
         </div>
 
