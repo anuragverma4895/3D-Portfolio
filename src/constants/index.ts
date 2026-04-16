@@ -200,7 +200,7 @@ const projects: TProject[] = [
     ],
     image: aiVideoAds,
     sourceCodeLink: 'https://github.com/anuragverma4895/AI-Short-Video-Ads-Generator',
-    deployLink: '#',
+    deployLink: 'https://ai-short-video-ads-generator.onrender.com/',
   },
   {
     name: 'Video Calling Interview Platform',
@@ -222,7 +222,7 @@ const projects: TProject[] = [
     ],
     image: videoInterview,
     sourceCodeLink: 'https://github.com/anuragverma4895/Video-Calling-Interview-Platform',
-    deployLink: '#',
+    deployLink: 'https://video-calling-interview-platform-pjna.onrender.com/',
   },
   {
     name: 'Payment Processing System',
@@ -244,7 +244,7 @@ const projects: TProject[] = [
     ],
     image: paymentSystem,
     sourceCodeLink: 'https://github.com/anuragverma4895/payment-processing-system',
-    deployLink: '#',
+    deployLink: 'https://payment-processing-system-theta.vercel.app/',
   },
   {
     name: 'Social Media Platform',
@@ -266,7 +266,7 @@ const projects: TProject[] = [
     ],
     image: socialMedia,
     sourceCodeLink: 'https://github.com/anuragverma4895/Social-Media-Platform',
-    deployLink: '#',
+    deployLink: 'https://social-media-platform-six-taupe.vercel.app/',
   },
   {
     name: 'Ecommerce Tech Store',
@@ -287,7 +287,7 @@ const projects: TProject[] = [
     ],
     image: techStore,
     sourceCodeLink: 'https://github.com/anuragverma4895/Ecommerce-Tech-Store',
-    deployLink: '#',
+    deployLink: 'https://ecommerce-tech-store-seven.vercel.app/',
   },
 ];
 
