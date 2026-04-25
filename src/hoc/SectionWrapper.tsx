@@ -7,6 +7,16 @@ interface Props {
   idName: string;
 }
 
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+};
+
 const SectionWrapper = (
   Component: Props["Component"],
   idName: Props["idName"]
@@ -14,9 +24,10 @@ const SectionWrapper = (
   function HOC() {
     return (
       <motion.section
+        variants={staggerContainer}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.25 }}
+        viewport={{ once: true, amount: 0.15 }}
         className={`${styles.padding} relative z-0 mx-auto max-w-7xl`}
         id={idName}
       >

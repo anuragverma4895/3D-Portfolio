@@ -1,5 +1,4 @@
-import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState, useRef, useCallback } from "react";
 
 import { styles } from "../../constants/styles";
 import { navLinks } from "../../constants";
@@ -10,26 +9,25 @@ const Navbar = () => {
   const [active, setActive] = useState<string | null>();
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout>();
+  const rafRef = useRef<number>(0);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      if (scrollTop > 100) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-        setActive("");
-      }
+      // Use rAF for smooth, non-blocking scroll updates
+      if (rafRef.current) return;
+      
+      rafRef.current = requestAnimationFrame(() => {
+        const scrollTop = window.scrollY;
+        lastScrollY.current = scrollTop;
+        
+        setScrolled(scrollTop > 100);
+        if (scrollTop <= 100) {
+          setActive("");
+        }
 
-      // Debounced section highlighting
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-
-      scrollTimeoutRef.current = setTimeout(() => {
+        // Section highlighting
         const sections = document.querySelectorAll("section[id]");
-
         sections.forEach((current) => {
           const sectionId = current.getAttribute("id");
           // @ts-ignore
@@ -41,40 +39,47 @@ const Navbar = () => {
             setActive(sectionId);
           }
         });
-      }, 50);
+
+        rafRef.current = 0;
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
       }
     };
+  }, []);
+
+  const handleLogoClick = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   return (
     <nav
       className={`${
         styles.paddingX
-      } fixed top-0 z-20 flex w-full items-center py-5 ${
-        scrolled ? "bg-primary" : "bg-transparent"
+      } fixed top-0 z-20 flex w-full items-center py-5 transition-colors duration-300 ${
+        scrolled ? "bg-primary/95 backdrop-blur-sm" : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
-        <Link
-          to="/"
+        <a
+          href="#"
           className="flex items-center gap-2"
-          onClick={() => {
-            window.scrollTo(0, 0);
+          onClick={(e) => {
+            e.preventDefault();
+            handleLogoClick();
           }}
         >
           <img src={logo} alt="logo" className="h-9 w-9 object-contain" />
           <p className="flex cursor-pointer text-[18px] font-bold text-white ">
             {config.html.title}
           </p>
-        </Link>
+        </a>
 
         <ul className="hidden list-none flex-row gap-10 sm:flex">
           {navLinks.map((nav) => (
@@ -82,7 +87,7 @@ const Navbar = () => {
               key={nav.id}
               className={`${
                 active === nav.id ? "text-white" : "text-secondary"
-              } cursor-pointer text-[18px] font-medium transition-colors duration-300`}
+              } cursor-pointer text-[18px] font-medium transition-colors duration-200`}
             >
               <a href={`#${nav.id}`} className="hover-link">
                 <span className="hover-in">
@@ -115,7 +120,7 @@ const Navbar = () => {
                     active === nav.id ? "text-white" : "text-secondary"
                   }`}
                   onClick={() => {
-                    setToggle(!toggle);
+                    setToggle(false);
                   }}
                 >
                   <a href={`#${nav.id}`}>{nav.title}</a>

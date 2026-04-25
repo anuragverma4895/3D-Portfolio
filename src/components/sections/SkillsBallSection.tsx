@@ -1,8 +1,7 @@
-import { Suspense, useMemo, useRef } from 'react';
+import { Suspense, useMemo, useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Decal, Environment, Html, Preload, useProgress, useTexture } from '@react-three/drei';
-import { EffectComposer, N8AO } from '@react-three/postprocessing';
 import {
   BallCollider,
   CuboidCollider,
@@ -32,7 +31,7 @@ type SphereItem = {
   position: [number, number, number];
 };
 
-const sphereGeometry = new THREE.SphereGeometry(1, 52, 52);
+const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 const scaleValues = [0.58, 0.66, 0.74, 0.82, 0.9];
 const spherePalette = [
   '#55c7ff',
@@ -57,17 +56,17 @@ function CanvasLoader() {
   );
 }
 
+// Reusable vector instances to avoid GC pressure
+const _pointerTarget = new THREE.Vector3();
+const _lerpTarget = new THREE.Vector3();
+
 function PointerOrb() {
   const api = useRef<RapierRigidBody | null>(null);
-  const pointerTarget = useRef(new THREE.Vector3(0, 0, 0));
 
   useFrame(({ pointer, viewport }) => {
-    pointerTarget.current.lerp(
-      new THREE.Vector3((pointer.x * viewport.width) / 2, (pointer.y * viewport.height) / 2, 0),
-      0.18
-    );
-
-    api.current?.setNextKinematicTranslation(pointerTarget.current);
+    _lerpTarget.set((pointer.x * viewport.width) / 2, (pointer.y * viewport.height) / 2, 0);
+    _pointerTarget.lerp(_lerpTarget, 0.18);
+    api.current?.setNextKinematicTranslation(_pointerTarget);
   });
 
   return (
@@ -76,6 +75,11 @@ function PointerOrb() {
     </RigidBody>
   );
 }
+
+// Reusable vectors per sphere (cached outside render)
+const _worldPos = new THREE.Vector3();
+const _impulseDir = new THREE.Vector3();
+const _negMultiplier = new THREE.Vector3(-0.55, -0.85, -0.65);
 
 function LogoSphere({
   material,
@@ -89,8 +93,6 @@ function LogoSphere({
   position: [number, number, number];
 }) {
   const api = useRef<RapierRigidBody | null>(null);
-  const worldPosition = useRef(new THREE.Vector3());
-  const impulseDirection = useRef(new THREE.Vector3());
 
   useFrame((state, delta) => {
     if (!api.current) return;
@@ -98,18 +100,19 @@ function LogoSphere({
     const safeDelta = Math.min(delta, 0.1);
     const translation = api.current.translation();
 
-    worldPosition.current.set(translation.x, translation.y, translation.z);
+    _worldPos.set(translation.x, translation.y, translation.z);
 
     const swirlX = Math.sin(state.clock.elapsedTime * 0.35 + translation.y) * 0.35;
     const swirlY = Math.cos(state.clock.elapsedTime * 0.28 + translation.x) * 0.22;
 
-    impulseDirection.current
-      .copy(worldPosition.current)
-      .multiply(new THREE.Vector3(-0.55, -0.85, -0.65))
-      .add(new THREE.Vector3(swirlX, swirlY, 0))
-      .multiplyScalar(safeDelta * scale * 3.8);
+    _impulseDir
+      .copy(_worldPos)
+      .multiply(_negMultiplier)
+      .x += swirlX;
+    _impulseDir.y += swirlY;
+    _impulseDir.multiplyScalar(safeDelta * scale * 3.8);
 
-    api.current.applyImpulse(impulseDirection.current, true);
+    api.current.applyImpulse(_impulseDir, true);
   });
 
   return (
@@ -151,6 +154,31 @@ function Bounds() {
   );
 }
 
+// Pause rendering when off-screen
+function VisibilityController() {
+  const { gl } = useThree();
+
+  useEffect(() => {
+    const container = gl.domElement.parentElement;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          gl.setAnimationLoop(null);
+        } else {
+          gl.setAnimationLoop(() => {});
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [gl]);
+
+  return null;
+}
+
 function TechOrbScene({ skills }: { skills: SkillItem[] }) {
   const iconUrls = useMemo(() => skills.map(skill => skill.icon), [skills]);
   const iconTextures = useTexture(iconUrls) as THREE.Texture[];
@@ -179,7 +207,7 @@ function TechOrbScene({ skills }: { skills: SkillItem[] }) {
     () =>
       iconTextures.map((texture, index) => {
         texture.colorSpace = THREE.SRGBColorSpace;
-        texture.anisotropy = 8;
+        texture.anisotropy = 4;
 
         const accent = new THREE.Color(spherePalette[index % spherePalette.length]);
 
@@ -212,6 +240,7 @@ function TechOrbScene({ skills }: { skills: SkillItem[] }) {
         penumbra={1}
         color="#67e8f9"
         castShadow
+        shadow-mapSize={512}
       />
       <pointLight position={[-5, -2, 5]} intensity={11} color="#a855f7" />
       <pointLight position={[6, 2, -2]} intensity={9} color="#22d3ee" />
@@ -231,9 +260,6 @@ function TechOrbScene({ skills }: { skills: SkillItem[] }) {
       </Physics>
 
       <Environment preset="city" />
-      <EffectComposer multisampling={0} enableNormalPass={false}>
-        <N8AO aoRadius={1.4} intensity={0.9} color="#09111d" />
-      </EffectComposer>
       <Preload all />
     </>
   );
@@ -265,8 +291,29 @@ function SkillsBallSection({
   skills,
   id = 'skills',
 }: SkillsBallSectionProps) {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Only mount the heavy Canvas when section is near viewport
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id={id} className="relative overflow-hidden py-20 sm:py-24">
+    <section ref={sectionRef} id={id} className="relative overflow-hidden py-20 sm:py-24">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-0 top-10 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
         <div className="absolute right-0 top-1/3 h-80 w-80 rounded-full bg-fuchsia-500/10 blur-3xl" />
@@ -293,20 +340,29 @@ function SkillsBallSection({
           <div className="pointer-events-none absolute bottom-10 left-1/2 h-28 w-[26rem] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
 
           <div className="h-[26rem] w-full sm:h-[34rem] lg:h-[42rem]">
-            <Canvas
-              shadows
-              dpr={[1, 1.8]}
-              camera={{ position: [0, 0, 14.5], fov: 34, near: 0.1, far: 100 }}
-              gl={{ antialias: true, alpha: true }}
-              onCreated={({ gl }) => {
-                gl.toneMapping = THREE.ACESFilmicToneMapping;
-                gl.toneMappingExposure = 1.1;
-              }}
-            >
-              <Suspense fallback={<CanvasLoader />}>
-                <TechOrbScene skills={skills} />
-              </Suspense>
-            </Canvas>
+            {isVisible ? (
+              <Canvas
+                shadows
+                dpr={[1, 1.5]}
+                camera={{ position: [0, 0, 14.5], fov: 34, near: 0.1, far: 100 }}
+                gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+                onCreated={({ gl }) => {
+                  gl.toneMapping = THREE.ACESFilmicToneMapping;
+                  gl.toneMappingExposure = 1.1;
+                }}
+              >
+                <VisibilityController />
+                <Suspense fallback={<CanvasLoader />}>
+                  <TechOrbScene skills={skills} />
+                </Suspense>
+              </Canvas>
+            ) : (
+              <div className="flex h-full w-full items-center justify-center">
+                <div className="rounded-full border border-white/10 bg-black/45 px-4 py-2 text-xs font-semibold uppercase tracking-[0.32em] text-white/80 backdrop-blur-md">
+                  Loading...
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

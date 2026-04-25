@@ -16,7 +16,7 @@ const Computers: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
         penumbra={1}
         intensity={1}
         castShadow
-        shadow-mapSize={1024}
+        shadow-mapSize={512}
       />
       <pointLight intensity={1} />
       <primitive
@@ -61,9 +61,9 @@ const ComputersCanvas = () => {
         <Canvas
           frameloop="demand"
           shadows
-          dpr={[1, 2]}
+          dpr={[1, 1.5]}
           camera={{ position: [20, 3, 5], fov: 25 }}
-          gl={{ preserveDrawingBuffer: true }}
+          gl={{ preserveDrawingBuffer: true, powerPreference: "low-power" }}
         >
           <Suspense fallback={<CanvasLoader />}>
             <OrbitControls

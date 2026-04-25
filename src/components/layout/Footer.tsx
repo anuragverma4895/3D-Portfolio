@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-
 import { styles } from '../../constants/styles';
 
 const contactInfo = {
@@ -98,24 +96,15 @@ const Footer = () => {
 
       <div className={`${styles.paddingX} mx-auto max-w-7xl`}>
         <div className="mb-16 flex flex-col items-center text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="max-w-lg text-[18px] italic text-secondary"
-          >
+          <p className="max-w-lg text-[18px] italic text-secondary animate-fade-in">
             Built with passion, driven by innovation. Let&apos;s create something extraordinary
             together.
-          </motion.p>
+          </p>
         </div>
 
         <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            whileHover={{ y: -5, transition: { duration: 0.2 } }}
-            transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-white/10 bg-tertiary/20 p-8 shadow-2xl backdrop-blur-xl transition-all hover:border-[#915EFF]/50"
+          <div
+            className="rounded-3xl border border-white/10 bg-tertiary/20 p-8 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#915EFF]/50"
           >
             <h4 className="mb-6 flex items-center gap-2 text-[20px] font-bold text-[#915EFF]">
               <span className="h-[2px] w-8 bg-[#915EFF]"></span>
@@ -124,13 +113,13 @@ const Footer = () => {
             <div className="flex flex-col gap-4">
               <a
                 href={`mailto:${contactInfo.email}`}
-                className="truncate text-[16px] text-white transition-colors hover:text-[#915EFF]"
+                className="truncate text-[16px] text-white transition-colors duration-200 hover:text-[#915EFF]"
               >
                 {contactInfo.email}
               </a>
               <a
                 href={`tel:${contactInfo.phone}`}
-                className="text-[16px] text-white transition-colors hover:text-[#915EFF]"
+                className="text-[16px] text-white transition-colors duration-200 hover:text-[#915EFF]"
               >
                 {contactInfo.phone}
               </a>
@@ -151,14 +140,10 @@ const Footer = () => {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -5, transition: { duration: 0.2 } }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="rounded-3xl border border-white/10 bg-tertiary/20 p-8 shadow-2xl backdrop-blur-xl transition-all hover:border-[#915EFF]/50"
+          <div
+            className="rounded-3xl border border-white/10 bg-tertiary/20 p-8 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#915EFF]/50"
           >
             <h4 className="mb-6 flex items-center gap-2 text-[20px] font-bold text-[#915EFF]">
               <span className="h-[2px] w-8 bg-[#915EFF]"></span>
@@ -174,10 +159,10 @@ const Footer = () => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-2 rounded-2xl border border-white/8 bg-white/[0.04] px-3 py-4 text-center transition-all duration-300 hover:-translate-y-1 hover:border-white/15 hover:bg-white/[0.07]"
+                  className="group flex min-w-0 flex-col items-center justify-center gap-2 rounded-2xl border border-white/8 bg-white/[0.04] px-3 py-4 text-center transition-all duration-200 hover:-translate-y-1 hover:border-white/15 hover:bg-white/[0.07]"
                 >
                   <span
-                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/8 bg-black/25 text-white transition-transform duration-300 group-hover:scale-110"
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/8 bg-black/25 text-white transition-transform duration-200 group-hover:scale-110"
                     style={{ boxShadow: `0 0 24px ${link.accent}22` }}
                   >
                     {link.icon}
@@ -188,14 +173,10 @@ const Footer = () => {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            whileHover={{ y: -5, transition: { duration: 0.2 } }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="relative flex flex-col items-center justify-center overflow-hidden rounded-3xl border border-[#915EFF]/20 bg-[#915EFF]/10 p-8 text-center shadow-2xl backdrop-blur-xl transition-all hover:border-[#915EFF]/50"
+          <div
+            className="relative flex flex-col items-center justify-center overflow-hidden rounded-3xl border border-[#915EFF]/20 bg-[#915EFF]/10 p-8 text-center shadow-2xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#915EFF]/50"
           >
             <div className="absolute right-0 top-0 -mr-10 -mt-10 h-20 w-20 rounded-full bg-[#915EFF]/20 blur-3xl" />
             <div className="absolute bottom-0 left-0 -mb-10 -ml-6 h-24 w-24 rounded-full bg-cyan-400/10 blur-3xl" />
@@ -216,19 +197,19 @@ const Footer = () => {
             </div>
             <a
               href="#contact"
-              className="rounded-xl bg-[#915EFF] px-6 py-3 font-bold text-white transition-all hover:bg-[#804dee] hover:shadow-[0_0_20px_rgba(145,94,255,0.5)] active:scale-95"
+              className="rounded-xl bg-[#915EFF] px-6 py-3 font-bold text-white transition-all duration-200 hover:bg-[#804dee] hover:shadow-[0_0_20px_rgba(145,94,255,0.5)] active:scale-95"
             >
               Get in Touch
             </a>
             <p className="mt-4 text-[13px] text-white/60">Fast replies. Clear communication.</p>
-          </motion.div>
+          </div>
         </div>
 
         <div className="flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 text-[14px] text-secondary md:flex-row">
           <p>Copyright {currentYear}. All rights reserved.</p>
           <div className="flex gap-6">
-            <span className="cursor-default transition-colors hover:text-white">Privacy Policy</span>
-            <span className="cursor-default transition-colors hover:text-white">
+            <span className="cursor-default transition-colors duration-200 hover:text-white">Privacy Policy</span>
+            <span className="cursor-default transition-colors duration-200 hover:text-white">
               Terms of Service
             </span>
           </div>

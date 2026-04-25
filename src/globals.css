@@ -14,11 +14,40 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
+}
+
+/* Smooth scrolling with reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* GPU acceleration hints for animated elements */
+canvas {
+  will-change: auto;
+}
+
+section {
+  will-change: auto;
+  transform: translateZ(0);
+}
+
+/* Optimize images */
+img {
+  content-visibility: auto;
 }
 
 .hover-link {
@@ -30,7 +59,7 @@ html {
 
 .hover-in {
   position: relative;
-  transition: 0.3s;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hover-in div {
