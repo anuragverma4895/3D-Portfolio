@@ -11,6 +11,7 @@ import { technologies } from './constants';
 // Lazy load heavy components
 const SkillsBallSection = lazy(() => import('./components/sections/SkillsBallSection'));
 const StarsCanvas = lazy(() => import('./components/canvas/Stars'));
+const ProfileSection = lazy(() => import('./components/sections/ProfileSection'));
 const Contact = lazy(() => import('./components/sections/Contact'));
 const Feedbacks = lazy(() => import('./components/sections/Feedbacks'));
 const SocialSidebar = lazy(() => import('./components/layout/SocialSidebar'));
@@ -70,6 +71,11 @@ const App = () => {
         <Suspense fallback={null}>
           <StarsCanvas />
         </Suspense>
+        {/* Profile section (contact info, profiles, CTA) — comes first */}
+        <Suspense fallback={<SectionFallback height="28rem" />}>
+          <ProfileSection />
+        </Suspense>
+        {/* Get in Touch form — comes last */}
         <Suspense fallback={<SectionFallback height="28rem" />}>
           <Contact />
         </Suspense>
@@ -84,3 +90,4 @@ const App = () => {
 };
 
 export default App;
+
