@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
+import { styles } from '../../constants/styles';
 import { fadeIn } from '../../utils/motion';
 
 export type SkillItem = {
@@ -296,109 +297,48 @@ function SkillsBallSection({
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10">
-        {/* ─── Premium Header ─── */}
-        <div className="mb-16 text-center">
-          {/* Decorative line */}
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: '5rem' }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="mx-auto mb-6 h-[2px] rounded-full bg-gradient-to-r from-transparent via-[#915EFF] to-transparent"
-          />
-
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className="mb-2 text-[13px] font-bold uppercase tracking-[0.35em] text-[#915EFF]"
-          >
-            {subtitle}
-          </motion.p>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-gradient-to-r from-white via-white to-white/60 bg-clip-text text-transparent font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]"
-          >
-            {title}
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mx-auto mt-5 max-w-xl text-[15px] leading-7 text-white/50"
-          >
-            Technologies I use to bring ideas to life — across the{' '}
-            <span className="text-white/80 font-medium">full stack</span> and{' '}
-            <span className="text-white/80 font-medium">AI/ML ecosystem</span>.
-          </motion.p>
+        {/* Header */}
+        <div className="mb-14 text-center">
+          <p className={styles.sectionSubText}>{subtitle}</p>
+          <h2 className={styles.sectionHeadText}>{title}</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-7 text-white/55">
+            A versatile toolkit spanning{' '}
+            <span className="text-white font-medium">frontend frameworks</span>,{' '}
+            <span className="text-white font-medium">backend systems</span>,{' '}
+            <span className="text-white font-medium">AI/ML pipelines</span>, and{' '}
+            <span className="text-white font-medium">DevOps tools</span> — forged through
+            real-world projects and relentless learning.
+          </p>
         </div>
 
-        {/* ─── Glassmorphism Stats Bar ─── */}
+        {/* Floating stats pills */}
         {isVisible && (
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.6, type: 'spring', stiffness: 120 }}
-            className="mx-auto mb-14 max-w-3xl"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mx-auto mb-12 flex max-w-4xl flex-wrap items-center justify-center gap-3"
           >
-            <div className="relative rounded-2xl border border-white/[0.06] bg-white/[0.02] p-1 backdrop-blur-xl overflow-hidden">
-              {/* Animated border glow */}
-              <div className="absolute inset-0 rounded-2xl opacity-30"
-                   style={{
-                     background: 'linear-gradient(135deg, rgba(59,130,246,0.1), rgba(168,85,247,0.1), rgba(16,185,129,0.1), rgba(245,158,11,0.1))',
-                   }}
-              />
-              <div className="relative flex flex-wrap items-center justify-center gap-0 rounded-xl bg-[#0a0d1a]/80 p-3">
-                {skillCategories.map((cat, i) => (
-                  <motion.div
-                    key={cat.title}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 * i, duration: 0.4 }}
-                    className="group/stat flex items-center gap-3 px-4 py-2.5 sm:px-5 rounded-lg transition-all duration-300 hover:bg-white/[0.04] cursor-default"
-                  >
-                    <div
-                      className={`flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br ${cat.gradient} shadow-lg transition-transform duration-300 group-hover/stat:scale-110 group-hover/stat:rotate-6`}
-                      style={{ boxShadow: `0 4px 12px ${cat.accentHex}30` }}
-                    >
-                      <span className="text-[11px] font-black text-white">{cat.skills.length}</span>
-                    </div>
-                    <span className="text-[13px] font-semibold text-white/50 group-hover/stat:text-white/80 transition-colors duration-300 hidden sm:block">
-                      {cat.title}
-                    </span>
-                  </motion.div>
-                ))}
-
-                {/* Total divider + badge */}
-                <div className="mx-2 hidden h-8 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent sm:block" />
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.5, type: 'spring', stiffness: 200 }}
-                  className="group/total flex items-center gap-2.5 rounded-xl border border-[#915EFF]/20 bg-[#915EFF]/[0.06] px-4 py-2.5 transition-all duration-300 hover:border-[#915EFF]/40 hover:bg-[#915EFF]/[0.12] hover:shadow-[0_0_20px_rgba(145,94,255,0.15)] cursor-default"
-                >
-                  <div className="relative flex h-8 w-8 items-center justify-center">
-                    {/* Spinning ring */}
-                    <div className="absolute inset-0 rounded-full border border-[#915EFF]/30 group-hover/total:border-[#915EFF]/60 transition-colors duration-300"
-                         style={{ animation: 'spin 8s linear infinite' }}
-                    />
-                    <div className="absolute inset-0 rounded-full border-t border-[#915EFF] opacity-50"
-                         style={{ animation: 'spin 3s linear infinite' }}
-                    />
-                    <span className="relative text-[11px] font-black text-[#915EFF]">{totalSkills}</span>
-                  </div>
-                  <span className="text-[13px] font-bold tracking-wide text-[#915EFF]/80 group-hover/total:text-[#915EFF] transition-colors duration-300">
-                    Total Skills
-                  </span>
-                </motion.div>
+            {skillCategories.map(cat => (
+              <div
+                key={cat.title}
+                className="flex items-center gap-2 rounded-full border border-white/[0.06] bg-white/[0.02] px-4 py-2 backdrop-blur-sm transition-all duration-300 hover:border-white/15 hover:bg-white/[0.05] hover:-translate-y-0.5 cursor-default"
+              >
+                <span
+                  className={`inline-block h-2 w-2 rounded-full bg-gradient-to-r ${cat.gradient}`}
+                />
+                <span className="text-[12px] font-semibold tracking-wide text-white/60">
+                  {cat.skills.length} {cat.title}
+                </span>
               </div>
+            ))}
+            <div className="h-4 w-px bg-white/10 hidden sm:block" />
+            <div
+              className="flex items-center gap-2 rounded-full border border-[#915EFF]/20 bg-[#915EFF]/[0.06] px-4 py-2 backdrop-blur-sm cursor-default"
+            >
+              <span className="text-[12px] font-bold tracking-wide text-[#915EFF]">
+                {totalSkills}+ Skills
+              </span>
             </div>
           </motion.div>
         )}
