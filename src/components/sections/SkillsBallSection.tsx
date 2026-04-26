@@ -1,16 +1,7 @@
-import { Suspense, useMemo, useRef, useEffect, useState } from 'react';
-import * as THREE from 'three';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Decal, Environment, Html, Preload, useProgress, useTexture } from '@react-three/drei';
-import {
-  BallCollider,
-  CuboidCollider,
-  Physics,
-  RigidBody,
-  type RapierRigidBody,
-} from '@react-three/rapier';
-
+import { useRef, useEffect, useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { styles } from '../../constants/styles';
+import { fadeIn } from '../../utils/motion';
 
 export type SkillItem = {
   name: string;
@@ -24,277 +15,174 @@ type SkillsBallSectionProps = {
   id?: string;
 };
 
-type SphereItem = {
-  id: string;
-  iconIndex: number;
-  scale: number;
-  position: [number, number, number];
-};
-
-const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
-const scaleValues = [0.58, 0.66, 0.74, 0.82, 0.9];
-const spherePalette = [
-  '#55c7ff',
-  '#7dd3fc',
-  '#8b5cf6',
-  '#22d3ee',
-  '#fb7185',
-  '#f97316',
-  '#facc15',
-  '#34d399',
+// ─── Skill categories with beautiful gradients ───
+const skillCategories = [
+  {
+    title: 'Frontend',
+    gradient: 'from-blue-500 to-cyan-400',
+    borderColor: 'border-blue-500/20',
+    glowColor: 'rgba(59,130,246,0.15)',
+    iconBg: 'bg-blue-500/10',
+    icon: (
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 18 22 12 16 6" />
+        <polyline points="8 6 2 12 8 18" />
+      </svg>
+    ),
+    skills: ['HTML 5', 'CSS 3', 'JavaScript', 'TypeScript', 'React JS', 'Redux Toolkit', 'Tailwind CSS', 'Three JS'],
+  },
+  {
+    title: 'Backend',
+    gradient: 'from-emerald-500 to-teal-400',
+    borderColor: 'border-emerald-500/20',
+    glowColor: 'rgba(16,185,129,0.15)',
+    iconBg: 'bg-emerald-500/10',
+    icon: (
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+        <line x1="8" y1="21" x2="16" y2="21" />
+        <line x1="12" y1="17" x2="12" y2="21" />
+      </svg>
+    ),
+    skills: ['Node JS', 'MongoDB', 'Express.js', 'Socket.io', 'WebRTC', 'REST APIs'],
+  },
+  {
+    title: 'AI / ML',
+    gradient: 'from-purple-500 to-pink-500',
+    borderColor: 'border-purple-500/20',
+    glowColor: 'rgba(168,85,247,0.15)',
+    iconBg: 'bg-purple-500/10',
+    icon: (
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2a4 4 0 0 1 4 4c0 1.5-.8 2.8-2 3.4V11h3a3 3 0 0 1 3 3v1.6c1.2.6 2 1.9 2 3.4a4 4 0 0 1-8 0c0-1.5.8-2.8 2-3.4V14a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v1.6c1.2.6 2 1.9 2 3.4a4 4 0 0 1-8 0c0-1.5.8-2.8 2-3.4V14a3 3 0 0 1 3-3h3V9.4C7.8 8.8 7 7.5 7 6a4 4 0 0 1 5-3.9" />
+      </svg>
+    ),
+    skills: ['Python', 'TensorFlow', 'Scikit-Learn', 'NLP', 'Pandas', 'RAG Pipelines', 'HuggingFace', 'Deep Learning'],
+  },
+  {
+    title: 'Tools & DevOps',
+    gradient: 'from-amber-500 to-orange-500',
+    borderColor: 'border-amber-500/20',
+    glowColor: 'rgba(245,158,11,0.15)',
+    iconBg: 'bg-amber-500/10',
+    icon: (
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+      </svg>
+    ),
+    skills: ['Git', 'GitHub', 'Docker', 'Figma', 'VS Code', 'Postman', 'Vercel', 'Render'],
+  },
 ];
 
-function CanvasLoader() {
-  const { progress } = useProgress();
-
+// ─── Animated skill pill component ───
+const SkillPill: React.FC<{
+  name: string;
+  icon?: string;
+  index: number;
+  glowColor: string;
+}> = ({ name, icon, index, glowColor }) => {
   return (
-    <Html center>
-      <div className="rounded-full border border-white/10 bg-black/45 px-4 py-2 text-xs font-semibold uppercase tracking-[0.32em] text-white/80 backdrop-blur-md">
-        Loading {progress.toFixed(0)}%
-      </div>
-    </Html>
-  );
-}
-
-// Reusable vector instances to avoid GC pressure
-const _pointerTarget = new THREE.Vector3();
-const _lerpTarget = new THREE.Vector3();
-
-function PointerOrb() {
-  const api = useRef<RapierRigidBody | null>(null);
-
-  useFrame(({ pointer, viewport }) => {
-    _lerpTarget.set((pointer.x * viewport.width) / 2, (pointer.y * viewport.height) / 2, 0);
-    _pointerTarget.lerp(_lerpTarget, 0.18);
-    api.current?.setNextKinematicTranslation(_pointerTarget);
-  });
-
-  return (
-    <RigidBody ref={api} type="kinematicPosition" colliders={false} position={[0, 0, 0]}>
-      <BallCollider args={[1.8]} />
-    </RigidBody>
-  );
-}
-
-// Reusable vectors per sphere (cached outside render)
-const _worldPos = new THREE.Vector3();
-const _impulseDir = new THREE.Vector3();
-const _negMultiplier = new THREE.Vector3(-0.55, -0.85, -0.65);
-
-function LogoSphere({
-  material,
-  decalMap,
-  scale,
-  position,
-}: {
-  material: THREE.MeshPhysicalMaterial;
-  decalMap: THREE.Texture;
-  scale: number;
-  position: [number, number, number];
-}) {
-  const api = useRef<RapierRigidBody | null>(null);
-
-  useFrame((state, delta) => {
-    if (!api.current) return;
-
-    const safeDelta = Math.min(delta, 0.1);
-    const translation = api.current.translation();
-
-    _worldPos.set(translation.x, translation.y, translation.z);
-
-    const swirlX = Math.sin(state.clock.elapsedTime * 0.35 + translation.y) * 0.35;
-    const swirlY = Math.cos(state.clock.elapsedTime * 0.28 + translation.x) * 0.22;
-
-    _impulseDir
-      .copy(_worldPos)
-      .multiply(_negMultiplier)
-      .x += swirlX;
-    _impulseDir.y += swirlY;
-    _impulseDir.multiplyScalar(safeDelta * scale * 3.8);
-
-    api.current.applyImpulse(_impulseDir, true);
-  });
-
-  return (
-    <RigidBody
-      ref={api}
-      colliders={false}
-      position={position}
-      linearDamping={0.8}
-      angularDamping={1}
-      friction={0.2}
-      restitution={0.9}
-      enabledRotations={[false, false, false]}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.05, duration: 0.4, ease: 'easeOut' }}
+      className="group relative"
     >
-      <BallCollider args={[scale]} />
-      <mesh castShadow receiveShadow geometry={sphereGeometry} material={material} scale={scale}>
-        <Decal
-          position={[0, 0, 0.99]}
-          rotation={[0, 0, 0]}
-          scale={[0.84, 0.84, 0.84]}
-          map={decalMap}
-        />
-      </mesh>
-    </RigidBody>
+      <div
+        className="flex items-center gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3 text-[13px] font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:bg-white/[0.07] hover:text-white hover:-translate-y-0.5 hover:shadow-lg cursor-default"
+        style={{ '--glow': glowColor } as React.CSSProperties}
+      >
+        {icon && (
+          <img
+            src={icon}
+            alt={name}
+            className="h-5 w-5 object-contain transition-transform duration-300 group-hover:scale-110"
+            loading="lazy"
+          />
+        )}
+        {!icon && (
+          <span
+            className="h-2 w-2 rounded-full"
+            style={{ backgroundColor: glowColor.replace('0.15', '0.8') }}
+          />
+        )}
+        <span className="whitespace-nowrap">{name}</span>
+      </div>
+    </motion.div>
   );
-}
+};
 
-function Bounds() {
-  return (
-    <>
-      <RigidBody type="fixed" colliders={false}>
-        <CuboidCollider args={[5.8, 0.35, 5]} position={[0, -3.8, 0]} />
-        <CuboidCollider args={[5.8, 0.35, 5]} position={[0, 3.8, 0]} />
-        <CuboidCollider args={[0.35, 3.7, 5]} position={[-5.8, 0, 0]} />
-        <CuboidCollider args={[0.35, 3.7, 5]} position={[5.8, 0, 0]} />
-        <CuboidCollider args={[5.8, 3.7, 0.35]} position={[0, 0, -3.8]} />
-        <CuboidCollider args={[5.8, 3.7, 0.35]} position={[0, 0, 3.8]} />
-      </RigidBody>
-    </>
-  );
-}
-
-// Pause rendering when off-screen
-function VisibilityController() {
-  const { gl } = useThree();
-
-  useEffect(() => {
-    const container = gl.domElement.parentElement;
-    if (!container) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          gl.setAnimationLoop(null);
-        } else {
-          gl.setAnimationLoop(() => {});
-        }
-      },
-      { threshold: 0.05 }
+// ─── Category Card ───
+const CategoryCard: React.FC<{
+  category: (typeof skillCategories)[0];
+  index: number;
+  allSkillIcons: SkillItem[];
+}> = ({ category, index, allSkillIcons }) => {
+  const getIconForSkill = (skillName: string) => {
+    const found = allSkillIcons.find(
+      s => s.name.toLowerCase() === skillName.toLowerCase()
     );
-    observer.observe(container);
-    return () => observer.disconnect();
-  }, [gl]);
-
-  return null;
-}
-
-function TechOrbScene({ skills }: { skills: SkillItem[] }) {
-  const iconUrls = useMemo(() => skills.map(skill => skill.icon), [skills]);
-  const iconTextures = useTexture(iconUrls) as THREE.Texture[];
-
-  const sphereItems = useMemo<SphereItem[]>(() => {
-    return skills.map((skill, index) => {
-      const total = skills.length;
-      const angle = (index / total) * Math.PI * 2;
-      const ring = index % 3 === 0 ? 1.2 : index % 3 === 1 ? 1.75 : 2.15;
-      const depthBand = ((index % 5) - 2) * 0.24;
-
-      return {
-        id: `sphere-${skill.name}`,
-        iconIndex: index,
-        scale: scaleValues[index % scaleValues.length],
-        position: [
-          Math.sin(angle * 1.18) * ring,
-          Math.cos(angle) * (0.95 + (index % 3) * 0.35) + ((index % 4) - 1.5) * 0.14,
-          depthBand,
-        ],
-      };
-    });
-  }, [skills]);
-
-  const materials = useMemo(
-    () =>
-      iconTextures.map((texture, index) => {
-        texture.colorSpace = THREE.SRGBColorSpace;
-        texture.anisotropy = 4;
-
-        const accent = new THREE.Color(spherePalette[index % spherePalette.length]);
-
-        return new THREE.MeshPhysicalMaterial({
-          color: new THREE.Color('#f5f7fb'),
-          emissive: accent.clone().multiplyScalar(0.1),
-          emissiveIntensity: 0.28,
-          metalness: 0.03,
-          roughness: 0.08,
-          clearcoat: 1,
-          clearcoatRoughness: 0.04,
-          reflectivity: 1,
-          envMapIntensity: 1.1,
-        });
-      }),
-    [iconTextures]
-  );
+    return found?.icon;
+  };
 
   return (
-    <>
-      <color attach="background" args={['#070b13']} />
-      <fog attach="fog" args={['#070b13', 12, 28]} />
+    <motion.div
+      variants={fadeIn('up', 'spring', index * 0.15, 0.75)}
+      className={`group relative rounded-2xl border ${category.borderColor} bg-tertiary/30 p-6 backdrop-blur-sm transition-all duration-500 hover:border-white/15`}
+      style={{
+        boxShadow: `0 0 0px ${category.glowColor}`,
+      }}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 40px ${category.glowColor}`;
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLElement).style.boxShadow = `0 0 0px ${category.glowColor}`;
+      }}
+    >
+      {/* Category header */}
+      <div className="mb-5 flex items-center gap-3">
+        <div
+          className={`flex h-10 w-10 items-center justify-center rounded-lg ${category.iconBg} text-white transition-transform duration-300 group-hover:scale-110`}
+        >
+          {category.icon}
+        </div>
+        <h3
+          className={`bg-gradient-to-r ${category.gradient} bg-clip-text text-[18px] font-bold text-transparent`}
+        >
+          {category.title}
+        </h3>
+      </div>
 
-      <ambientLight intensity={0.85} />
-      <directionalLight position={[4, 6, 3]} intensity={1.35} color="#dbeafe" />
-      <spotLight
-        position={[0, 8, 8]}
-        angle={0.36}
-        intensity={18}
-        penumbra={1}
-        color="#67e8f9"
-        castShadow
-        shadow-mapSize={512}
-      />
-      <pointLight position={[-5, -2, 5]} intensity={11} color="#a855f7" />
-      <pointLight position={[6, 2, -2]} intensity={9} color="#22d3ee" />
+      {/* Gradient line */}
+      <div className={`mb-5 h-px bg-gradient-to-r ${category.gradient} opacity-20`} />
 
-      <Physics gravity={[0, 0, 0]}>
-        <PointerOrb />
-        <Bounds />
-        {sphereItems.map(item => (
-          <LogoSphere
-            key={item.id}
-            material={materials[item.iconIndex]}
-            decalMap={iconTextures[item.iconIndex]}
-            scale={item.scale}
-            position={item.position}
+      {/* Skills grid */}
+      <div className="flex flex-wrap gap-2">
+        {category.skills.map((skill, i) => (
+          <SkillPill
+            key={skill}
+            name={skill}
+            icon={getIconForSkill(skill)}
+            index={i}
+            glowColor={category.glowColor}
           />
         ))}
-      </Physics>
-
-      <Environment preset="city" />
-      <Preload all />
-    </>
+      </div>
+    </motion.div>
   );
-}
+};
 
-function SkillsTicker({ skills }: { skills: SkillItem[] }) {
-  return (
-    <div className="mx-auto mt-8 grid max-w-5xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-      {skills.map((skill, index) => (
-        <div
-          key={skill.name}
-          className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white/80 shadow-[0_10px_40px_rgba(8,15,34,0.35)] backdrop-blur-md"
-        >
-          <span
-            className="h-2.5 w-2.5 rounded-full"
-            style={{ backgroundColor: spherePalette[index % spherePalette.length] }}
-          />
-          <img src={skill.icon} alt={skill.name} className="h-4 w-4 object-contain" loading="lazy" />
-          <span className="truncate">{skill.name}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
+// ─── Main Component ───
 function SkillsBallSection({
   subtitle = 'My skills',
-  title = 'Technologies.',
+  title = 'Tech Stack.',
   skills,
   id = 'skills',
 }: SkillsBallSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Only mount the heavy Canvas when section is near viewport
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -306,67 +194,85 @@ function SkillsBallSection({
           observer.disconnect();
         }
       },
-      { rootMargin: '200px' }
+      { rootMargin: '100px' }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
+  // Compute total skill count for the center stat
+  const totalSkills = useMemo(
+    () => skillCategories.reduce((sum, cat) => sum + cat.skills.length, 0),
+    []
+  );
+
   return (
-    <section ref={sectionRef} id={id} className="relative overflow-hidden py-20 sm:py-24">
+    <section ref={sectionRef} id={id} className="relative overflow-hidden py-16 sm:py-20">
+      {/* Background glows */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-0 top-10 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" />
-        <div className="absolute right-0 top-1/3 h-80 w-80 rounded-full bg-fuchsia-500/10 blur-3xl" />
-        <div className="absolute bottom-0 left-1/4 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
+        <div className="absolute left-0 top-10 h-72 w-72 rounded-full bg-cyan-500/8 blur-3xl" />
+        <div className="absolute right-0 top-1/3 h-80 w-80 rounded-full bg-purple-500/8 blur-3xl" />
+        <div className="absolute bottom-0 left-1/4 h-72 w-72 rounded-full bg-blue-500/8 blur-3xl" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10">
-        <div className="mb-10 text-center sm:mb-12">
+        {/* Header */}
+        <div className="mb-12 text-center">
           <p className={styles.sectionSubText}>{subtitle}</p>
           <h2 className={styles.sectionHeadText}>{title}</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-white/65 sm:text-base">
-            A cleaner interactive stack field with glossy logo spheres and a sharper presentation.
+          <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-7 text-white/60">
+            A versatile toolkit spanning{' '}
+            <span className="text-white font-medium">frontend frameworks</span>,{' '}
+            <span className="text-white font-medium">backend systems</span>,{' '}
+            <span className="text-white font-medium">AI/ML pipelines</span>, and{' '}
+            <span className="text-white font-medium">DevOps tools</span> — built through
+            real-world projects and continuous learning.
           </p>
         </div>
 
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#070b13] shadow-[0_30px_120px_rgba(2,8,23,0.65)]">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.18),_transparent_32%),radial-gradient(circle_at_bottom,_rgba(168,85,247,0.18),_transparent_28%)]" />
-          <div className="pointer-events-none absolute inset-x-0 top-12 z-0 text-center font-light uppercase tracking-[0.08em] text-white/16">
-            <div className="text-[clamp(2.8rem,8vw,7rem)] leading-none">My Tech Stack</div>
-            <div className="mt-3 text-[clamp(0.8rem,1.5vw,1rem)] tracking-[0.55em] text-white/18">
-              Colorful. Clean. Interactive.
-            </div>
-          </div>
-          <div className="pointer-events-none absolute bottom-10 left-1/2 h-28 w-[26rem] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
-
-          <div className="h-[26rem] w-full sm:h-[34rem] lg:h-[42rem]">
-            {isVisible ? (
-              <Canvas
-                shadows
-                dpr={[1, 1.5]}
-                camera={{ position: [0, 0, 14.5], fov: 34, near: 0.1, far: 100 }}
-                gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-                onCreated={({ gl }) => {
-                  gl.toneMapping = THREE.ACESFilmicToneMapping;
-                  gl.toneMappingExposure = 1.1;
-                }}
-              >
-                <VisibilityController />
-                <Suspense fallback={<CanvasLoader />}>
-                  <TechOrbScene skills={skills} />
-                </Suspense>
-              </Canvas>
-            ) : (
-              <div className="flex h-full w-full items-center justify-center">
-                <div className="rounded-full border border-white/10 bg-black/45 px-4 py-2 text-xs font-semibold uppercase tracking-[0.32em] text-white/80 backdrop-blur-md">
-                  Loading...
-                </div>
+        {/* Stats bar */}
+        {isVisible && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mx-auto mb-12 flex max-w-3xl flex-wrap items-center justify-center gap-6 sm:gap-10"
+          >
+            {skillCategories.map((cat, i) => (
+              <div key={cat.title} className="flex items-center gap-2 text-center">
+                <span
+                  className={`inline-block h-2.5 w-2.5 rounded-full bg-gradient-to-r ${cat.gradient}`}
+                />
+                <span className="text-[13px] font-semibold text-white/70">
+                  {cat.skills.length} {cat.title}
+                </span>
               </div>
-            )}
-          </div>
-        </div>
+            ))}
+            <div className="hidden sm:block h-5 w-px bg-white/10" />
+            <div className="text-center">
+              <span className="text-[13px] font-bold text-[#915EFF]">{totalSkills}+ Skills</span>
+            </div>
+          </motion.div>
+        )}
 
-        <SkillsTicker skills={skills} />
+        {/* Category grid */}
+        {isVisible && (
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.1 }}
+            className="grid grid-cols-1 gap-6 md:grid-cols-2"
+          >
+            {skillCategories.map((category, index) => (
+              <CategoryCard
+                key={category.title}
+                category={category}
+                index={index}
+                allSkillIcons={skills}
+              />
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   );

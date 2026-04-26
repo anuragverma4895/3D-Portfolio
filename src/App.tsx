@@ -13,7 +13,6 @@ const SkillsBallSection = lazy(() => import('./components/sections/SkillsBallSec
 const StarsCanvas = lazy(() => import('./components/canvas/Stars'));
 const ProfileSection = lazy(() => import('./components/sections/ProfileSection'));
 const Contact = lazy(() => import('./components/sections/Contact'));
-const Feedbacks = lazy(() => import('./components/sections/Feedbacks'));
 const SocialSidebar = lazy(() => import('./components/layout/SocialSidebar'));
 const ResumeButton = lazy(() => import('./components/layout/ResumeButton'));
 
@@ -64,9 +63,6 @@ const App = () => {
         <SkillsBallSection skills={technologies} />
       </Suspense>
       <Works />
-      <Suspense fallback={<SectionFallback />}>
-        <Feedbacks />
-      </Suspense>
       <div className="relative z-0">
         <Suspense fallback={null}>
           <StarsCanvas />
