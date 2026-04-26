@@ -28,6 +28,11 @@ import {
   socialMedia,
   techStore,
   threejs,
+  aimlTextDetection,
+  aimlChurnPrediction,
+  aimlSalesAnalysis,
+  aimlRagPipeline,
+  aimlImageGenerator,
 } from '../assets';
 
 export const navLinks: TNavLink[] = [
@@ -295,7 +300,7 @@ export type TAimlProject = {
   name: string;
   description: string;
   tags: { name: string; color: string }[];
-  icon: string;
+  image: string;
   sourceCodeLink: string;
 };
 
@@ -309,7 +314,7 @@ const aimlProjects: TAimlProject[] = [
       { name: 'transformers', color: 'green-text-gradient' },
       { name: 'deep-learning', color: 'pink-text-gradient' },
     ],
-    icon: 'brain',
+    image: aimlTextDetection,
     sourceCodeLink: 'https://github.com/anuragverma4895/AI-generated-text-detection',
   },
   {
@@ -321,7 +326,7 @@ const aimlProjects: TAimlProject[] = [
       { name: 'pandas', color: 'green-text-gradient' },
       { name: 'classification', color: 'pink-text-gradient' },
     ],
-    icon: 'chart',
+    image: aimlChurnPrediction,
     sourceCodeLink: 'https://github.com/anuragverma4895/Customer-Churn-Prediction',
   },
   {
@@ -333,7 +338,7 @@ const aimlProjects: TAimlProject[] = [
       { name: 'visualization', color: 'green-text-gradient' },
       { name: 'python', color: 'pink-text-gradient' },
     ],
-    icon: 'analytics',
+    image: aimlSalesAnalysis,
     sourceCodeLink: 'https://github.com/anuragverma4895/Sales-Data-Analysis-Business-Insights',
   },
   {
@@ -345,7 +350,7 @@ const aimlProjects: TAimlProject[] = [
       { name: 'RAG', color: 'green-text-gradient' },
       { name: 'vector-db', color: 'pink-text-gradient' },
     ],
-    icon: 'rag',
+    image: aimlRagPipeline,
     sourceCodeLink: 'https://github.com/anuragverma4895/RAG-Pipeline-with-Automated-Answer-Evaluation',
   },
   {
@@ -357,7 +362,7 @@ const aimlProjects: TAimlProject[] = [
       { name: 'diffusion', color: 'green-text-gradient' },
       { name: 'python', color: 'pink-text-gradient' },
     ],
-    icon: 'image',
+    image: aimlImageGenerator,
     sourceCodeLink: 'https://github.com/anuragverma4895/Image-generator',
   },
 ];

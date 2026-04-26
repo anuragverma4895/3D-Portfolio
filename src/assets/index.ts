@@ -32,6 +32,12 @@ import paymentSystem from "./payment1.png";
 import socialMedia from "./SocialMedia1.png";
 import techStore from "./TechStore1.png";
 
+import aimlTextDetection from "./aiml-text-detection.png";
+import aimlChurnPrediction from "./aiml-churn-prediction.png";
+import aimlSalesAnalysis from "./aiml-sales-analysis.png";
+import aimlRagPipeline from "./aiml-rag-pipeline.png";
+import aimlImageGenerator from "./aiml-image-generator.png";
+
 export {
   logo,
   backend,
@@ -63,4 +69,9 @@ export {
   paymentSystem,
   socialMedia,
   techStore,
+  aimlTextDetection,
+  aimlChurnPrediction,
+  aimlSalesAnalysis,
+  aimlRagPipeline,
+  aimlImageGenerator,
 };
