@@ -175,6 +175,18 @@ img {
   -webkit-text-fill-color: transparent;
 }
 
+/* AI/ML Card Styles */
+.aiml-card {
+  background: linear-gradient(135deg, rgba(21, 16, 48, 0.95) 0%, rgba(30, 20, 60, 0.9) 50%, rgba(21, 16, 48, 0.95) 100%);
+  border: 1px solid rgba(145, 94, 255, 0.15);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.aiml-card:hover {
+  border-color: rgba(145, 94, 255, 0.35);
+  box-shadow: 0 0 30px rgba(145, 94, 255, 0.08), 0 0 60px rgba(145, 94, 255, 0.04), inset 0 0 30px rgba(145, 94, 255, 0.03);
+}
+
 /* canvas- styles */
 .canvas-loader {
   font-size: 10px;

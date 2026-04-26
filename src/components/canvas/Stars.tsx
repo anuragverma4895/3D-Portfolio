@@ -10,7 +10,7 @@ const Stars = (props: any) => {
     const s = random.inSphere(new Float32Array(3003), { radius: 1.2 }) as Float32Array;
     // Filter out any NaN values just in case
     for (let i = 0; i < s.length; i++) {
-        if (isNaN(s[i])) s[i] = 0;
+      if (isNaN(s[i])) s[i] = 0;
     }
     return s;
   });
@@ -51,7 +51,7 @@ function VisibilityController() {
         if (entry.isIntersecting) {
           gl.setAnimationLoop(null); // resume default loop
         } else {
-          gl.setAnimationLoop(() => {}); // pause rendering
+          gl.setAnimationLoop(() => { }); // pause rendering
         }
       },
       { threshold: 0.05 }

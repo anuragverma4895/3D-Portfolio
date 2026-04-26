@@ -83,11 +83,7 @@ export const config: TConfig = {
     works: {
       p: 'My work',
       h2: 'My Work.',
-      content: `Following projects showcases my skills and experience through
-    real-world examples of my work. Each project is briefly described with
-    links to code repositories and live demos in it. It reflects my
-    ability to solve complex problems, work with different technologies,
-    and manage projects effectively.`,
+      content: `I build across the full spectrum of software engineering — from production-grade full-stack web applications to intelligent AI & Machine Learning systems. Below are projects that showcase my versatility, problem-solving ability, and passion for building impactful solutions across both domains.`,
     },
   },
 };

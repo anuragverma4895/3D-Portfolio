@@ -291,4 +291,75 @@ const projects: TProject[] = [
   },
 ];
 
-export { services, technologies, experiences, testimonials, projects };
+export type TAimlProject = {
+  name: string;
+  description: string;
+  tags: { name: string; color: string }[];
+  icon: string;
+  sourceCodeLink: string;
+};
+
+const aimlProjects: TAimlProject[] = [
+  {
+    name: 'AI-Generated Text Detection',
+    description:
+      'A deep learning-powered browser extension and pipeline that detects AI-generated text using transformer-based NLP models. Performs real-time analysis on web pages, PDFs, and pasted text with confidence scoring and detailed reporting.',
+    tags: [
+      { name: 'NLP', color: 'blue-text-gradient' },
+      { name: 'transformers', color: 'green-text-gradient' },
+      { name: 'deep-learning', color: 'pink-text-gradient' },
+    ],
+    icon: 'brain',
+    sourceCodeLink: 'https://github.com/anuragverma4895/AI-generated-text-detection',
+  },
+  {
+    name: 'Customer Churn Prediction',
+    description:
+      'An end-to-end machine learning system that predicts customer churn using classification algorithms. Features comprehensive EDA, feature engineering, model comparison, and hyperparameter tuning to identify at-risk customers before they leave.',
+    tags: [
+      { name: 'scikit-learn', color: 'blue-text-gradient' },
+      { name: 'pandas', color: 'green-text-gradient' },
+      { name: 'classification', color: 'pink-text-gradient' },
+    ],
+    icon: 'chart',
+    sourceCodeLink: 'https://github.com/anuragverma4895/Customer-Churn-Prediction',
+  },
+  {
+    name: 'Sales Data Analysis & Business Insights',
+    description:
+      'A comprehensive data analytics project extracting actionable business insights from large-scale sales datasets. Includes trend analysis, revenue forecasting, customer segmentation, and interactive visualization dashboards.',
+    tags: [
+      { name: 'data-analysis', color: 'blue-text-gradient' },
+      { name: 'visualization', color: 'green-text-gradient' },
+      { name: 'python', color: 'pink-text-gradient' },
+    ],
+    icon: 'analytics',
+    sourceCodeLink: 'https://github.com/anuragverma4895/Sales-Data-Analysis-Business-Insights',
+  },
+  {
+    name: 'RAG Pipeline with Answer Evaluation',
+    description:
+      'An advanced Retrieval-Augmented Generation pipeline combining vector search with LLM-powered answer generation. Features automated evaluation metrics to benchmark answer quality, relevance, and factual accuracy against ground truth.',
+    tags: [
+      { name: 'LLM', color: 'blue-text-gradient' },
+      { name: 'RAG', color: 'green-text-gradient' },
+      { name: 'vector-db', color: 'pink-text-gradient' },
+    ],
+    icon: 'rag',
+    sourceCodeLink: 'https://github.com/anuragverma4895/RAG-Pipeline-with-Automated-Answer-Evaluation',
+  },
+  {
+    name: 'AI Image Generator',
+    description:
+      'A generative AI application that creates high-quality images from text prompts using state-of-the-art diffusion models. Features an intuitive interface for prompt engineering, style customization, and batch image generation.',
+    tags: [
+      { name: 'generative-AI', color: 'blue-text-gradient' },
+      { name: 'diffusion', color: 'green-text-gradient' },
+      { name: 'python', color: 'pink-text-gradient' },
+    ],
+    icon: 'image',
+    sourceCodeLink: 'https://github.com/anuragverma4895/Image-generator',
+  },
+];
+
+export { services, technologies, experiences, testimonials, projects, aimlProjects };
