@@ -7,15 +7,34 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Node
+node_modules/
+
+# Production
+dist/
+dist-ssr/
+.dist/
+build/
+
+# Typescript
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Testing
+coverage/
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 *.local
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
@@ -23,9 +42,10 @@ dist-ssr
 *.sln
 *.sw?
 
-# git
-.git
+# Git (not strictly necessary but fine)
+.git/
 
-# env
-.env
-
+# Tools & Custom Scripts
+.code-review-graph/
+cleanup-unused-files.ps1
+copy-aiml-images.ps1
