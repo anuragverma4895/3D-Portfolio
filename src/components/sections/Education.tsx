@@ -8,7 +8,7 @@ const educationData = {
   specialization: 'Artificial Intelligence',
   university: 'Noida Institute of Engineering and Technology (NIET)',
   location: 'Greater Noida, Uttar Pradesh',
-  duration: '2021 – 2025',
+  duration: '2023 – 2027',
   status: 'Pursuing',
   coursework: [
     'Data Structures & Algorithms',
