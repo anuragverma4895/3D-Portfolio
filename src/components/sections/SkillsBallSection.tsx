@@ -288,6 +288,7 @@ function SkillsBallSection({
 
   return (
     <section ref={sectionRef} id={id} className="relative overflow-hidden py-16 sm:py-20">
+      <span className="hash-span">&nbsp;</span>
       {/* Background glows */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-0 top-10 h-72 w-72 rounded-full bg-cyan-500/[0.06] blur-[100px]" />

@@ -41,6 +41,14 @@ export const navLinks: TNavLink[] = [
     title: 'About',
   },
   {
+    id: 'skills',
+    title: 'Skills',
+  },
+  {
+    id: 'experience',
+    title: 'Experience',
+  },
+  {
     id: 'work',
     title: 'Work',
   },

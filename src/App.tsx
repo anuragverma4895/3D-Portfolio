@@ -3,6 +3,7 @@ import { lazy, Suspense, useEffect, useCallback } from 'react';
 import About from './components/sections/About';
 import Hero from './components/sections/Hero';
 import Works from './components/sections/Works';
+import Experience from './components/sections/Experience';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import { config } from './constants/config';
@@ -76,6 +77,10 @@ const App = () => {
 
       <SectionDivider />
 
+      <Experience />
+
+      <SectionDivider />
+
       <Works />
 
       <SectionDivider />
@@ -84,14 +89,14 @@ const App = () => {
         <Suspense fallback={null}>
           <StarsCanvas />
         </Suspense>
-        {/* Profile section (contact info, profiles, CTA) — comes first */}
+        {/* Profile section (contact info, profiles, CTA) */}
         <Suspense fallback={<SectionFallback height="28rem" />}>
           <ProfileSection />
         </Suspense>
 
         <SectionDivider />
 
-        {/* Get in Touch form — comes last */}
+        {/* Get in Touch form */}
         <Suspense fallback={<SectionFallback height="28rem" />}>
           <Contact />
         </Suspense>
