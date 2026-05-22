@@ -3,7 +3,8 @@ import { lazy, Suspense, useEffect, useCallback } from 'react';
 import About from './components/sections/About';
 import Hero from './components/sections/Hero';
 import Works from './components/sections/Works';
-import Experience from './components/sections/Experience';
+import Education from './components/sections/Education';
+import Achievements from './components/sections/Achievements';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import { config } from './constants/config';
@@ -18,6 +19,9 @@ const Contact = lazy(() => import('./components/sections/Contact'));
 const SocialSidebar = lazy(() => import('./components/layout/SocialSidebar'));
 const ResumeButton = lazy(() => import('./components/layout/ResumeButton'));
 const CustomCursor = lazy(() => import('./components/layout/CustomCursor'));
+
+// Experience is disconnected (not deleted) — reconnect later when needed:
+// import Experience from './components/sections/Experience';
 
 // Lightweight placeholder for lazy sections
 const SectionFallback = ({ height = '20rem' }: { height?: string }) => (
@@ -77,7 +81,11 @@ const App = () => {
 
       <SectionDivider />
 
-      <Experience />
+      <Education />
+
+      <SectionDivider />
+
+      <Achievements />
 
       <SectionDivider />
 
