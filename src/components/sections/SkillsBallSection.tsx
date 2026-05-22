@@ -173,7 +173,7 @@ const CategoryCard: React.FC<{
             el.style.boxShadow = 'none';
           }}
         >
-          <div className="relative h-full rounded-[15px] bg-[#0c0e1a] p-6 overflow-hidden">
+          <div className="relative h-full rounded-[15px] bg-[#070515] p-6 overflow-hidden">
             {/* Animated background pattern */}
             <div
               className="absolute inset-0 opacity-[0.015] group-hover:opacity-[0.04] transition-opacity duration-700"
@@ -334,9 +334,9 @@ function SkillsBallSection({
             ))}
             <div className="h-4 w-px bg-white/10 hidden sm:block" />
             <div
-              className="flex items-center gap-2 rounded-full border border-[#915EFF]/20 bg-[#915EFF]/[0.06] px-4 py-2 backdrop-blur-sm cursor-default"
+              className="flex items-center gap-2 rounded-full border border-accent-cyan/20 bg-accent-cyan/[0.06] px-4 py-2 backdrop-blur-sm cursor-default"
             >
-              <span className="text-[12px] font-bold tracking-wide text-[#915EFF]">
+              <span className="text-[12px] font-bold tracking-wide text-accent-cyan">
                 {totalSkills}+ Skills
               </span>
             </div>

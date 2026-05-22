@@ -7,6 +7,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import { config } from './constants/config';
 import { technologies } from './constants';
+import SectionDivider from './components/atoms/SectionDivider';
 
 // Lazy load heavy components
 const SkillsBallSection = lazy(() => import('./components/sections/SkillsBallSection'));
@@ -15,6 +16,7 @@ const ProfileSection = lazy(() => import('./components/sections/ProfileSection')
 const Contact = lazy(() => import('./components/sections/Contact'));
 const SocialSidebar = lazy(() => import('./components/layout/SocialSidebar'));
 const ResumeButton = lazy(() => import('./components/layout/ResumeButton'));
+const CustomCursor = lazy(() => import('./components/layout/CustomCursor'));
 
 // Lightweight placeholder for lazy sections
 const SectionFallback = ({ height = '20rem' }: { height?: string }) => (
@@ -53,16 +55,31 @@ const App = () => {
   }, [handleSmoothScroll]);
 
   return (
-    <div className="bg-primary relative z-0">
+    <div className="relative z-0 noise-bg" style={{ background: '#030014' }}>
+      {/* Custom cursor (desktop only) */}
+      <Suspense fallback={null}>
+        <CustomCursor />
+      </Suspense>
+
       <div className="bg-hero-pattern bg-cover bg-center bg-no-repeat">
         <Navbar />
         <Hero />
       </div>
+
       <About />
+
+      <SectionDivider />
+
       <Suspense fallback={<SectionFallback height="32rem" />}>
         <SkillsBallSection skills={technologies} />
       </Suspense>
+
+      <SectionDivider />
+
       <Works />
+
+      <SectionDivider />
+
       <div className="relative z-0">
         <Suspense fallback={null}>
           <StarsCanvas />
@@ -71,12 +88,16 @@ const App = () => {
         <Suspense fallback={<SectionFallback height="28rem" />}>
           <ProfileSection />
         </Suspense>
+
+        <SectionDivider />
+
         {/* Get in Touch form — comes last */}
         <Suspense fallback={<SectionFallback height="28rem" />}>
           <Contact />
         </Suspense>
         <Footer />
       </div>
+
       <Suspense fallback={null}>
         <SocialSidebar />
         <ResumeButton />
@@ -86,4 +107,3 @@ const App = () => {
 };
 
 export default App;
-

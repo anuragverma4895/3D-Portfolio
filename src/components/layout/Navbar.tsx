@@ -14,19 +14,17 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Use rAF for smooth, non-blocking scroll updates
       if (rafRef.current) return;
-      
+
       rafRef.current = requestAnimationFrame(() => {
         const scrollTop = window.scrollY;
         lastScrollY.current = scrollTop;
-        
+
         setScrolled(scrollTop > 100);
         if (scrollTop <= 100) {
           setActive("");
         }
 
-        // Section highlighting
         const sections = document.querySelectorAll("section[id]");
         sections.forEach((current) => {
           const sectionId = current.getAttribute("id");
@@ -62,21 +60,26 @@ const Navbar = () => {
     <nav
       className={`${
         styles.paddingX
-      } fixed top-0 z-20 flex w-full items-center py-5 transition-colors duration-300 ${
-        scrolled ? "bg-primary/95 backdrop-blur-sm" : "bg-transparent"
+      } fixed top-0 z-20 flex w-full items-center py-5 transition-all duration-500 ${
+        scrolled
+          ? "bg-[#030014]/80 backdrop-blur-xl border-b border-white/[0.05] shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+          : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
         <a
           href="#"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 group"
           onClick={(e) => {
             e.preventDefault();
             handleLogoClick();
           }}
         >
-          <img src={logo} alt="logo" className="h-9 w-9 object-contain" />
-          <p className="flex cursor-pointer text-[18px] font-bold text-white ">
+          <div className="relative">
+            <img src={logo} alt="logo" className="h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-110" />
+            <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ boxShadow: '0 0 15px rgba(0, 240, 255, 0.4)' }} />
+          </div>
+          <p className="flex cursor-pointer text-[18px] font-bold text-white group-hover:text-accent-cyan transition-colors duration-300">
             {config.html.title}
           </p>
         </a>
@@ -85,15 +88,16 @@ const Navbar = () => {
           {navLinks.map((nav) => (
             <li
               key={nav.id}
-              className={`${
-                active === nav.id ? "text-white" : "text-secondary"
-              } cursor-pointer text-[18px] font-medium transition-colors duration-200`}
+              className={`nav-underline ${
+                active === nav.id ? "active" : ""
+              } cursor-pointer text-[16px] font-medium transition-all duration-300 ${
+                active === nav.id
+                  ? "nav-link-active"
+                  : "text-secondary hover:text-white"
+              }`}
             >
-              <a href={`#${nav.id}`} className="hover-link">
-                <span className="hover-in">
-                  {nav.title}
-                  <div className="text-white">{nav.title}</div>
-                </span>
+              <a href={`#${nav.id}`}>
+                {nav.title}
               </a>
             </li>
           ))}
@@ -103,21 +107,29 @@ const Navbar = () => {
           <img
             src={toggle ? close : menu}
             alt="menu"
-            className="h-[28px] w-[28px] object-contain"
+            className="h-[28px] w-[28px] object-contain cursor-pointer"
             onClick={() => setToggle(!toggle)}
           />
 
+          {/* Mobile menu with glassmorphism */}
           <div
             className={`${
-              !toggle ? "hidden" : "flex"
-            } black-gradient absolute right-0 top-20 z-10 mx-4 my-2 min-w-[140px] rounded-xl p-6`}
+              !toggle ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100"
+            } absolute right-0 top-20 z-10 mx-4 my-2 min-w-[200px] rounded-2xl p-6 transition-all duration-300 origin-top-right`}
+            style={{
+              background: 'rgba(12, 10, 30, 0.9)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(0, 240, 255, 0.1)',
+              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 240, 255, 0.05)',
+            }}
           >
             <ul className="flex flex-1 list-none flex-col items-start justify-end gap-4">
               {navLinks.map((nav) => (
                 <li
                   key={nav.id}
-                  className={`font-poppins cursor-pointer text-[16px] font-medium ${
-                    active === nav.id ? "text-white" : "text-secondary"
+                  className={`cursor-pointer text-[16px] font-medium transition-colors duration-200 ${
+                    active === nav.id ? "text-accent-cyan" : "text-secondary hover:text-white"
                   }`}
                   onClick={() => {
                     setToggle(false);

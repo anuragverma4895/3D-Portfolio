@@ -21,28 +21,45 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
 }) => {
   return (
     <motion.div
-      variants={fadeIn('up', 'spring', index * 0.5, 0.75)}
+      variants={fadeIn('up', 'spring', index * 0.3, 0.75)}
       className="w-full sm:w-[calc(50%-14px)]"
     >
       <Tilt
-        glareEnable={false}
+        glareEnable
+        glareMaxOpacity={0.08}
+        glareColor="#00F0FF"
+        glarePosition="all"
         tiltEnable
-        tiltMaxAngleX={30}
-        tiltMaxAngleY={30}
+        tiltMaxAngleX={15}
+        tiltMaxAngleY={15}
         className="w-full"
       >
-        <div className="bg-tertiary group w-full rounded-2xl p-5">
-          <div className="relative aspect-video w-full">
+        <div className="glass-card card-lift group w-full rounded-2xl p-5 relative overflow-hidden">
+          {/* Hover glow */}
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.06) 0%, transparent 60%)',
+            }}
+          />
+
+          <div className="relative aspect-video w-full overflow-hidden rounded-xl">
             <img
               src={image}
               alt={name}
-              className="h-full w-full rounded-2xl object-cover object-top"
+              className="h-full w-full rounded-xl object-cover object-top transition-transform duration-700 group-hover:scale-110"
             />
-            <div className="card-img_hover absolute inset-0 m-3 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+
+            {/* Gradient overlay on hover */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#030014]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
+
+            {/* Action buttons */}
+            <div className="card-img_hover absolute inset-0 m-3 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
               {deployLink && (
                 <div
                   onClick={() => window.open(deployLink, '_blank')}
-                  className="black-gradient flex h-10 w-10 cursor-pointer items-center justify-center rounded-full"
+                  className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 backdrop-blur-md transition-all duration-300 hover:border-accent-cyan/50 hover:shadow-glow-cyan"
+                  style={{ background: 'rgba(3, 0, 20, 0.7)' }}
                   title="Live Deployment"
                 >
                   <svg
@@ -63,22 +80,28 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
               )}
               <div
                 onClick={() => window.open(sourceCodeLink, '_blank')}
-                className="black-gradient flex h-10 w-10 cursor-pointer items-center justify-center rounded-full"
+                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 backdrop-blur-md transition-all duration-300 hover:border-accent-cyan/50 hover:shadow-glow-cyan"
+                style={{ background: 'rgba(3, 0, 20, 0.7)' }}
                 title="Source Code"
               >
                 <img src={github} alt="github" className="h-1/2 w-1/2 object-contain" />
               </div>
             </div>
           </div>
-          <div className="mt-5">
-            <h3 className="text-[24px] font-bold text-white">{name}</h3>
-            <p className="text-secondary mt-2 text-[14px]">{description}</p>
+
+          <div className="mt-5 relative z-10">
+            <h3 className="text-[24px] font-bold text-white group-hover:gradient-text-cyan transition-colors duration-300">{name}</h3>
+            <p className="text-secondary mt-2 text-[14px] leading-[22px]">{description}</p>
           </div>
-          <div className="mt-4 flex flex-wrap gap-2">
+
+          <div className="mt-4 flex flex-wrap gap-2 relative z-10">
             {tags.map(tag => (
-              <p key={tag.name} className={`text-[14px] ${tag.color}`}>
+              <span
+                key={tag.name}
+                className={`text-[13px] font-medium px-3 py-1 rounded-full border border-white/[0.06] bg-white/[0.03] ${tag.color}`}
+              >
                 #{tag.name}
-              </p>
+              </span>
             ))}
           </div>
         </div>
@@ -97,43 +120,42 @@ const AimlProjectCard: React.FC<{ index: number } & TAimlProject> = ({
 }) => {
   return (
     <motion.div
-      variants={fadeIn('up', 'spring', index * 0.5, 0.75)}
+      variants={fadeIn('up', 'spring', index * 0.3, 0.75)}
       className="w-full sm:w-[calc(50%-14px)]"
     >
       <Tilt
         glareEnable
-        glareMaxOpacity={0.15}
-        glareColor="#915EFF"
+        glareMaxOpacity={0.12}
+        glareColor="#FF006E"
         glarePosition="all"
         tiltEnable
-        tiltMaxAngleX={25}
-        tiltMaxAngleY={25}
+        tiltMaxAngleX={20}
+        tiltMaxAngleY={20}
         className="w-full"
       >
-        <div className="aiml-card group w-full rounded-2xl p-5 relative overflow-hidden">
+        <div className="aiml-card card-lift group w-full rounded-2xl p-5 relative overflow-hidden">
           {/* Animated background glow */}
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700" 
-               style={{
-                 background: 'radial-gradient(circle at 50% 50%, rgba(145, 94, 255, 0.08) 0%, transparent 70%)',
-               }}
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle at 50% 50%, rgba(255, 0, 110, 0.06) 0%, transparent 70%)',
+            }}
           />
-          
-          {/* Image area - full screen project screenshot */}
-          <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
+
+          <div className="relative aspect-video w-full overflow-hidden rounded-xl">
             <img
               src={image}
               alt={name}
-              className="h-full w-full rounded-2xl object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              className="h-full w-full rounded-xl object-cover object-top transition-transform duration-500 group-hover:scale-105"
             />
-            
-            {/* Subtle purple overlay on hover */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0c0520]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
 
-            {/* GitHub button overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#030014]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
+
             <div className="absolute inset-0 m-3 flex justify-end items-start opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <div
                 onClick={() => window.open(sourceCodeLink, '_blank')}
-                className="black-gradient flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 hover:border-purple-400/50 transition-colors duration-300"
+                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 backdrop-blur-md hover:border-accent-magenta/50 hover:shadow-glow-magenta transition-all duration-300"
+                style={{ background: 'rgba(3, 0, 20, 0.7)' }}
                 title="View Source Code"
               >
                 <img src={github} alt="github" className="h-1/2 w-1/2 object-contain" />
@@ -142,14 +164,17 @@ const AimlProjectCard: React.FC<{ index: number } & TAimlProject> = ({
           </div>
 
           <div className="mt-5 relative z-10">
-            <h3 className="text-[22px] sm:text-[24px] font-bold text-white group-hover:text-purple-200 transition-colors duration-300">{name}</h3>
+            <h3 className="text-[22px] sm:text-[24px] font-bold text-white group-hover:text-pink-200 transition-colors duration-300">{name}</h3>
             <p className="text-secondary mt-2 text-[14px] leading-[22px]">{description}</p>
           </div>
           <div className="mt-4 flex flex-wrap gap-2 relative z-10">
             {tags.map(tag => (
-              <p key={tag.name} className={`text-[14px] ${tag.color}`}>
+              <span
+                key={tag.name}
+                className={`text-[13px] font-medium px-3 py-1 rounded-full border border-white/[0.06] bg-white/[0.03] ${tag.color}`}
+              >
                 #{tag.name}
-              </p>
+              </span>
             ))}
           </div>
         </div>
@@ -171,15 +196,17 @@ const CategoryBadge: React.FC<{
     variants={fadeIn('right', 'spring', delay, 0.75)}
     className="flex items-center gap-4 mb-4"
   >
-    <div
+    <motion.div
+      whileHover={{ rotate: 12, scale: 1.1 }}
+      transition={{ type: 'spring', stiffness: 300 }}
       className="flex items-center justify-center w-12 h-12 rounded-xl shadow-lg"
       style={{
         background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
-        boxShadow: `0 4px 20px ${gradientFrom}40`,
+        boxShadow: `0 4px 25px ${gradientFrom}50`,
       }}
     >
       {icon}
-    </div>
+    </motion.div>
     <div>
       <h3 className="text-white text-[22px] sm:text-[26px] font-bold tracking-tight">{title}</h3>
       <p className="text-secondary text-[13px] sm:text-[14px]">{subtitle}</p>
@@ -218,11 +245,16 @@ const Works = () => {
           }
           title="Full-Stack Development"
           subtitle="Production-grade web applications & scalable architectures"
-          gradientFrom="#3b82f6"
-          gradientTo="#06b6d4"
+          gradientFrom="#00F0FF"
+          gradientTo="#3b82f6"
         />
-        <div className="h-px w-full bg-gradient-to-r from-blue-500/30 via-cyan-500/20 to-transparent mb-10" />
-        
+        <div
+          className="h-px w-full mb-10"
+          style={{
+            background: 'linear-gradient(90deg, rgba(0, 240, 255, 0.4), rgba(59, 130, 246, 0.2), transparent)',
+          }}
+        />
+
         <div className="flex flex-wrap gap-7">
           {projects.map((project, index) => (
             <ProjectCard key={`project-${index}`} index={index} {...project} />
@@ -240,11 +272,16 @@ const Works = () => {
           }
           title="AI / ML & Data Science"
           subtitle="Intelligent systems, deep learning models & data-driven insights"
-          gradientFrom="#a855f7"
-          gradientTo="#ec4899"
+          gradientFrom="#FF006E"
+          gradientTo="#a855f7"
           delay={0.2}
         />
-        <div className="h-px w-full bg-gradient-to-r from-purple-500/30 via-pink-500/20 to-transparent mb-10" />
+        <div
+          className="h-px w-full mb-10"
+          style={{
+            background: 'linear-gradient(90deg, rgba(255, 0, 110, 0.4), rgba(168, 85, 247, 0.2), transparent)',
+          }}
+        />
 
         <div className="flex flex-wrap gap-7">
           {aimlProjects.map((project, index) => (

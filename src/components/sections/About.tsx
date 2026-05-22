@@ -16,24 +16,52 @@ interface IServiceCard {
 
 const ServiceCard: React.FC<IServiceCard> = ({ index, title, icon }) => (
   <Tilt
-    glareEnable={false}
+    glareEnable
+    glareMaxOpacity={0.1}
+    glareColor="#00F0FF"
+    glarePosition="all"
     tiltEnable
-    tiltMaxAngleX={30}
-    tiltMaxAngleY={30}
+    tiltMaxAngleX={25}
+    tiltMaxAngleY={25}
+    perspective={1000}
   >
     <div className="max-w-[250px] w-full xs:w-[250px]">
       <motion.div
         variants={fadeIn("right", "spring", index * 0.5, 0.75)}
-        className="green-pink-gradient shadow-card w-full rounded-[20px] p-[1px]"
+        className="w-full rounded-[20px] p-[1px] relative group"
+        style={{
+          background: 'linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(255, 0, 110, 0.2))',
+        }}
+        whileHover={{
+          background: 'linear-gradient(135deg, rgba(0, 240, 255, 0.5), rgba(255, 0, 110, 0.5))',
+        }}
       >
-        <div className="bg-tertiary flex min-h-[280px] flex-col items-center justify-evenly rounded-[20px] px-12 py-5">
-          <img
-            src={icon}
-            alt="web-development"
-            className="h-16 w-16 object-contain"
+        <div
+          className="flex min-h-[280px] flex-col items-center justify-evenly rounded-[20px] px-12 py-5 relative overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, #0c0a1a, #100d25)',
+          }}
+        >
+          {/* Background glow on hover */}
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{
+              background: 'radial-gradient(circle at 50% 30%, rgba(0, 240, 255, 0.08), transparent 60%)',
+            }}
           />
 
-          <h3 className="text-center text-[20px] font-bold text-white">
+          <motion.img
+            src={icon}
+            alt={title}
+            className="h-16 w-16 object-contain relative z-10"
+            whileHover={{ scale: 1.2, rotate: 5 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            style={{
+              filter: 'drop-shadow(0 0 12px rgba(0, 240, 255, 0.3))',
+            }}
+          />
+
+          <h3 className="text-center text-[20px] font-bold text-white relative z-10">
             {title}
           </h3>
         </div>
