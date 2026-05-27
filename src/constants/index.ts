@@ -12,6 +12,7 @@ import {
   mobile,
   creator,
   web,
+  aiml,
   javascript,
   typescript,
   html,
@@ -79,7 +80,7 @@ const services: TService[] = [
   },
   {
     title: 'AI / ML Engineer',
-    icon: threejs,
+    icon: aiml,
   },
   {
     title: 'API & System Design',
