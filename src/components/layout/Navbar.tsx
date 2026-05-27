@@ -63,7 +63,7 @@ const Navbar = () => {
         styles.paddingX
       } fixed top-0 z-20 flex w-full items-center py-5 transition-all duration-500 ${
         scrolled
-          ? "bg-[#030014]/80 backdrop-blur-xl border-b border-white/[0.05] shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+          ? "nav-scrolled backdrop-blur-xl border-b shadow-sm"
           : "bg-transparent"
       }`}
     >

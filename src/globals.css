@@ -25,26 +25,30 @@
   --accent-cyan: #0891b2;
   --accent-magenta: #db2777;
   --accent-purple: #7c3aed;
-  --bg-primary: #f0f4f8;
+  --bg-primary: #f8f6f2;
   --bg-card: #ffffff;
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(0, 0, 0, 0.06);
   --text-primary: #1a1a2e;
-  --text-secondary: rgba(30, 30, 60, 0.7);
-  --nav-bg-scrolled: rgba(240, 244, 248, 0.85);
+  --text-secondary: #4a4a6a;
+  --nav-bg-scrolled: rgba(248, 246, 242, 0.88);
 }
 
 /* Smooth theme transition */
-.theme-transition,
-.theme-transition *:not(canvas):not(video):not(img) {
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+.theme-transition {
+  transition: background-color 0.5s ease, color 0.4s ease;
 }
 
-/* Light theme overrides */
+/* ═══════════════════════════════════════════════════
+   LIGHT THEME — COMPREHENSIVE OVERRIDES
+   ═══════════════════════════════════════════════════ */
+
+/* --- Body & Backgrounds --- */
 [data-theme="light"] body {
   background: var(--bg-primary);
 }
 
+/* --- Text Colors --- */
 [data-theme="light"] .text-white {
   color: var(--text-primary) !important;
 }
@@ -53,33 +57,226 @@
   color: var(--text-secondary) !important;
 }
 
-[data-theme="light"] .glass-card {
-  background: var(--glass-bg);
-  border-color: var(--glass-border);
+[data-theme="light"] .text-white-100 {
+  color: #2a2a4a !important;
+}
+
+/* --- Hero Section --- */
+[data-theme="light"] .bg-hero-pattern {
+  background: linear-gradient(135deg, #f8f6f2 0%, #ede9e3 50%, #f0ece6 100%) !important;
+}
+
+[data-theme="light"] .hero-name-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--accent-cyan) 0%,
+    #0e7490 20%,
+    var(--accent-purple) 40%,
+    var(--accent-magenta) 60%,
+    var(--accent-cyan) 80%,
+    #0e7490 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: none;
 }
 
 [data-theme="light"] .hero-subtitle {
-  color: rgba(30, 30, 60, 0.75);
+  color: #4a4a6a;
 }
 
+[data-theme="light"] .gradient-text-hero {
+  background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 50%, var(--accent-magenta) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- Orbs (very subtle in light) --- */
 [data-theme="light"] .orb-cyan {
-  background: radial-gradient(circle, rgba(8, 145, 178, 0.08), transparent 70%);
+  background: radial-gradient(circle, rgba(8, 145, 178, 0.05), transparent 70%);
 }
 
 [data-theme="light"] .orb-magenta {
-  background: radial-gradient(circle, rgba(219, 39, 119, 0.06), transparent 70%);
+  background: radial-gradient(circle, rgba(219, 39, 119, 0.04), transparent 70%);
 }
 
 [data-theme="light"] .orb-purple {
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.05), transparent 70%);
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.03), transparent 70%);
 }
 
+/* --- Navbar --- */
+[data-theme="light"] nav.bg-\[\\#030014\]\/80,
+[data-theme="light"] nav[class*="bg-[#030014]"] {
+  background: rgba(248, 246, 242, 0.88) !important;
+  border-bottom-color: rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme="light"] nav p {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="light"] nav li {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="light"] nav li:hover,
+[data-theme="light"] nav .nav-link-active {
+  color: var(--accent-cyan) !important;
+}
+
+/* --- Mobile Menu --- */
+[data-theme="light"] nav [class*="min-w-[200px]"] {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* --- Glass Card --- */
+[data-theme="light"] .glass-card {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .glass-card:hover {
+  border-color: rgba(8, 145, 178, 0.2) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08), 0 0 20px rgba(8, 145, 178, 0.05) !important;
+}
+
+/* --- Service Cards (About section) --- */
+[data-theme="light"] .aiml-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 246, 242, 0.9)) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme="light"] .aiml-card:hover {
+  border-color: rgba(8, 145, 178, 0.25) !important;
+  box-shadow: 0 4px 30px rgba(8, 145, 178, 0.08) !important;
+}
+
+/* --- About Intro Card --- */
+[data-theme="light"] .about-tech-tag {
+  color: var(--accent-cyan);
+  background: rgba(8, 145, 178, 0.08);
+  border-color: rgba(8, 145, 178, 0.2);
+}
+
+[data-theme="light"] .about-tech-tag:hover {
+  background: rgba(8, 145, 178, 0.14);
+  border-color: rgba(8, 145, 178, 0.35);
+}
+
+/* --- Section Dividers --- */
 [data-theme="light"] .section-divider::after {
-  opacity: 0.15;
+  opacity: 0.12;
 }
 
+/* --- Noise Overlay --- */
 [data-theme="light"] .noise-bg::before {
-  opacity: 0.008;
+  opacity: 0.005;
+}
+
+/* --- Scroll Indicator (Hero) --- */
+[data-theme="light"] [href="#about"] > div {
+  border-color: rgba(8, 145, 178, 0.3) !important;
+}
+
+/* --- Gradient Text Utilities --- */
+[data-theme="light"] .gradient-text-cyan {
+  background: linear-gradient(135deg, var(--accent-cyan), #0e7490);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- Nav Underline --- */
+[data-theme="light"] .nav-underline::after {
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+}
+
+/* --- Footer --- */
+[data-theme="light"] footer {
+  background: #f0ece6 !important;
+  border-top-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme="light"] footer p,
+[data-theme="light"] footer span,
+[data-theme="light"] footer a {
+  color: var(--text-secondary) !important;
+}
+
+/* --- Social Sidebar & Resume Button --- */
+[data-theme="light"] [class*="social"] > div,
+[data-theme="light"] .social-sidebar-link {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* --- Buttons --- */
+[data-theme="light"] .btn-premium::before {
+  background: var(--bg-primary);
+}
+
+[data-theme="light"] .btn-solid {
+  color: #ffffff;
+}
+
+/* --- Custom Scrollbar --- */
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+/* --- Input Fields --- */
+[data-theme="light"] .input-glow:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.12), 0 0 20px rgba(8, 145, 178, 0.08);
+}
+
+/* --- Inline dark backgrounds override --- */
+[data-theme="light"] [style*="linear-gradient(135deg, #0c0a1a"],
+[data-theme="light"] [style*="linear-gradient(135deg, rgba(12, 10, 30"] {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 246, 242, 0.8)) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* --- Cards with dark hardcoded bg --- */
+[data-theme="light"] [style*="background: 'linear-gradient(135deg, #0c0a1a"],
+[data-theme="light"] [style*="#030014"],
+[data-theme="light"] [style*="rgba(12, 10, 30"] {
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* --- Status dot (Available for work badge) --- */
+[data-theme="light"] .status-dot {
+  background: #16a34a;
+}
+
+/* --- Hero line indicator --- */
+[data-theme="light"] [style*="linear-gradient(180deg, #00F0FF, transparent)"] {
+  background: linear-gradient(180deg, var(--accent-cyan), transparent) !important;
+}
+
+/* --- Canvas area --- */
+[data-theme="light"] canvas {
+  filter: brightness(1.05);
+}
+
+/* ═══════════════════════════════════════════════════
+   NAV SCROLLED (theme-aware)
+   ═══════════════════════════════════════════════════ */
+.nav-scrolled {
+  background: rgba(3, 0, 20, 0.8);
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .nav-scrolled {
+  background: rgba(248, 246, 242, 0.88) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.06) !important;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -477,6 +674,38 @@ img {
   background: rgba(0, 240, 255, 0.12);
   border-color: rgba(0, 240, 255, 0.35);
   box-shadow: 0 0 12px rgba(0, 240, 255, 0.15);
+}
+
+/* Service card inner background */
+.service-card-inner {
+  background: linear-gradient(135deg, #0c0a1a, #100d25);
+}
+
+[data-theme="light"] .service-card-inner {
+  background: linear-gradient(135deg, #ffffff, #f8f6f2) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* About intro glassmorphism card */
+.about-intro-card {
+  background: linear-gradient(135deg, rgba(12, 10, 30, 0.7), rgba(20, 14, 40, 0.5));
+  border: 1px solid rgba(0, 240, 255, 0.1);
+  backdrop-filter: blur(12px);
+}
+
+[data-theme="light"] .about-intro-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(248, 246, 242, 0.7)) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* About intro paragraph text */
+.about-intro-text {
+  color: rgba(210, 205, 240, 0.85);
+}
+
+[data-theme="light"] .about-intro-text {
+  color: #3a3a5a !important;
 }
 
 /* ═══════════════════════════════════════════════════

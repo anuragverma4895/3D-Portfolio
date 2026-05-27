@@ -37,10 +37,7 @@ const ServiceCard: React.FC<IServiceCard> = ({ index, title, icon }) => (
         }}
       >
         <div
-          className="flex min-h-[280px] flex-col items-center justify-evenly rounded-[20px] px-12 py-5 relative overflow-hidden"
-          style={{
-            background: 'linear-gradient(135deg, #0c0a1a, #100d25)',
-          }}
+          className="service-card-inner flex min-h-[280px] flex-col items-center justify-evenly rounded-[20px] px-12 py-5 relative overflow-hidden"
         >
           {/* Background glow on hover */}
           <div
@@ -81,12 +78,7 @@ const About = () => {
       >
         {/* Glassmorphism container */}
         <div
-          className="rounded-2xl p-6 sm:p-8 relative overflow-hidden"
-          style={{
-            background: "linear-gradient(135deg, rgba(12, 10, 30, 0.7), rgba(20, 14, 40, 0.5))",
-            border: "1px solid rgba(0, 240, 255, 0.1)",
-            backdropFilter: "blur(12px)",
-          }}
+          className="about-intro-card rounded-2xl p-6 sm:p-8 relative overflow-hidden"
         >
           {/* Subtle top-left glow */}
           <div
@@ -96,8 +88,7 @@ const About = () => {
             }}
           />
 
-          <p className="text-[17px] sm:text-[18px] leading-[30px] sm:leading-[34px] tracking-wide relative z-10"
-            style={{ color: "rgba(210, 205, 240, 0.85)" }}
+          <p className="about-intro-text text-[17px] sm:text-[18px] leading-[30px] sm:leading-[34px] tracking-wide relative z-10"
           >
             I don&apos;t just write code{" "}
             <span className="gradient-text-cyan font-semibold">—</span>{" "}
@@ -126,8 +117,7 @@ const About = () => {
             <span className="text-white font-semibold">built to scale</span>.
           </p>
 
-          <p className="text-[17px] sm:text-[18px] leading-[30px] sm:leading-[34px] tracking-wide mt-4 relative z-10"
-            style={{ color: "rgba(210, 205, 240, 0.85)" }}
+          <p className="about-intro-text text-[17px] sm:text-[18px] leading-[30px] sm:leading-[34px] tracking-wide mt-4 relative z-10"
           >
             From real-time communication platforms powered by{" "}
             <span className="about-tech-tag">WebRTC</span>
@@ -145,8 +135,7 @@ const About = () => {
             }}>elegant, high-performance solutions</span>.
           </p>
 
-          <p className="text-[17px] sm:text-[18px] leading-[30px] sm:leading-[34px] tracking-wide mt-4 relative z-10"
-            style={{ color: "rgba(210, 205, 240, 0.85)" }}
+          <p className="about-intro-text text-[17px] sm:text-[18px] leading-[30px] sm:leading-[34px] tracking-wide mt-4 relative z-10"
           >
             Proficient in{" "}
             <span className="about-tech-tag">JavaScript</span>{" "}
