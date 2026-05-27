@@ -9,6 +9,8 @@ import type {
 
 import {
   backend,
+  mobile,
+  creator,
   web,
   javascript,
   typescript,
@@ -68,11 +70,11 @@ const services: TService[] = [
     icon: web,
   },
   {
-    title: 'MERN Stack Developer',
+    title: 'MERN Stack Expert',
     icon: reactjs,
   },
   {
-    title: 'Backend Engineer',
+    title: 'Backend Architect',
     icon: backend,
   },
   {
@@ -80,8 +82,16 @@ const services: TService[] = [
     icon: threejs,
   },
   {
-    title: 'Problem Solver',
-    icon: git,
+    title: 'API & System Design',
+    icon: mobile,
+  },
+  {
+    title: 'DevOps & Cloud',
+    icon: docker,
+  },
+  {
+    title: 'Creative Problem Solver',
+    icon: creator,
   },
 ];
 

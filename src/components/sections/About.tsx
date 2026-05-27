@@ -77,7 +77,13 @@ const About = () => {
 
       <motion.p
         variants={fadeIn("", "", 0.1, 1)}
-        className="text-secondary mt-4 max-w-3xl text-[17px] leading-[30px]"
+        className="mt-6 max-w-3xl text-[18px] leading-[32px] tracking-wide"
+        style={{
+          color: "rgba(200, 195, 230, 0.9)",
+          borderLeft: "3px solid",
+          borderImage: "linear-gradient(180deg, #00F0FF, #FF006E) 1",
+          paddingLeft: "1.25rem",
+        }}
       >
         {config.sections.about.content}
       </motion.p>

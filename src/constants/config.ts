@@ -70,7 +70,7 @@ export const config: TConfig = {
     about: {
       p: 'Introduction',
       h2: 'Overview.',
-      content: `I am a passionate Full-Stack Software Engineer with specialized expertise in the MERN stack (MongoDB, Express, React, Node.js). I thrive on building highly scalable applications, ranging from real-time communication platforms using WebRTC and Socket.io, to robust payment processing systems and AI-integrated web applications. With a strong foundation in JavaScript, TypeScript, and modern web architectures, I am dedicated to architecting secure, efficient, and user-centric solutions that tackle complex, real-world challenges. Let's collaborate to build something remarkable.`,
+      content: `I don't just write code — I engineer experiences. As a Full-Stack Software Engineer specializing in the MERN stack, I build production-grade applications that are fast, secure, and built to scale. From real-time communication platforms powered by WebRTC & Socket.io, to AI-integrated web apps and robust payment systems — I turn complex ideas into elegant, high-performance solutions. Proficient in JavaScript, TypeScript, React, Node.js, and modern cloud architectures, I bring a builder's mindset and a designer's eye to every project. Let's create something extraordinary together.`,
     },
     experience: {
       p: 'What I have done so far',
