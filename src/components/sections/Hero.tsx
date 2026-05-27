@@ -83,7 +83,7 @@ const Hero = () => {
       {/* Floating gradient orbs with parallax */}
       <motion.div
         style={{ x: orbX1, y: orbY1 }}
-        className="orb orb-cyan absolute -top-20 -left-20 h-[500px] w-[500px] animate-float"
+        className="orb orb-cyan absolute -top-40 -left-40 h-[500px] w-[500px] animate-float"
       />
       <motion.div
         style={{ x: orbX2, y: orbY2 }}
@@ -108,10 +108,10 @@ const Hero = () => {
             }}
           />
           <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: "auto" }}
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 1 }}
             transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
-            className="w-1 sm:h-80 h-40"
+            className="w-1 sm:h-80 h-40 origin-top"
             style={{
               background: "linear-gradient(180deg, #00F0FF, transparent)",
             }}
