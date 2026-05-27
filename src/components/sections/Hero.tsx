@@ -93,7 +93,7 @@ const Hero = () => {
 
       {/* Hero content */}
       <div
-        className={`absolute inset-0 top-[120px] mx-auto max-w-7xl ${styles.paddingX} flex flex-row items-start gap-5`}
+        className={`absolute inset-0 top-[70px] z-10 mx-auto max-w-7xl ${styles.paddingX} flex flex-row items-start gap-5`}
       >
         {/* Animated line indicator */}
         <div className="mt-5 flex flex-col items-center justify-center">
@@ -139,6 +139,9 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
               className="inline-block"
+              style={{
+                textShadow: "0 0 30px rgba(255, 255, 255, 0.1)",
+              }}
             >
               Hi, I'm{" "}
             </motion.span>
@@ -150,9 +153,9 @@ const Hero = () => {
                   variants={letterVariants}
                   initial="hidden"
                   animate="visible"
-                  className="inline-block gradient-text-hero"
+                  className="inline-block hero-name-letter"
                   style={{
-                    textShadow: "0 0 40px rgba(0, 240, 255, 0.3)",
+                    textShadow: "0 0 60px rgba(0, 240, 255, 0.4), 0 0 120px rgba(0, 240, 255, 0.15)",
                   }}
                 >
                   {letter === " " ? "\u00A0" : letter}
@@ -160,14 +163,32 @@ const Hero = () => {
               ))}
             </span>
           </h1>
+          {/* Decorative accent line under the name */}
+          <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
+            className="mt-2 h-[3px] w-48 origin-left rounded-full"
+            style={{
+              background: "linear-gradient(90deg, #00F0FF, #FF006E, transparent)",
+              boxShadow: "0 0 20px rgba(0, 240, 255, 0.4)",
+            }}
+          />
 
           {/* Typing effect subtitle */}
-          <p className={`${styles.heroSubText} text-white-100 mt-4`}>
+          <p className={`${styles.heroSubText} mt-4`}
+            style={{
+              color: "rgba(200, 200, 255, 0.85)",
+              textShadow: "0 0 30px rgba(0, 240, 255, 0.08)",
+              letterSpacing: "0.02em",
+            }}
+          >
             <span>{displayText}</span>
             <span
-              className={`inline-block w-[2px] h-[1em] bg-accent-cyan ml-1 align-middle ${
+              className={`inline-block w-[2px] h-[1em] ml-1 align-middle ${
                 isTyping ? "animate-pulse" : "opacity-0"
               }`}
+              style={{ background: "var(--accent-cyan)" }}
             />
           </p>
         </div>
