@@ -93,7 +93,7 @@ const Hero = () => {
 
       {/* Hero content */}
       <div
-        className={`absolute inset-0 top-[80px] mx-auto max-w-7xl ${styles.paddingX} flex flex-row items-start gap-5 z-10`}
+        className={`absolute inset-0 top-[80px] mx-auto max-w-7xl ${styles.paddingX} flex flex-row items-start gap-5 z-10 pointer-events-none`}
       >
         {/* Animated line indicator */}
         <div className="mt-5 flex flex-col items-center justify-center">
