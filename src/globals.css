@@ -207,26 +207,36 @@ img {
   -webkit-text-fill-color: transparent;
 }
 
-/* Hero name — animated gradient with glow */
-.hero-name-letter {
+/* Hero name animated gradient — richer multi-stop shimmer */
+.hero-name-gradient {
   background: linear-gradient(
-    135deg,
+    90deg,
     var(--accent-cyan) 0%,
-    #60e0ff 25%,
-    #ffffff 50%,
-    #ff80b5 75%,
-    var(--accent-magenta) 100%
+    #60e1ff 20%,
+    #a78bfa 40%,
+    var(--accent-magenta) 60%,
+    var(--accent-cyan) 80%,
+    #60e1ff 100%
   );
-  background-size: 200% 200%;
+  background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: hero-gradient-shift 4s ease-in-out infinite;
-  filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.3));
+  animation: hero-name-shimmer 4s linear infinite;
+  text-shadow: none;
+  filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.25));
 }
 
-@keyframes hero-gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+@keyframes hero-name-shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Hero subtitle — enhanced readability with soft glow */
+.hero-subtitle {
+  color: rgba(220, 215, 255, 0.9);
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.08);
+  letter-spacing: 0.01em;
 }
 
 /* ═══════════════════════════════════════════════════

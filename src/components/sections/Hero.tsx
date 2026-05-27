@@ -93,7 +93,7 @@ const Hero = () => {
 
       {/* Hero content */}
       <div
-        className={`absolute inset-0 top-[70px] z-10 mx-auto max-w-7xl ${styles.paddingX} flex flex-row items-start gap-5`}
+        className={`absolute inset-0 top-[80px] mx-auto max-w-7xl ${styles.paddingX} flex flex-row items-start gap-5 z-10`}
       >
         {/* Animated line indicator */}
         <div className="mt-5 flex flex-col items-center justify-center">
@@ -143,9 +143,17 @@ const Hero = () => {
                 textShadow: "0 0 30px rgba(255, 255, 255, 0.1)",
               }}
             >
-              Hi, I'm{" "}
+              Hi, I&apos;m{" "}
             </motion.span>
-            <span className="inline-flex">
+            <span className="relative inline-flex">
+              {/* Glow aura behind the name */}
+              <span
+                className="absolute inset-0 -z-10 blur-2xl opacity-40"
+                style={{
+                  background: "linear-gradient(90deg, rgba(0, 240, 255, 0.4), rgba(255, 0, 110, 0.3), rgba(145, 94, 255, 0.3))",
+                }}
+                aria-hidden="true"
+              />
               {nameLetters.map((letter, i) => (
                 <motion.span
                   key={i}
@@ -153,42 +161,21 @@ const Hero = () => {
                   variants={letterVariants}
                   initial="hidden"
                   animate="visible"
-                  className="inline-block hero-name-letter"
-                  style={{
-                    textShadow: "0 0 60px rgba(0, 240, 255, 0.4), 0 0 120px rgba(0, 240, 255, 0.15)",
-                  }}
+                  className="inline-block hero-name-gradient"
                 >
                   {letter === " " ? "\u00A0" : letter}
                 </motion.span>
               ))}
             </span>
           </h1>
-          {/* Decorative accent line under the name */}
-          <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
-            className="mt-2 h-[3px] w-48 origin-left rounded-full"
-            style={{
-              background: "linear-gradient(90deg, #00F0FF, #FF006E, transparent)",
-              boxShadow: "0 0 20px rgba(0, 240, 255, 0.4)",
-            }}
-          />
 
           {/* Typing effect subtitle */}
-          <p className={`${styles.heroSubText} mt-4`}
-            style={{
-              color: "rgba(200, 200, 255, 0.85)",
-              textShadow: "0 0 30px rgba(0, 240, 255, 0.08)",
-              letterSpacing: "0.02em",
-            }}
-          >
+          <p className={`${styles.heroSubText} mt-4 hero-subtitle`}>
             <span>{displayText}</span>
             <span
-              className={`inline-block w-[2px] h-[1em] ml-1 align-middle ${
+              className={`inline-block w-[2px] h-[1em] bg-accent-cyan ml-1 align-middle ${
                 isTyping ? "animate-pulse" : "opacity-0"
               }`}
-              style={{ background: "var(--accent-cyan)" }}
             />
           </p>
         </div>
