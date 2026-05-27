@@ -29,6 +29,8 @@ const SectionFallback = ({ height = '20rem' }: { height?: string }) => (
 );
 
 const App = () => {
+  // Theme is applied via CSS variables through ThemeProvider
+
   useEffect(() => {
     if (document.title !== config.html.title) {
       document.title = config.html.title;
@@ -60,7 +62,7 @@ const App = () => {
   }, [handleSmoothScroll]);
 
   return (
-    <div className="relative z-0 noise-bg" style={{ background: '#030014' }}>
+    <div className={`relative z-0 noise-bg theme-transition`} style={{ background: 'var(--bg-primary)' }}>
       {/* Custom cursor (desktop only) */}
       <Suspense fallback={null}>
         <CustomCursor />

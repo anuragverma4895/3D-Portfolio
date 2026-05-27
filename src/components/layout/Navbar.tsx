@@ -4,6 +4,7 @@ import { styles } from "../../constants/styles";
 import { navLinks } from "../../constants";
 import { logo, menu, close } from "../../assets";
 import { config } from "../../constants/config";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const [active, setActive] = useState<string | null>();
@@ -103,6 +104,11 @@ const Navbar = () => {
           ))}
         </ul>
 
+        {/* Theme toggle — desktop */}
+        <div className="hidden sm:flex items-center ml-6 pl-6" style={{ borderLeft: '1px solid rgba(255,255,255,0.08)' }}>
+          <ThemeToggle />
+        </div>
+
         <div className="flex flex-1 items-center justify-end sm:hidden">
           <img
             src={toggle ? close : menu}
@@ -139,6 +145,9 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
+            <div className="mt-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </div>
