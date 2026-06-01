@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { fadeIn } from '../../utils/motion';
 import { SectionWrapper } from '../../hoc';
 import { Header } from '../atoms/Header';
+import codeChefLogo from '../../assets/codechef.svg';
 
 // ─── Animated Counter ───
 function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
@@ -62,9 +63,7 @@ const codingStats = [
     label: 'Rating',
     accent: '#fb923c',
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12.003 0c-3.111 0-5.836 1.956-6.85 4.869-2.853.511-5.15 3.036-5.15 6.012 0 3.398 2.76 6.16 6.16 6.16.518 0 1.022-.066 1.51-.192C8.618 19.349 10.16 21 12.002 21c1.844 0 3.385-1.651 4.331-4.152.487.126.99.192 1.508.192 3.4 0 6.16-2.762 6.16-6.16 0-2.977-2.298-5.502-5.152-6.013A7.26 7.26 0 0 0 12.003 0zm0 1.875c2.316 0 4.321 1.48 5.011 3.633.286-.01.577-.021.87-.021 2.361 0 4.28 1.92 4.28 4.28 0 2.362-1.919 4.282-4.28 4.282a4.256 4.256 0 0 1-.87-.09c-.84 2.106-2.023 3.39-3.411 3.39-1.387 0-2.57-1.284-3.41-3.39a4.255 4.255 0 0 1-.871.09c-2.36 0-4.28-1.92-4.28-4.282 0-2.36 1.92-4.28 4.28-4.28.293 0 .584.011.87.021a5.395 5.395 0 0 1 5.012-3.633zm-.001 3.525c-1.353 0-2.45 1.097-2.45 2.45s1.097 2.45 2.45 2.45 2.45-1.097 2.45-2.45-1.097-2.45-2.45-2.45zm0 1.676c.428 0 .775.346.775.774 0 .427-.347.773-.775.773a.774.774 0 1 1 0-1.547z" />
-      </svg>
+      <img src={codeChefLogo} alt="CodeChef" className="w-[24px] h-[24px] rounded-full object-cover" style={{ objectPosition: 'left' }} />
     ),
   },
   {
