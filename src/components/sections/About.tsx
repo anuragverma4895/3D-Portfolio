@@ -74,21 +74,20 @@ const About = () => {
 
       <motion.div
         variants={fadeIn("", "", 0.1, 1)}
-        className="mt-8 max-w-4xl relative"
+        className="mt-8 w-full relative"
       >
-        {/* Glassmorphism container */}
-        <div
-          className="about-intro-card rounded-2xl p-6 sm:p-8 relative overflow-hidden"
-        >
-          {/* Subtle top-left glow */}
+        {/* Open layout with left accent border */}
+        <div className="about-open-section relative pl-6 sm:pl-8">
+          {/* Left gradient accent line */}
           <div
-            className="absolute top-0 left-0 w-40 h-40 pointer-events-none"
+            className="absolute left-0 top-0 bottom-0 w-[3px] rounded-full"
             style={{
-              background: "radial-gradient(circle, rgba(0, 240, 255, 0.06), transparent 70%)",
+              background: "linear-gradient(180deg, #00F0FF, #a78bfa, #FF006E)",
+              boxShadow: "0 0 15px rgba(0, 240, 255, 0.3), 0 0 30px rgba(0, 240, 255, 0.1)",
             }}
           />
 
-          <p className="about-intro-text text-[17px] sm:text-[18px] leading-[30px] sm:leading-[34px] tracking-wide relative z-10"
+          <p className="about-intro-text text-[17px] sm:text-[18px] leading-[30px] sm:leading-[34px] tracking-wide"
           >
             I don&apos;t just write code{" "}
             <span className="gradient-text-cyan font-semibold">—</span>{" "}
@@ -117,7 +116,7 @@ const About = () => {
             <span className="text-white font-semibold">built to scale</span>.
           </p>
 
-          <p className="about-intro-text text-[17px] sm:text-[18px] leading-[30px] sm:leading-[34px] tracking-wide mt-4 relative z-10"
+          <p className="about-intro-text text-[17px] sm:text-[18px] leading-[30px] sm:leading-[34px] tracking-wide mt-5"
           >
             From real-time communication platforms powered by{" "}
             <span className="about-tech-tag">WebRTC</span>
@@ -135,7 +134,7 @@ const About = () => {
             }}>elegant, high-performance solutions</span>.
           </p>
 
-          <p className="about-intro-text text-[17px] sm:text-[18px] leading-[30px] sm:leading-[34px] tracking-wide mt-4 relative z-10"
+          <p className="about-intro-text text-[17px] sm:text-[18px] leading-[30px] sm:leading-[34px] tracking-wide mt-5"
           >
             Proficient in{" "}
             <span className="about-tech-tag">JavaScript</span>{" "}
@@ -149,20 +148,20 @@ const About = () => {
             {" "}to every project.
           </p>
 
-          <p className="mt-5 text-[18px] sm:text-[19px] font-semibold relative z-10" style={{
+          <p className="mt-6 text-[18px] sm:text-[19px] font-semibold" style={{
             background: "linear-gradient(90deg, #00F0FF, #a78bfa, #FF006E)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}>
             Let&apos;s create something extraordinary together. ✦
           </p>
-
-          {/* Bottom gradient line */}
-          <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{
-            background: "linear-gradient(90deg, transparent, #00F0FF, #FF006E, transparent)",
-            opacity: 0.4,
-          }} />
         </div>
+
+        {/* Bottom decorative gradient line */}
+        <div className="mt-8 w-full h-[1px]" style={{
+          background: "linear-gradient(90deg, #00F0FF, rgba(167, 139, 250, 0.5) 50%, transparent)",
+          opacity: 0.3,
+        }} />
       </motion.div>
 
       <div className="mt-20 flex flex-wrap gap-10 max-sm:justify-center">

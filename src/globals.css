@@ -699,6 +699,16 @@ img {
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
 }
 
+/* About open section layout */
+.about-open-section {
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .about-open-section > div:first-child {
+  background: linear-gradient(180deg, #2563eb, #7c3aed, #db2777) !important;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.2), 0 0 20px rgba(37, 99, 235, 0.08) !important;
+}
+
 /* About intro paragraph text */
 .about-intro-text {
   color: rgba(210, 205, 240, 0.85);
