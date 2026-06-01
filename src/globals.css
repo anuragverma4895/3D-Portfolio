@@ -266,10 +266,10 @@
 }
 
 /* ═══════════════════════════════════════════════════
-   COMPREHENSIVE LIGHT THEME — ALL SECTIONS
+   COMPREHENSIVE LIGHT THEME — PREMIUM DESIGN
    ═══════════════════════════════════════════════════ */
 
-/* --- Section Headings (sectionHeadText / sectionSubText) --- */
+/* --- Section Headings --- */
 [data-theme="light"] .text-white {
   color: #1a1a2e !important;
 }
@@ -278,7 +278,7 @@
   color: #5a5a7a !important;
 }
 
-/* --- General white-alpha text visibility --- */
+/* --- General white-alpha text → readable dark --- */
 [data-theme="light"] [class*="text-white/"] {
   color: #3a3a5a !important;
 }
@@ -297,34 +297,43 @@
   color: #7a7a9a !important;
 }
 
-/* --- General white-alpha borders --- */
+/* --- General white-alpha borders → subtle colored --- */
 [data-theme="light"] [class*="border-white/"] {
-  border-color: rgba(0, 0, 0, 0.08) !important;
+  border-color: rgba(8, 145, 178, 0.08) !important;
 }
 
 /* --- General white-alpha backgrounds --- */
 [data-theme="light"] [class*="bg-white/"] {
-  background-color: rgba(0, 0, 0, 0.03) !important;
+  background-color: rgba(8, 145, 178, 0.03) !important;
 }
 
-/* --- Glass Card in light mode --- */
+/* ─── GLASS CARD — Premium light ─── */
 [data-theme="light"] .glass-card {
-  background: rgba(255, 255, 255, 0.85) !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05), 0 1px 4px rgba(0, 0, 0, 0.03);
-  backdrop-filter: blur(12px);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 245, 255, 0.85)) !important;
+  border: 1px solid rgba(8, 145, 178, 0.1) !important;
+  box-shadow:
+    0 4px 24px rgba(8, 145, 178, 0.06),
+    0 1px 6px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
 }
 
 [data-theme="light"] .glass-card:hover {
-  border-color: rgba(8, 145, 178, 0.2) !important;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08), 0 0 20px rgba(8, 145, 178, 0.06) !important;
+  border-color: rgba(8, 145, 178, 0.25) !important;
+  box-shadow:
+    0 12px 48px rgba(8, 145, 178, 0.1),
+    0 4px 16px rgba(124, 58, 237, 0.05),
+    0 0 0 1px rgba(8, 145, 178, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  transform: translateY(-2px);
 }
 
-/* ─── SKILLS / TECH STACK SECTION ─── */
+/* ─── SKILLS / TECH STACK ─── */
 
-/* Skill category card inner (bg-[#070515]) */
+/* Skill category card inner */
 [data-theme="light"] .skill-card > div {
-  background: linear-gradient(135deg, #ffffff, #f8f6f2) !important;
+  background: linear-gradient(145deg, #ffffff, #f0f5ff) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 [data-theme="light"] .bg-\[\#070515\] {
@@ -332,20 +341,31 @@
 }
 
 [data-theme="light"] .skill-card {
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06) !important;
+  box-shadow:
+    0 4px 24px rgba(8, 145, 178, 0.08),
+    0 1px 4px rgba(0, 0, 0, 0.04) !important;
 }
 
-/* Skill pill */
+[data-theme="light"] .skill-card:hover {
+  box-shadow:
+    0 12px 48px rgba(8, 145, 178, 0.12),
+    0 4px 16px rgba(124, 58, 237, 0.06) !important;
+}
+
+/* Skill pill — subtle gradient with accent */
 [data-theme="light"] .skill-pill {
-  background: rgba(255, 255, 255, 0.9) !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-  color: #3a3a5a !important;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  background: linear-gradient(145deg, #ffffff, #f5f8ff) !important;
+  border-color: rgba(8, 145, 178, 0.12) !important;
+  color: #2a2a4a !important;
+  box-shadow: 0 2px 8px rgba(8, 145, 178, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
 }
 
 [data-theme="light"] .skill-pill:hover {
-  border-color: rgba(0, 0, 0, 0.15) !important;
-  color: #1a1a2e !important;
+  border-color: rgba(8, 145, 178, 0.3) !important;
+  color: #0e7490 !important;
+  box-shadow: 0 4px 16px rgba(8, 145, 178, 0.12), 0 0 0 1px rgba(8, 145, 178, 0.08) !important;
+  background: linear-gradient(145deg, #f0fbff, #e8f4ff) !important;
 }
 
 [data-theme="light"] .skill-pill span {
@@ -354,9 +374,9 @@
 
 /* Skill section floating stat pills */
 [data-theme="light"] section .flex.items-center.gap-2.rounded-full {
-  background: rgba(255, 255, 255, 0.9) !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  background: linear-gradient(145deg, #ffffff, #f5f8ff) !important;
+  border-color: rgba(8, 145, 178, 0.1) !important;
+  box-shadow: 0 2px 8px rgba(8, 145, 178, 0.06);
 }
 
 /* Skill section subtitle text */
@@ -364,46 +384,50 @@
   color: #5a5a7a !important;
 }
 
-/* ─── EDUCATION SECTION ─── */
+/* ─── EDUCATION ─── */
 
 /* Duration badge */
 [data-theme="light"] .glass-card span.inline-flex {
-  background: rgba(8, 145, 178, 0.08) !important;
+  background: linear-gradient(135deg, rgba(8, 145, 178, 0.08), rgba(124, 58, 237, 0.06)) !important;
   border-color: rgba(8, 145, 178, 0.2) !important;
   color: var(--accent-cyan) !important;
+  box-shadow: 0 2px 8px rgba(8, 145, 178, 0.06);
 }
 
 /* University info inner card */
 [data-theme="light"] .glass-card .rounded-2xl.border {
-  background: rgba(0, 0, 0, 0.02) !important;
-  border-color: rgba(0, 0, 0, 0.06) !important;
+  background: linear-gradient(145deg, rgba(8, 145, 178, 0.03), rgba(124, 58, 237, 0.02)) !important;
+  border-color: rgba(8, 145, 178, 0.08) !important;
 }
 
 /* Coursework tags */
 [data-theme="light"] .glass-card .rounded-xl.border {
-  background: rgba(0, 0, 0, 0.02) !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-  color: #4a4a6a !important;
+  background: linear-gradient(145deg, #ffffff, #f5f8ff) !important;
+  border-color: rgba(8, 145, 178, 0.1) !important;
+  color: #3a3a5a !important;
+  box-shadow: 0 1px 4px rgba(8, 145, 178, 0.04);
+  transition: all 0.3s ease;
 }
 
 [data-theme="light"] .glass-card .rounded-xl.border:hover {
-  background: rgba(8, 145, 178, 0.06) !important;
-  border-color: rgba(8, 145, 178, 0.2) !important;
-  color: #1a1a2e !important;
+  background: linear-gradient(145deg, #e8f8ff, #f0f0ff) !important;
+  border-color: rgba(8, 145, 178, 0.25) !important;
+  color: #0e7490 !important;
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.1) !important;
 }
 
-/* ─── ACHIEVEMENTS SECTION ─── */
+/* ─── ACHIEVEMENTS ─── */
 
 /* Bottom stat bar */
 [data-theme="light"] .mt-12.flex.flex-wrap.items-center.justify-center {
-  background: rgba(255, 255, 255, 0.85) !important;
-  border-color: rgba(0, 0, 0, 0.06) !important;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 245, 255, 0.85)) !important;
+  border-color: rgba(8, 145, 178, 0.1) !important;
+  box-shadow: 0 4px 24px rgba(8, 145, 178, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 /* Stat bar dividers */
 [data-theme="light"] .h-8.w-px {
-  background-color: rgba(0, 0, 0, 0.1) !important;
+  background: linear-gradient(180deg, transparent, rgba(8, 145, 178, 0.15), transparent) !important;
 }
 
 /* Stat bar labels */
@@ -413,7 +437,8 @@
 
 /* Achievement card type badges */
 [data-theme="light"] .rounded-full.px-2\.5.py-1 {
-  border-color: rgba(0, 0, 0, 0.08) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 /* Achievement card icon boxes */
@@ -426,51 +451,68 @@
   color: var(--accent-cyan) !important;
 }
 
-/* ─── WORKS SECTION ─── */
+[data-theme="light"] a.text-accent-cyan\/80:hover {
+  text-shadow: 0 0 12px rgba(8, 145, 178, 0.2);
+}
+
+/* ─── WORKS ─── */
 
 /* Project card image overlay */
 [data-theme="light"] .bg-gradient-to-t.from-\[\#030014\]\/70 {
-  background: linear-gradient(to top, rgba(248, 246, 242, 0.7), transparent, transparent) !important;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent, transparent) !important;
 }
 
 [data-theme="light"] .bg-gradient-to-t.from-\[\#030014\]\/60 {
-  background: linear-gradient(to top, rgba(248, 246, 242, 0.6), transparent, transparent) !important;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.7), transparent, transparent) !important;
 }
 
 /* Project card action buttons */
 [data-theme="light"] .card-img_hover div,
 [data-theme="light"] .flex.h-10.w-10.cursor-pointer.items-center.justify-center.rounded-full {
-  background: rgba(255, 255, 255, 0.9) !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(145deg, #ffffff, #f0f5ff) !important;
+  border-color: rgba(8, 145, 178, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(8, 145, 178, 0.05);
+}
+
+[data-theme="light"] .card-img_hover div:hover,
+[data-theme="light"] .flex.h-10.w-10.cursor-pointer:hover {
+  box-shadow: 0 6px 20px rgba(8, 145, 178, 0.15), 0 0 0 1px rgba(8, 145, 178, 0.15) !important;
 }
 
 [data-theme="light"] .card-img_hover div svg,
 [data-theme="light"] .flex.h-10.w-10.cursor-pointer svg {
-  color: #1a1a2e !important;
+  color: #0e7490 !important;
 }
 
 /* Project card tags */
 [data-theme="light"] .rounded-full.border.border-white\/\[0\.06\] {
-  background: rgba(0, 0, 0, 0.03) !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
+  background: linear-gradient(145deg, #ffffff, #f5f8ff) !important;
+  border-color: rgba(8, 145, 178, 0.1) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 /* Category badge icon container */
 [data-theme="light"] .flex.items-center.justify-center.w-12.h-12.rounded-xl.shadow-lg {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 20px rgba(8, 145, 178, 0.05) !important;
 }
 
 /* AI/ML Card */
 [data-theme="light"] .aiml-card {
-  background: rgba(255, 255, 255, 0.85) !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 240, 245, 0.85)) !important;
+  border: 1px solid rgba(219, 39, 119, 0.1) !important;
+  box-shadow:
+    0 4px 24px rgba(219, 39, 119, 0.05),
+    0 1px 6px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 [data-theme="light"] .aiml-card:hover {
-  border-color: rgba(219, 39, 119, 0.2) !important;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08), 0 0 20px rgba(219, 39, 119, 0.06) !important;
+  border-color: rgba(219, 39, 119, 0.25) !important;
+  box-shadow:
+    0 12px 48px rgba(219, 39, 119, 0.1),
+    0 4px 16px rgba(168, 85, 247, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  transform: translateY(-2px);
 }
 
 /* ─── PROFILE SECTION ─── */
@@ -483,47 +525,54 @@
 /* Social link icon background */
 [data-theme="light"] span.bg-black\/25,
 [data-theme="light"] .bg-black\/25 {
-  background: rgba(0, 0, 0, 0.04) !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
+  background: linear-gradient(145deg, rgba(8, 145, 178, 0.06), rgba(124, 58, 237, 0.04)) !important;
+  border-color: rgba(8, 145, 178, 0.1) !important;
 }
 
 /* CTA Card */
 [data-theme="light"] [style*="linear-gradient(135deg, rgba(0, 240, 255, 0.06)"] {
-  background: linear-gradient(135deg, rgba(8, 145, 178, 0.06), rgba(219, 39, 119, 0.06)) !important;
+  background: linear-gradient(135deg, rgba(8, 145, 178, 0.08), rgba(124, 58, 237, 0.05), rgba(219, 39, 119, 0.06)) !important;
   border-color: rgba(8, 145, 178, 0.15) !important;
+  box-shadow: 0 4px 24px rgba(8, 145, 178, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 /* CTA card highlight pills */
 [data-theme="light"] .rounded-full.border.border-white\/10 {
-  background: rgba(0, 0, 0, 0.03) !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-  color: #4a4a6a !important;
+  background: linear-gradient(145deg, #ffffff, #f5f8ff) !important;
+  border-color: rgba(8, 145, 178, 0.1) !important;
+  color: #3a3a5a !important;
+  box-shadow: 0 1px 4px rgba(8, 145, 178, 0.04);
 }
 
 [data-theme="light"] .rounded-full.border.border-white\/10:hover {
-  background: rgba(8, 145, 178, 0.08) !important;
-  border-color: rgba(8, 145, 178, 0.2) !important;
+  background: linear-gradient(145deg, #e8f8ff, #f0f0ff) !important;
+  border-color: rgba(8, 145, 178, 0.25) !important;
+  color: #0e7490 !important;
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.08) !important;
 }
 
-/* Profile social link card hover */
+/* Profile social link cards */
 [data-theme="light"] a.flex.min-w-0.flex-col {
-  background: rgba(255, 255, 255, 0.9) !important;
-  border-color: rgba(0, 0, 0, 0.06) !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 245, 255, 0.85)) !important;
+  border-color: rgba(8, 145, 178, 0.08) !important;
+  box-shadow: 0 2px 10px rgba(8, 145, 178, 0.04);
 }
 
 [data-theme="light"] a.flex.min-w-0.flex-col:hover {
-  border-color: rgba(0, 0, 0, 0.12) !important;
-  background: rgba(255, 255, 255, 1) !important;
+  border-color: rgba(8, 145, 178, 0.2) !important;
+  background: linear-gradient(145deg, #ffffff, #f0fbff) !important;
+  box-shadow: 0 8px 30px rgba(8, 145, 178, 0.1) !important;
 }
 
 /* ─── CONTACT SECTION ─── */
 
 /* Contact form inputs */
 [data-theme="light"] .input-glow {
-  background: rgba(255, 255, 255, 0.9) !important;
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  background: linear-gradient(145deg, #ffffff, #f8faff) !important;
+  border: 1px solid rgba(8, 145, 178, 0.12) !important;
   color: #1a1a2e !important;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(8, 145, 178, 0.04), inset 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
 }
 
 [data-theme="light"] .input-glow::placeholder {
@@ -532,7 +581,11 @@
 
 [data-theme="light"] .input-glow:focus {
   border-color: var(--accent-cyan) !important;
-  box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.12), 0 0 15px rgba(8, 145, 178, 0.06) !important;
+  box-shadow:
+    0 0 0 3px rgba(8, 145, 178, 0.1),
+    0 4px 16px rgba(8, 145, 178, 0.08),
+    0 0 24px rgba(8, 145, 178, 0.04) !important;
+  background: #ffffff !important;
 }
 
 /* Contact form labels */
@@ -540,15 +593,20 @@
   color: #1a1a2e !important;
 }
 
-/* Contact WhatsApp button text */
+/* Contact WhatsApp button */
 [data-theme="light"] .btn-solid {
   color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(8, 145, 178, 0.2), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .btn-solid:hover {
+  box-shadow: 0 8px 32px rgba(8, 145, 178, 0.3), 0 4px 8px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* ─── FOOTER ─── */
 [data-theme="light"] footer {
-  background: #f0ece6 !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+  background: linear-gradient(180deg, #f0ece6, #e8e4de) !important;
+  border-top: 1px solid rgba(8, 145, 178, 0.08) !important;
 }
 
 [data-theme="light"] footer p,
@@ -559,25 +617,36 @@
 
 /* ─── MISC ─── */
 
-/* Card lift effect */
+/* Card lift effect — colored shadow */
 [data-theme="light"] .card-lift:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08) !important;
+  box-shadow:
+    0 16px 48px rgba(8, 145, 178, 0.08),
+    0 8px 24px rgba(124, 58, 237, 0.04),
+    0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
-/* Section dividers */
+/* Section dividers — colored gradient */
 [data-theme="light"] .section-divider::after {
-  opacity: 0.08 !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(8, 145, 178, 0.3) 20%,
+    rgba(124, 58, 237, 0.2) 50%,
+    rgba(219, 39, 119, 0.3) 80%,
+    transparent 100%
+  ) !important;
+  opacity: 0.2 !important;
 }
 
-/* Gradient text utilities — keep visible */
+/* Gradient text utilities — vivid in light */
 [data-theme="light"] .gradient-text-cyan {
-  background: linear-gradient(135deg, var(--accent-cyan), #0e7490) !important;
+  background: linear-gradient(135deg, #0891b2, #0e7490, #0d9488) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
 }
 
 [data-theme="light"] .gradient-text-magenta {
-  background: linear-gradient(135deg, var(--accent-magenta), #be185d) !important;
+  background: linear-gradient(135deg, #db2777, #be185d, #a21caf) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
 }
@@ -587,17 +656,23 @@
   opacity: 0.004 !important;
 }
 
-/* Stars canvas — hide in light mode */
+/* Stars canvas — very faint in light */
 [data-theme="light"] .relative.z-0 > canvas {
-  opacity: 0.05 !important;
+  opacity: 0.04 !important;
 }
 
 /* Resume button & Social sidebar */
 [data-theme="light"] .social-sidebar-link,
 [data-theme="light"] [class*="social"] > div {
-  background: rgba(255, 255, 255, 0.9) !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(145deg, #ffffff, #f5f8ff) !important;
+  border-color: rgba(8, 145, 178, 0.1) !important;
+  box-shadow: 0 4px 16px rgba(8, 145, 178, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .social-sidebar-link:hover,
+[data-theme="light"] [class*="social"] > div:hover {
+  border-color: rgba(8, 145, 178, 0.25) !important;
+  box-shadow: 0 8px 24px rgba(8, 145, 178, 0.1), 0 0 0 1px rgba(8, 145, 178, 0.08) !important;
 }
 
 [data-theme="light"] .social-sidebar-link svg,
@@ -615,7 +690,7 @@
 }
 
 [data-theme="light"] .custom-cursor-ring {
-  border-color: rgba(8, 145, 178, 0.3) !important;
+  border-color: rgba(8, 145, 178, 0.35) !important;
 }
 
 /* Scroll indicator */
@@ -625,12 +700,12 @@
 
 /* bg-black variants */
 [data-theme="light"] [class*="bg-black/"] {
-  background-color: rgba(0, 0, 0, 0.03) !important;
+  background-color: rgba(8, 145, 178, 0.03) !important;
 }
 
 [data-theme="light"] .bg-black-100,
 [data-theme="light"] .bg-black-200 {
-  background: #f5f3ef !important;
+  background: linear-gradient(145deg, #f5f3ef, #ede9e3) !important;
 }
 
 [data-theme="light"] .bg-primary,
@@ -638,9 +713,10 @@
   background: var(--bg-primary) !important;
 }
 
-/* Education section degree icon box — keep gradient visible */
+/* Education section degree icon box */
 [data-theme="light"] .glass-card .flex.h-16.w-16 {
   border-color: rgba(8, 145, 178, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.08);
 }
 
 /* Education section SVG stroke colors */
@@ -657,6 +733,37 @@
 [data-theme="light"] .text-secondary.mt-2,
 [data-theme="light"] .text-secondary.mt-3 {
   color: #5a5a7a !important;
+}
+
+/* About section intro text */
+[data-theme="light"] .about-intro-text {
+  color: #3a3a5a !important;
+}
+
+/* About section left accent border in light */
+[data-theme="light"] .about-open-section > div:first-child {
+  background: linear-gradient(180deg, #0891b2, #7c3aed, #db2777) !important;
+  box-shadow: 0 0 12px rgba(8, 145, 178, 0.2), 0 0 24px rgba(8, 145, 178, 0.06) !important;
+}
+
+/* Service card in About */
+[data-theme="light"] .service-card-inner {
+  background: linear-gradient(145deg, #ffffff, #f5f8ff) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* About section tech tags in light */
+[data-theme="light"] .about-tech-tag {
+  background: linear-gradient(145deg, rgba(8, 145, 178, 0.08), rgba(8, 145, 178, 0.04)) !important;
+  border-color: rgba(8, 145, 178, 0.2) !important;
+  color: #0e7490 !important;
+  box-shadow: 0 1px 3px rgba(8, 145, 178, 0.06);
+}
+
+[data-theme="light"] .about-tech-tag:hover {
+  background: linear-gradient(145deg, rgba(8, 145, 178, 0.14), rgba(8, 145, 178, 0.08)) !important;
+  border-color: rgba(8, 145, 178, 0.35) !important;
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.1) !important;
 }
 
 /* ═══════════════════════════════════════════════════
