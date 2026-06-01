@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
 import { styles } from '../../constants/styles';
 import { fadeIn } from '../../utils/motion';
+import { useTheme } from '../../context/ThemeContext';
 
 export type SkillItem = {
   name: string;
@@ -134,12 +135,23 @@ const CategoryCard: React.FC<{
   index: number;
   allSkillIcons: SkillItem[];
 }> = ({ category, index, allSkillIcons }) => {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
+
   const getIconForSkill = (skillName: string) => {
     const found = allSkillIcons.find(
       s => s.name.toLowerCase() === skillName.toLowerCase()
     );
     return found?.icon;
   };
+
+  const defaultBg = isLight
+    ? `linear-gradient(135deg, ${category.accentHex}10, rgba(255,255,255,0.5) 40%, ${category.accentHex}08)`
+    : `linear-gradient(135deg, ${category.accentHex}20, transparent 40%, ${category.accentHex}10)`;
+
+  const hoverGlowColor = isLight
+    ? category.glowColor.replace('0.25', '0.12')
+    : category.glowColor;
 
   return (
     <motion.div
@@ -150,7 +162,7 @@ const CategoryCard: React.FC<{
         tiltMaxAngleX={8}
         tiltMaxAngleY={8}
         glareEnable
-        glareMaxOpacity={0.08}
+        glareMaxOpacity={isLight ? 0.04 : 0.08}
         glareColor={category.accentHex}
         glarePosition="all"
         perspective={1200}
@@ -160,20 +172,23 @@ const CategoryCard: React.FC<{
         <div
           className="skill-card group relative h-full rounded-2xl p-[1px] transition-all duration-500"
           style={{
-            background: `linear-gradient(135deg, ${category.accentHex}20, transparent 40%, ${category.accentHex}10)`,
+            background: defaultBg,
           }}
           onMouseEnter={e => {
             const el = e.currentTarget;
             el.style.background = category.borderGradient;
-            el.style.boxShadow = `0 12px 50px ${category.glowColor}, 0 0 80px ${category.glowColor.replace('0.25', '0.08')}`;
+            el.style.boxShadow = `0 12px 50px ${hoverGlowColor}, 0 0 80px ${category.glowColor.replace('0.25', '0.04')}`;
           }}
           onMouseLeave={e => {
             const el = e.currentTarget;
-            el.style.background = `linear-gradient(135deg, ${category.accentHex}20, transparent 40%, ${category.accentHex}10)`;
+            el.style.background = defaultBg;
             el.style.boxShadow = 'none';
           }}
         >
-          <div className="relative h-full rounded-[15px] bg-[#070515] p-6 overflow-hidden">
+          <div
+            className={`relative h-full rounded-[15px] p-6 overflow-hidden ${isLight ? '' : 'bg-[#070515]'}`}
+            style={isLight ? { background: 'linear-gradient(135deg, #ffffff, #fafaf8)' } : undefined}
+          >
             {/* Animated background pattern */}
             <div
               className="absolute inset-0 opacity-[0.015] group-hover:opacity-[0.04] transition-opacity duration-700"
@@ -186,11 +201,11 @@ const CategoryCard: React.FC<{
             {/* Corner glow */}
             <div
               className="absolute -top-16 -right-16 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl"
-              style={{ backgroundColor: category.glowColor }}
+              style={{ backgroundColor: isLight ? category.glowColor.replace('0.25', '0.08') : category.glowColor }}
             />
             <div
               className="absolute -bottom-12 -left-12 h-32 w-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl"
-              style={{ backgroundColor: category.glowColor.replace('0.25', '0.12') }}
+              style={{ backgroundColor: category.glowColor.replace('0.25', isLight ? '0.06' : '0.12') }}
             />
 
             {/* Category header */}
