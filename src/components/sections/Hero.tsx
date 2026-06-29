@@ -339,12 +339,26 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2.2, duration: 0.8 }}
-              className="mt-10 flex flex-wrap items-center gap-4 pointer-events-auto"
+              className="mt-10 flex flex-wrap items-center gap-4 pointer-events-auto relative z-[60]"
             >
-              <a href="#work" className="hero-cta-primary">
+              <a
+                href="#work"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector("#work")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="hero-cta-primary cursor-pointer"
+              >
                 <span className="relative z-10">View My Work</span>
               </a>
-              <a href="#contact" className="hero-cta-secondary">
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="hero-cta-secondary cursor-pointer"
+              >
                 Get In Touch
               </a>
             </motion.div>
@@ -360,7 +374,7 @@ const Hero = () => {
             duration: 1.4,
             ease: [0.2, 0.65, 0.3, 0.9],
           }}
-          className="hero-avatar-container hidden lg:flex flex-1 items-center justify-end relative"
+          className="hero-avatar-container hidden lg:flex flex-1 items-center justify-end relative pointer-events-none"
         >
           {/* Glow behind avatar */}
           <div className="hero-avatar-glow" />
@@ -368,7 +382,7 @@ const Hero = () => {
           {/* Avatar image */}
           <motion.div
             style={{ x: imgX, y: imgY }}
-            className="hero-avatar-wrapper"
+            className="hero-avatar-wrapper pointer-events-auto"
           >
             <img
               src={anuragHero}
@@ -381,13 +395,20 @@ const Hero = () => {
       </div>
 
       {/* Scroll indicator */}
-      <div className="xs:bottom-10 absolute bottom-32 flex w-full items-center justify-center z-10">
-        <a href="#about">
+      <div className="xs:bottom-10 absolute bottom-32 flex w-full items-center justify-center z-[60] pointer-events-auto">
+        <a
+          href="#about"
+          onClick={(e) => {
+            e.preventDefault();
+            document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
+          }}
+          className="cursor-pointer"
+        >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 3, duration: 1 }}
-            className="flex h-[64px] w-[35px] items-start justify-center rounded-3xl border-2 p-2"
+            className="flex h-[64px] w-[35px] items-start justify-center rounded-3xl border-2 p-2 transition-colors hover:border-accent-cyan"
             style={{
               borderColor: "rgba(0, 240, 255, 0.3)",
               boxShadow: "0 0 15px rgba(0, 240, 255, 0.1)",
