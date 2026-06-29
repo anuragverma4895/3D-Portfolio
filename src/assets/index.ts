@@ -7,6 +7,7 @@ import github from "./github.png";
 import menu from "./menu.svg";
 import close from "./close.svg";
 import aiml from "./aiml.svg";
+import anuragHero from "./anurag-hero.png";
 
 import css from "./tech/css.png";
 import docker from "./tech/docker.png";
@@ -49,6 +50,7 @@ export {
   menu,
   close,
   aiml,
+  anuragHero,
   css,
   docker,
   figma,

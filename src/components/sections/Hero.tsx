@@ -2,8 +2,8 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect, useState, useCallback, useRef } from "react";
 
 import { styles } from "../../constants/styles";
-import { ComputersCanvas } from "../canvas";
 import { config } from "../../constants/config";
+import { anuragHero } from "../../assets";
 
 // Letter stagger animation for the name
 const letterVariants = {
@@ -50,19 +50,71 @@ function useTypingEffect(texts: string[], speed = 50, pause = 2000) {
   return { displayText, isTyping };
 }
 
+// Floating particles component
+const FloatingParticles = () => {
+  const particles = Array.from({ length: 20 }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 3 + 1,
+    duration: Math.random() * 8 + 6,
+    delay: Math.random() * 5,
+  }));
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute rounded-full"
+          style={{
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            width: p.size,
+            height: p.size,
+            background: p.id % 3 === 0
+              ? "rgba(0, 240, 255, 0.6)"
+              : p.id % 3 === 1
+              ? "rgba(255, 0, 110, 0.5)"
+              : "rgba(145, 94, 255, 0.5)",
+            boxShadow: p.id % 3 === 0
+              ? "0 0 6px rgba(0, 240, 255, 0.4)"
+              : p.id % 3 === 1
+              ? "0 0 6px rgba(255, 0, 110, 0.3)"
+              : "0 0 6px rgba(145, 94, 255, 0.3)",
+          }}
+          animate={{
+            y: [0, -30, 0, 20, 0],
+            x: [0, 15, -10, 5, 0],
+            opacity: [0.3, 0.8, 0.5, 0.7, 0.3],
+          }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            delay: p.delay,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const Hero = () => {
   const name = config.hero.name;
   const nameLetters = name.split("");
   const { displayText, isTyping } = useTypingEffect(config.hero.p, 35);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Mouse parallax for orbs
+  // Mouse parallax for orbs & image
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const orbX1 = useTransform(mouseX, [-500, 500], [-30, 30]);
   const orbY1 = useTransform(mouseY, [-500, 500], [-20, 20]);
   const orbX2 = useTransform(mouseX, [-500, 500], [20, -20]);
   const orbY2 = useTransform(mouseY, [-500, 500], [15, -15]);
+  const imgX = useTransform(mouseX, [-500, 500], [-8, 8]);
+  const imgY = useTransform(mouseY, [-500, 500], [-6, 6]);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
@@ -91,97 +143,176 @@ const Hero = () => {
       />
       <div className="orb orb-purple absolute bottom-20 left-1/3 h-[300px] w-[300px] animate-float" />
 
-      {/* Hero content */}
+      {/* Floating particles */}
+      <FloatingParticles />
+
+      {/* Hero content — split layout */}
       <div
-        className={`absolute inset-0 top-[80px] mx-auto max-w-7xl ${styles.paddingX} flex flex-row items-start gap-5 z-10 pointer-events-none`}
+        className={`absolute inset-0 top-[80px] mx-auto max-w-7xl ${styles.paddingX} flex flex-row items-center gap-5 z-10`}
       >
-        {/* Animated line indicator */}
-        <div className="mt-5 flex flex-col items-center justify-center">
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.5, type: "spring" }}
-            className="h-5 w-5 rounded-full"
-            style={{
-              background: "linear-gradient(135deg, #00F0FF, #FF006E)",
-              boxShadow: "0 0 20px rgba(0, 240, 255, 0.5), 0 0 40px rgba(0, 240, 255, 0.2)",
-            }}
-          />
-          <motion.div
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
-            className="w-1 sm:h-80 h-40 origin-top"
-            style={{
-              background: "linear-gradient(180deg, #00F0FF, transparent)",
-            }}
-          />
-        </div>
+        {/* Left side — text content */}
+        <div className="flex flex-row items-start gap-5 flex-1 pointer-events-none">
+          {/* Animated line indicator */}
+          <div className="mt-5 flex flex-col items-center justify-center">
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.5, type: "spring" }}
+              className="h-5 w-5 rounded-full"
+              style={{
+                background: "linear-gradient(135deg, #00F0FF, #FF006E)",
+                boxShadow: "0 0 20px rgba(0, 240, 255, 0.5), 0 0 40px rgba(0, 240, 255, 0.2)",
+              }}
+            />
+            <motion.div
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: 1 }}
+              transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
+              className="w-1 sm:h-80 h-40 origin-top"
+              style={{
+                background: "linear-gradient(180deg, #00F0FF, transparent)",
+              }}
+            />
+          </div>
 
-        <div>
-          {/* "Available for work" badge */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 backdrop-blur-sm"
-          >
-            <span className="status-dot" />
-            <span className="text-[12px] font-semibold uppercase tracking-[0.2em] text-white/60">
-              Available for work
-            </span>
-          </motion.div>
+          <div>
+            {/* "Available for work" badge */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 backdrop-blur-sm"
+            >
+              <span className="status-dot" />
+              <span className="text-[12px] font-semibold uppercase tracking-[0.2em] text-white/60">
+                Available for work
+              </span>
+            </motion.div>
 
-          {/* Animated name with letter stagger */}
-          <h1 className={`${styles.heroHeadText} text-white`}>
-            <motion.span
+            {/* Animated name with letter stagger */}
+            <h1 className={`${styles.heroHeadText} text-white`}>
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="inline-block"
+                style={{
+                  textShadow: "0 0 30px rgba(255, 255, 255, 0.1)",
+                }}
+              >
+                Hi, I&apos;m{" "}
+              </motion.span>
+              <span className="relative inline-flex">
+                {/* Glow aura behind the name */}
+                <span
+                  className="absolute inset-0 -z-10 blur-2xl opacity-40"
+                  style={{
+                    background: "linear-gradient(90deg, rgba(0, 240, 255, 0.4), rgba(255, 0, 110, 0.3), rgba(145, 94, 255, 0.3))",
+                  }}
+                  aria-hidden="true"
+                />
+                {nameLetters.map((letter, i) => (
+                  <motion.span
+                    key={i}
+                    custom={i}
+                    variants={letterVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="inline-block hero-name-gradient"
+                  >
+                    {letter === " " ? "\u00A0" : letter}
+                  </motion.span>
+                ))}
+              </span>
+            </h1>
+
+            {/* Typing effect subtitle */}
+            <p className={`${styles.heroSubText} mt-4 hero-subtitle`}>
+              <span>{displayText}</span>
+              <span
+                className={`inline-block w-[2px] h-[1em] bg-accent-cyan ml-1 align-middle ${
+                  isTyping ? "animate-pulse" : "opacity-0"
+                }`}
+              />
+            </p>
+
+            {/* Tech badges */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="inline-block"
-              style={{
-                textShadow: "0 0 30px rgba(255, 255, 255, 0.1)",
-              }}
+              transition={{ delay: 2.5, duration: 0.8 }}
+              className="mt-8 flex flex-wrap gap-3 pointer-events-auto"
             >
-              Hi, I&apos;m{" "}
-            </motion.span>
-            <span className="relative inline-flex">
-              {/* Glow aura behind the name */}
-              <span
-                className="absolute inset-0 -z-10 blur-2xl opacity-40"
-                style={{
-                  background: "linear-gradient(90deg, rgba(0, 240, 255, 0.4), rgba(255, 0, 110, 0.3), rgba(145, 94, 255, 0.3))",
-                }}
-                aria-hidden="true"
-              />
-              {nameLetters.map((letter, i) => (
-                <motion.span
-                  key={i}
-                  custom={i}
-                  variants={letterVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="inline-block hero-name-gradient"
-                >
-                  {letter === " " ? "\u00A0" : letter}
-                </motion.span>
-              ))}
-            </span>
-          </h1>
-
-          {/* Typing effect subtitle */}
-          <p className={`${styles.heroSubText} mt-4 hero-subtitle`}>
-            <span>{displayText}</span>
-            <span
-              className={`inline-block w-[2px] h-[1em] bg-accent-cyan ml-1 align-middle ${
-                isTyping ? "animate-pulse" : "opacity-0"
-              }`}
-            />
-          </p>
+              {["Full-Stack Dev", "React / Next.js", "Node.js", "AI / ML"].map(
+                (tag, i) => (
+                  <motion.span
+                    key={tag}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 2.5 + i * 0.15, duration: 0.5 }}
+                    className="hero-tech-badge"
+                  >
+                    {tag}
+                  </motion.span>
+                )
+              )}
+            </motion.div>
+          </div>
         </div>
-      </div>
 
-      <ComputersCanvas />
+        {/* Right side — Hero Image */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, x: 60 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          transition={{ delay: 0.8, duration: 1.2, ease: [0.2, 0.65, 0.3, 0.9] }}
+          className="hero-image-container hidden md:flex flex-1 items-center justify-center relative"
+        >
+          {/* Animated glow rings */}
+          <div className="hero-glow-ring hero-glow-ring-1" />
+          <div className="hero-glow-ring hero-glow-ring-2" />
+          <div className="hero-glow-ring hero-glow-ring-3" />
+
+          {/* Background glow behind image */}
+          <div className="hero-image-glow" />
+
+          {/* The portrait image */}
+          <motion.div
+            style={{ x: imgX, y: imgY }}
+            className="hero-portrait-wrapper"
+          >
+            <img
+              src={anuragHero}
+              alt="Anurag Verma - Full Stack Developer"
+              className="hero-portrait-img"
+            />
+            {/* Gradient overlay at bottom for seamless blend */}
+            <div className="hero-portrait-overlay" />
+          </motion.div>
+
+          {/* Floating tech icons around the image */}
+          <motion.div
+            className="hero-floating-icon hero-floating-icon-1"
+            animate={{ y: [-8, 8, -8], rotate: [0, 10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <span>⚛️</span>
+          </motion.div>
+          <motion.div
+            className="hero-floating-icon hero-floating-icon-2"
+            animate={{ y: [8, -8, 8], rotate: [0, -10, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          >
+            <span>🚀</span>
+          </motion.div>
+          <motion.div
+            className="hero-floating-icon hero-floating-icon-3"
+            animate={{ y: [-6, 10, -6], x: [-4, 4, -4] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          >
+            <span>💻</span>
+          </motion.div>
+        </motion.div>
+      </div>
 
       {/* Scroll indicator */}
       <div className="xs:bottom-10 absolute bottom-32 flex w-full items-center justify-center">
