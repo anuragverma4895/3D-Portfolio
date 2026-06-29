@@ -284,7 +284,9 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.5 }}
                 className="inline-block"
-              Hi, I'm{" "}
+              >
+                Hi, I'm{" "}
+              </motion.span>
               <span className="relative inline-block mt-2 sm:mt-0">
                 <span
                   className="absolute -inset-1 blur-xl opacity-30"
