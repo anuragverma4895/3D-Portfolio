@@ -1665,197 +1665,89 @@ img {
 }
 
 /* ═══════════════════════════════════════════════════
-   HERO PORTRAIT — Premium Clean Design
+   HERO PORTRAIT — Premium Avatar & Network Design
    ═══════════════════════════════════════════════════ */
 
-/* Container */
-.hero-image-container {
-  position: relative;
-  min-height: 420px;
-  max-width: 480px;
-  perspective: 800px;
+/* Subtle overlay on top of the constellation canvas */
+.hero-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    rgba(3, 0, 20, 0.4) 60%,
+    #030014 100%
+  );
+  pointer-events: none;
 }
 
-/* Ambient glow behind the photo */
-.hero-ambient-glow {
+/* Role Title styling */
+.hero-role-title {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  opacity: 0.9;
+}
+
+/* ─── Avatar Container ─── */
+.hero-avatar-container {
+  perspective: 1000px;
+}
+
+/* Ambient glow behind avatar */
+.hero-avatar-glow {
   position: absolute;
-  width: 340px;
-  height: 340px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
   background: radial-gradient(
     circle,
-    rgba(0, 240, 255, 0.12) 0%,
-    rgba(145, 94, 255, 0.08) 35%,
-    rgba(255, 0, 110, 0.05) 60%,
-    transparent 75%
+    rgba(0, 240, 255, 0.15) 0%,
+    rgba(145, 94, 255, 0.1) 40%,
+    transparent 70%
   );
-  filter: blur(50px);
-  pointer-events: none;
-  animation: hero-ambient-pulse 5s ease-in-out infinite;
-}
-
-@keyframes hero-ambient-pulse {
-  0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
-}
-
-/* Animated gradient border ring */
-.hero-border-ring {
-  position: absolute;
-  width: 330px;
-  height: 330px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  padding: 2px;
-  background: conic-gradient(
-    from var(--hero-ring-angle, 0deg),
-    var(--accent-cyan),
-    transparent 25%,
-    transparent 50%,
-    var(--accent-magenta),
-    transparent 75%,
-    transparent 100%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: hero-ring-spin 6s linear infinite;
-  pointer-events: none;
+  filter: blur(40px);
   z-index: 1;
+  animation: hero-avatar-pulse 6s ease-in-out infinite;
 }
 
-@property --hero-ring-angle {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
+@keyframes hero-avatar-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
 }
 
-@keyframes hero-ring-spin {
-  to { --hero-ring-angle: 360deg; }
-}
-
-/* Photo frame — circular */
-.hero-photo-frame {
+/* Avatar Wrapper (for the subtle border/shape) */
+.hero-avatar-wrapper {
   position: relative;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  overflow: hidden;
   z-index: 2;
-  border: 2px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 0 0 1px rgba(0, 240, 255, 0.06),
-    0 20px 50px rgba(0, 0, 0, 0.5),
-    0 0 80px rgba(0, 240, 255, 0.06);
-  transition: box-shadow 0.5s ease, border-color 0.5s ease;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%; /* Circle shape, or can be a custom blob */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible; /* Allows the character to pop out of the bottom a bit if needed, or keep bounded */
+  /* For the reference style, the avatar usually floats freely or inside a subtle glow circle */
 }
 
-.hero-photo-frame:hover {
-  border-color: rgba(0, 240, 255, 0.2);
-  box-shadow:
-    0 0 0 1px rgba(0, 240, 255, 0.12),
-    0 25px 60px rgba(0, 0, 0, 0.6),
-    0 0 100px rgba(0, 240, 255, 0.1);
-}
-
-/* The actual photo */
-.hero-photo {
+/* The actual illustration image */
+.hero-avatar-img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 20%;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), filter 0.5s ease;
 }
 
-.hero-photo-frame:hover .hero-photo {
-  transform: scale(1.05);
-}
-
-/* Bottom gradient fade for seamless blend */
-.hero-photo-fade {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 30%;
-  background: linear-gradient(
-    to top,
-    rgba(3, 0, 20, 0.7) 0%,
-    transparent 100%
-  );
-  pointer-events: none;
-  z-index: 3;
-}
-
-/* Decorative accent lines */
-.hero-accent-line {
-  position: absolute;
-  height: 1px;
-  width: 80px;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.hero-accent-line-top {
-  top: 12%;
-  right: 0;
-  background: linear-gradient(90deg, transparent, var(--accent-cyan));
-  transform-origin: right;
-}
-
-.hero-accent-line-bottom {
-  bottom: 18%;
-  left: 5%;
-  background: linear-gradient(90deg, var(--accent-magenta), transparent);
-  transform-origin: left;
-}
-
-/* Decorative dots */
-.hero-dot {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.hero-dot-1 {
-  width: 6px;
-  height: 6px;
-  top: 8%;
-  left: 25%;
-  background: var(--accent-cyan);
-  opacity: 0.5;
-  animation: hero-dot-pulse 3s ease-in-out infinite;
-}
-
-.hero-dot-2 {
-  width: 4px;
-  height: 4px;
-  bottom: 12%;
-  right: 15%;
-  background: var(--accent-magenta);
-  opacity: 0.4;
-  animation: hero-dot-pulse 4s ease-in-out infinite 1s;
-}
-
-.hero-dot-3 {
-  width: 5px;
-  height: 5px;
-  top: 45%;
-  right: 2%;
-  background: var(--accent-purple);
-  opacity: 0.35;
-  animation: hero-dot-pulse 3.5s ease-in-out infinite 0.5s;
-}
-
-@keyframes hero-dot-pulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.4); }
+.hero-avatar-container:hover .hero-avatar-img {
+  transform: scale(1.03) translateY(-10px);
+  filter: drop-shadow(0 30px 50px rgba(0, 240, 255, 0.2));
 }
 
 /* ─── CTA Buttons ─── */
@@ -1907,58 +1799,31 @@ img {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* ─── HERO — Light Theme ─── */
-[data-theme="light"] .hero-photo-frame {
-  border-color: rgba(8, 145, 178, 0.15);
-  box-shadow:
-    0 0 0 1px rgba(8, 145, 178, 0.06),
-    0 20px 50px rgba(0, 0, 0, 0.1),
-    0 0 60px rgba(8, 145, 178, 0.04);
-}
-
-[data-theme="light"] .hero-photo-frame:hover {
-  border-color: rgba(8, 145, 178, 0.3);
-  box-shadow:
-    0 0 0 1px rgba(8, 145, 178, 0.12),
-    0 25px 60px rgba(0, 0, 0, 0.15),
-    0 0 80px rgba(8, 145, 178, 0.08);
-}
-
-[data-theme="light"] .hero-photo-fade {
-  background: linear-gradient(
-    to top,
-    rgba(248, 246, 242, 0.6) 0%,
-    transparent 100%
+/* ─── HERO — Light Theme Overrides ─── */
+[data-theme="light"] .hero-gradient-overlay {
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    rgba(248, 246, 242, 0.4) 60%,
+    #f8f6f2 100%
   );
 }
 
-[data-theme="light"] .hero-ambient-glow {
+[data-theme="light"] .hero-avatar-glow {
   background: radial-gradient(
     circle,
-    rgba(8, 145, 178, 0.06) 0%,
-    rgba(124, 58, 237, 0.03) 35%,
-    transparent 60%
+    rgba(8, 145, 178, 0.08) 0%,
+    rgba(124, 58, 237, 0.05) 40%,
+    transparent 70%
   );
 }
 
-[data-theme="light"] .hero-border-ring {
-  background: conic-gradient(
-    from var(--hero-ring-angle, 0deg),
-    var(--accent-cyan),
-    transparent 25%,
-    transparent 50%,
-    var(--accent-magenta),
-    transparent 75%,
-    transparent 100%
-  );
+[data-theme="light"] .hero-avatar-img {
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
 }
 
-[data-theme="light"] .hero-accent-line-top {
-  background: linear-gradient(90deg, transparent, var(--accent-cyan));
-}
-
-[data-theme="light"] .hero-accent-line-bottom {
-  background: linear-gradient(90deg, var(--accent-magenta), transparent);
+[data-theme="light"] .hero-avatar-container:hover .hero-avatar-img {
+  filter: drop-shadow(0 30px 50px rgba(8, 145, 178, 0.15));
 }
 
 [data-theme="light"] .hero-cta-primary {
@@ -1985,24 +1850,18 @@ img {
 
 /* ─── Hero Responsive ─── */
 @media (max-width: 1023px) {
-  .hero-image-container {
+  .hero-avatar-container {
     display: none !important;
   }
 }
 
 @media (min-width: 1024px) and (max-width: 1280px) {
-  .hero-photo-frame {
-    width: 260px;
-    height: 260px;
+  .hero-avatar-wrapper {
+    width: 300px;
+    height: 300px;
   }
-
-  .hero-border-ring {
-    width: 290px;
-    height: 290px;
-  }
-
-  .hero-ambient-glow {
-    width: 280px;
-    height: 280px;
+  .hero-avatar-glow {
+    width: 320px;
+    height: 320px;
   }
 }
