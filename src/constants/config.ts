@@ -47,8 +47,8 @@ export const config: TConfig = {
   hero: {
     name: 'Anurag Verma',
     p: [
-      'I engineer robust full-stack web applications,',
-      'scalable architectures, and intelligent AI solutions.',
+      'I build production-ready full-stack applications,',
+      'scalable system designs, and useful AI-powered products.',
     ],
   },
   contact: {
@@ -70,7 +70,8 @@ export const config: TConfig = {
     about: {
       p: 'Introduction',
       h2: 'Overview.',
-      content: `I don't just write code — I engineer experiences. As a Full-Stack Software Engineer specializing in the MERN stack, I build production-grade applications that are fast, secure, and built to scale. From real-time communication platforms powered by WebRTC & Socket.io, to AI-integrated web apps and robust payment systems — I turn complex ideas into elegant, high-performance solutions. Proficient in JavaScript, TypeScript, React, Node.js, and modern cloud architectures, I bring a builder's mindset and a designer's eye to every project. Let's create something extraordinary together.`,
+      content:
+        "I don't just write code - I engineer experiences. As a Full-Stack Software Engineer specializing in the MERN stack, I build production-grade applications that are fast, secure, and built to scale. From real-time communication platforms powered by WebRTC and Socket.io to AI-integrated web apps and robust payment systems, I turn complex ideas into elegant, high-performance solutions. Proficient in JavaScript, TypeScript, React, Node.js, and modern cloud architectures, I bring a builder's mindset and a designer's eye to every project. Let's create something extraordinary together.",
     },
     experience: {
       p: 'What I have done so far',
@@ -83,7 +84,8 @@ export const config: TConfig = {
     works: {
       p: 'My work',
       h2: 'My Work.',
-      content: `I build across the full spectrum of software engineering — from production-grade full-stack web applications to intelligent AI & Machine Learning systems. Below are projects that showcase my versatility, problem-solving ability, and passion for building impactful solutions across both domains.`,
+      content:
+        'I build across the full spectrum of software engineering - from production-grade full-stack web applications to intelligent AI and Machine Learning systems. Below are projects that showcase my versatility, problem-solving ability, and passion for building impactful solutions across both domains.',
     },
   },
 };

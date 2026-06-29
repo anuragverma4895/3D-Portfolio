@@ -1865,3 +1865,224 @@ img {
     height: 320px;
   }
 }
+
+/* Hero polish overrides */
+.hero-surface-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.055) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at 45% 45%, black 0%, transparent 68%);
+}
+
+.hero-gradient-overlay {
+  background:
+    radial-gradient(circle at 20% 58%, rgba(0, 240, 255, 0.16), transparent 28%),
+    radial-gradient(circle at 72% 42%, rgba(255, 0, 110, 0.12), transparent 30%),
+    linear-gradient(90deg, rgba(3, 0, 20, 0.96) 0%, rgba(3, 0, 20, 0.72) 45%, rgba(3, 0, 20, 0.95) 100%);
+}
+
+.hero-headline {
+  max-width: 720px;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.hero-name-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--accent-cyan) 0%,
+    #f8fbff 22%,
+    #a78bfa 48%,
+    var(--accent-magenta) 72%,
+    var(--accent-cyan) 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hero-name-shimmer 5s linear infinite;
+  filter: drop-shadow(0 0 24px rgba(0, 240, 255, 0.18));
+  white-space: nowrap;
+}
+
+.hero-role-title {
+  font-size: clamp(0.86rem, 1.3vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.hero-subtitle {
+  min-height: 5.2rem;
+  color: rgba(231, 228, 255, 0.9);
+}
+
+.hero-skill-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 8px 13px;
+  color: rgba(237, 234, 255, 0.8);
+  background: rgba(255, 255, 255, 0.045);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+}
+
+.hero-avatar-container {
+  min-width: 390px;
+  perspective: 1200px;
+}
+
+.hero-avatar-glow {
+  width: 520px;
+  height: 520px;
+  background:
+    radial-gradient(circle, rgba(0, 240, 255, 0.18) 0%, transparent 58%),
+    radial-gradient(circle, rgba(255, 0, 110, 0.12) 0%, transparent 64%);
+  filter: blur(36px);
+}
+
+.hero-avatar-wrapper {
+  width: min(36vw, 470px);
+  height: min(36vw, 470px);
+  max-width: 470px;
+  max-height: 470px;
+  min-width: 350px;
+  min-height: 350px;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(145deg, rgba(0, 240, 255, 0.12), rgba(255, 0, 110, 0.08)),
+    rgba(6, 4, 24, 0.72);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(0, 240, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  isolation: isolate;
+}
+
+.hero-avatar-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  z-index: 2;
+  pointer-events: none;
+  border: 1px solid rgba(0, 240, 255, 0.16);
+  border-radius: 20px;
+}
+
+.hero-avatar-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  height: 38%;
+  pointer-events: none;
+  background: linear-gradient(0deg, rgba(3, 0, 20, 0.55), transparent);
+}
+
+.hero-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+  filter: saturate(1.08) contrast(1.05) drop-shadow(0 22px 45px rgba(0, 0, 0, 0.45));
+}
+
+.hero-avatar-container:hover .hero-avatar-img {
+  transform: scale(1.08) translateY(-6px);
+}
+
+.hero-cta-primary,
+.hero-cta-secondary {
+  min-height: 48px;
+  border-radius: 10px;
+}
+
+[data-theme="light"] .hero-gradient-overlay {
+  background:
+    radial-gradient(circle at 22% 58%, rgba(8, 145, 178, 0.16), transparent 28%),
+    radial-gradient(circle at 74% 42%, rgba(219, 39, 119, 0.12), transparent 30%),
+    linear-gradient(90deg, rgba(248, 246, 242, 0.94) 0%, rgba(248, 246, 242, 0.68) 45%, rgba(248, 246, 242, 0.96) 100%);
+}
+
+[data-theme="light"] .hero-skill-pill {
+  color: #2a2a4a;
+  background: rgba(255, 255, 255, 0.62);
+  border-color: rgba(8, 145, 178, 0.16);
+}
+
+[data-theme="light"] .hero-avatar-wrapper {
+  background:
+    linear-gradient(145deg, rgba(8, 145, 178, 0.1), rgba(219, 39, 119, 0.08)),
+    rgba(255, 255, 255, 0.74);
+  border-color: rgba(8, 145, 178, 0.14);
+  box-shadow:
+    0 24px 70px rgba(8, 145, 178, 0.14),
+    0 0 0 1px rgba(8, 145, 178, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+@media (max-width: 1200px) {
+  .hero-avatar-container {
+    min-width: 330px;
+  }
+
+  .hero-avatar-wrapper {
+    min-width: 320px;
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 767px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .hero-headline {
+    max-width: 100%;
+    width: calc(100vw - 48px);
+  }
+
+  .hero-name-gradient {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+
+  .hero-role-title {
+    width: calc(100vw - 48px);
+    letter-spacing: 0.1em;
+  }
+
+  .hero-subtitle {
+    max-width: calc(100vw - 48px);
+    width: calc(100vw - 48px);
+    min-height: 6rem;
+    overflow-wrap: break-word;
+  }
+
+  .hero-skill-pill {
+    min-height: 30px;
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+
+  .hero-cta-primary,
+  .hero-cta-secondary {
+    width: calc(100vw - 48px);
+    max-width: 100%;
+  }
+}

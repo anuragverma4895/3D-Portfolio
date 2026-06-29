@@ -1,69 +1,143 @@
-# Anurag Verma | Full-Stack Software Engineer Portfolio
+# Anurag Verma - 3D Portfolio
 
-![Portfolio Preview](./src/assets/herobg.png)
+A modern developer portfolio for Anurag Verma, built to showcase full-stack engineering, AI/ML projects, achievements, education, contact details, and an interactive 3D visual experience.
 
-A modern, fully responsive 3D portfolio showcasing my expertise as a Full-Stack Software Engineer. Built with React.js, Three.js, and Tailwind CSS, featuring interactive 3D graphics, smooth animations, and real-world project demonstrations.
+Live demo: [portfolio-anurag-verma.vercel.app](https://portfolio-anurag-verma.vercel.app/)
 
-**Live Demo:** [anurag-verma-portfolio.vercel.app](https://portfolio-anurag-verma.vercel.app/)
+![Portfolio preview](./src/assets/anurag-hero.png)
 
-## 🎯 Featured Work
+## Overview
 
-- **AI Short Video Ads Generator** - AI-powered platform for generating high-quality short video advertisements with customizable outputs
-- **Video Calling Interview Platform** - Real-time interview platform with WebRTC video calling, live code editor, and automated evaluation
-- **Payment Processing System** - Production-grade payment gateway inspired by Razorpay with idempotent transactions and webhook simulation
-- **Social Media Platform** - Full-stack MERN platform with AI-powered post generation and real-time interactions
-- **Ecommerce Tech Store** - Complete tech e-commerce solution with React, Node.js, and MongoDB
+This portfolio is designed as a polished personal brand site for a Full-Stack Developer and AI Engineer. It combines a responsive React interface with animated hero content, interactive canvas backgrounds, 3D models, project cards, skill visuals, and a contact form.
 
-## 💻 Tech Stack
+## Features
 
-**Frontend:** React.js, TypeScript, Tailwind CSS, Three.js, Framer Motion, React Three Fiber
+- Responsive hero section with animated intro, CTA buttons, and illustrated portrait
+- Interactive constellation background and 3D canvas sections
+- About, skills, education, achievements, work, profile, and contact sections
+- Project showcase for full-stack, AI, real-time, payment, and e-commerce applications
+- Dark/light theme support through CSS variables
+- Smooth scrolling, custom cursor, lazy-loaded heavy sections, and optimized Vite build
+- Resume PDF included in the project assets
 
-**Backend:** Node.js, Express.js
+## Tech Stack
 
-**Database:** MongoDB
+Frontend:
+- React 18
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Three.js
+- React Three Fiber
+- Drei
 
-**Real-time:** WebRTC, Socket.io
+Tooling:
+- Vite
+- ESLint
+- Prettier
+- PostCSS
 
-**DevOps & Tools:** Git, Docker, Vite, Vercel
+Integrations and assets:
+- EmailJS contact flow
+- GLTF 3D models
+- Local project images and resume PDF
 
-## 🚀 Quick Start
+## Project Structure
+
+```text
+src/
+  assets/              Images, icons, resume, and project thumbnails
+  components/
+    atoms/             Small shared UI pieces
+    canvas/            Three.js and React Three Fiber scenes
+    layout/            Navbar, footer, cursor, resume button, sidebar
+    sections/          Main portfolio sections
+  constants/           Site content, links, projects, styles, and config
+  context/             Theme context
+  hoc/                 Section wrapper utilities
+  utils/               Motion helpers
+public/
+  desktop_pc/          3D desktop model files
+  planet/              3D planet model files
+```
+
+## Getting Started
 
 ### Prerequisites
-- Node.js 16+ ([Download](https://nodejs.org/en/))
-- Git ([Download](https://git-scm.com/downloads))
 
-### Setup
+- Node.js 16 or newer
+- npm
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/anuragverma4895/3D-Portofolio.git
-   cd 3D-Portofolio
-   ```
+### Installation
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/anuragverma4895/3D-Portofolio.git
+cd 3D-Portofolio
+npm install
+```
 
-3. **Start development server:**
-   ```bash
-   npm run dev
-   ```
+### Development
 
-5. **Open** [http://localhost:5173](http://localhost:5173) in your browser
+```bash
+npm run dev
+```
 
-## 📦 Available Scripts
+Open the local URL printed by Vite, usually:
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run ts:check` - Type check the project
+```text
+http://localhost:5173
+```
 
-## ✉️ Contact
+### Production Build
 
-- **Email:** anuragverma4895@gmail.com
-- **GitHub:** [@anuragverma4895](https://github.com/anuragverma4895)
+```bash
+npm run build
+```
 
----
+### Preview Production Build
 
-*Engineering scalable, user-centric solutions that solve real-world problems.*
+```bash
+npm run preview
+```
+
+### Type Check
+
+```bash
+npm run ts:check
+```
+
+### Lint
+
+```bash
+npm run lint
+```
+
+## Customization
+
+- Update hero, contact, and section copy in `src/constants/config.ts`
+- Update navigation, skills, achievements, and project data in `src/constants/index.ts`
+- Replace images and resume in `src/assets/`
+- Tune global design tokens and hero styling in `src/globals.css`
+- Adjust shared Tailwind utility strings in `src/constants/styles.ts`
+
+## Deployment
+
+The project is Vite-based, so it can be deployed easily on Vercel, Netlify, Render, or any static hosting provider.
+
+For Vercel:
+
+```bash
+npm run build
+```
+
+Use `dist` as the production output directory.
+
+## Contact
+
+- Email: `anuragverma4895@gmail.com`
+- GitHub: [@anuragverma4895](https://github.com/anuragverma4895)
+- Portfolio: [portfolio-anurag-verma.vercel.app](https://portfolio-anurag-verma.vercel.app/)
+
+## License
+
+This project is released under the MIT License. See [LICENSE](./LICENSE) for details.
