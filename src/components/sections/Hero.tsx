@@ -238,7 +238,7 @@ const Hero = () => {
         className={`absolute inset-0 top-[80px] mx-auto max-w-7xl ${styles.paddingX} flex flex-row items-center gap-5 z-10`}
       >
         {/* Left side — text content */}
-        <div className="flex flex-row items-start gap-5 flex-1 pointer-events-none">
+        <div className="flex flex-row items-start gap-5 flex-1 relative z-50">
           {/* Animated line indicator */}
           <div className="mt-5 flex flex-col items-center justify-center">
             <motion.div
@@ -284,19 +284,11 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.5 }}
                 className="inline-block"
-                style={{
-                  textShadow: "0 0 30px rgba(255, 255, 255, 0.1)",
-                }}
-              >
-                Hi, I&apos;m{" "}
-              </motion.span>
-              <span className="relative inline-flex">
+              Hi, I'm{" "}
+              <span className="relative inline-block mt-2 sm:mt-0">
                 <span
-                  className="absolute inset-0 -z-10 blur-2xl opacity-40"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(0, 240, 255, 0.4), rgba(255, 0, 110, 0.3), rgba(145, 94, 255, 0.3))",
-                  }}
+                  className="absolute -inset-1 blur-xl opacity-30"
+                  style={{ background: "linear-gradient(90deg, #00F0FF, #FF006E)" }}
                   aria-hidden="true"
                 />
                 {nameLetters.map((letter, i) => (
@@ -339,26 +331,12 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2.2, duration: 0.8 }}
-              className="mt-10 flex flex-wrap items-center gap-4 pointer-events-auto relative z-[60]"
+              className="mt-10 flex flex-wrap items-center gap-4 relative z-[60]"
             >
-              <a
-                href="#work"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector("#work")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="hero-cta-primary cursor-pointer"
-              >
+              <a href="#work" className="hero-cta-primary cursor-pointer">
                 <span className="relative z-10">View My Work</span>
               </a>
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="hero-cta-secondary cursor-pointer"
-              >
+              <a href="#contact" className="hero-cta-secondary cursor-pointer">
                 Get In Touch
               </a>
             </motion.div>
