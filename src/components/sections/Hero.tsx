@@ -50,71 +50,21 @@ function useTypingEffect(texts: string[], speed = 50, pause = 2000) {
   return { displayText, isTyping };
 }
 
-// Floating particles component
-const FloatingParticles = () => {
-  const particles = Array.from({ length: 20 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 3 + 1,
-    duration: Math.random() * 8 + 6,
-    delay: Math.random() * 5,
-  }));
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          className="absolute rounded-full"
-          style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: p.size,
-            height: p.size,
-            background: p.id % 3 === 0
-              ? "rgba(0, 240, 255, 0.6)"
-              : p.id % 3 === 1
-              ? "rgba(255, 0, 110, 0.5)"
-              : "rgba(145, 94, 255, 0.5)",
-            boxShadow: p.id % 3 === 0
-              ? "0 0 6px rgba(0, 240, 255, 0.4)"
-              : p.id % 3 === 1
-              ? "0 0 6px rgba(255, 0, 110, 0.3)"
-              : "0 0 6px rgba(145, 94, 255, 0.3)",
-          }}
-          animate={{
-            y: [0, -30, 0, 20, 0],
-            x: [0, 15, -10, 5, 0],
-            opacity: [0.3, 0.8, 0.5, 0.7, 0.3],
-          }}
-          transition={{
-            duration: p.duration,
-            repeat: Infinity,
-            delay: p.delay,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-
 const Hero = () => {
   const name = config.hero.name;
   const nameLetters = name.split("");
   const { displayText, isTyping } = useTypingEffect(config.hero.p, 35);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Mouse parallax for orbs & image
+  // Mouse parallax
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const orbX1 = useTransform(mouseX, [-500, 500], [-30, 30]);
   const orbY1 = useTransform(mouseY, [-500, 500], [-20, 20]);
   const orbX2 = useTransform(mouseX, [-500, 500], [20, -20]);
   const orbY2 = useTransform(mouseY, [-500, 500], [15, -15]);
-  const imgX = useTransform(mouseX, [-500, 500], [-8, 8]);
-  const imgY = useTransform(mouseY, [-500, 500], [-6, 6]);
+  const imgRotateX = useTransform(mouseY, [-500, 500], [3, -3]);
+  const imgRotateY = useTransform(mouseX, [-500, 500], [-3, 3]);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
@@ -142,9 +92,6 @@ const Hero = () => {
         className="orb orb-magenta absolute top-1/3 -right-20 h-[400px] w-[400px] animate-float-delayed"
       />
       <div className="orb orb-purple absolute bottom-20 left-1/3 h-[300px] w-[300px] animate-float" />
-
-      {/* Floating particles */}
-      <FloatingParticles />
 
       {/* Hero content — split layout */}
       <div
@@ -236,81 +183,78 @@ const Hero = () => {
               />
             </p>
 
-            {/* Tech badges */}
+            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.5, duration: 0.8 }}
-              className="mt-8 flex flex-wrap gap-3 pointer-events-auto"
+              transition={{ delay: 2.2, duration: 0.8 }}
+              className="mt-10 flex flex-wrap items-center gap-4 pointer-events-auto"
             >
-              {["Full-Stack Dev", "React / Next.js", "Node.js", "AI / ML"].map(
-                (tag, i) => (
-                  <motion.span
-                    key={tag}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 2.5 + i * 0.15, duration: 0.5 }}
-                    className="hero-tech-badge"
-                  >
-                    {tag}
-                  </motion.span>
-                )
-              )}
+              <a
+                href="#work"
+                className="hero-cta-primary"
+              >
+                <span className="relative z-10">View My Work</span>
+              </a>
+              <a
+                href="#contact"
+                className="hero-cta-secondary"
+              >
+                Get In Touch
+              </a>
             </motion.div>
           </div>
         </div>
 
-        {/* Right side — Hero Image */}
+        {/* Right side — Hero Portrait */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8, x: 60 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ delay: 0.8, duration: 1.2, ease: [0.2, 0.65, 0.3, 0.9] }}
-          className="hero-image-container hidden md:flex flex-1 items-center justify-center relative"
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6, duration: 1.2, ease: [0.2, 0.65, 0.3, 0.9] }}
+          className="hero-image-container hidden lg:flex flex-1 items-center justify-center relative"
         >
-          {/* Animated glow rings */}
-          <div className="hero-glow-ring hero-glow-ring-1" />
-          <div className="hero-glow-ring hero-glow-ring-2" />
-          <div className="hero-glow-ring hero-glow-ring-3" />
+          {/* Ambient glow behind photo */}
+          <div className="hero-ambient-glow" />
 
-          {/* Background glow behind image */}
-          <div className="hero-image-glow" />
-
-          {/* The portrait image */}
+          {/* Animated border ring */}
           <motion.div
-            style={{ x: imgX, y: imgY }}
-            className="hero-portrait-wrapper"
+            className="hero-border-ring"
+            style={{ rotateX: imgRotateX, rotateY: imgRotateY }}
+          />
+
+          {/* Profile photo */}
+          <motion.div
+            className="hero-photo-frame"
+            style={{ rotateX: imgRotateX, rotateY: imgRotateY }}
           >
             <img
               src={anuragHero}
-              alt="Anurag Verma - Full Stack Developer"
-              className="hero-portrait-img"
+              alt="Anurag Verma - Full Stack Developer & AI Engineer"
+              className="hero-photo"
+              loading="eager"
             />
-            {/* Gradient overlay at bottom for seamless blend */}
-            <div className="hero-portrait-overlay" />
+            {/* Bottom gradient blend */}
+            <div className="hero-photo-fade" />
           </motion.div>
 
-          {/* Floating tech icons around the image */}
+          {/* Decorative code-like accent lines */}
           <motion.div
-            className="hero-floating-icon hero-floating-icon-1"
-            animate={{ y: [-8, 8, -8], rotate: [0, 10, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <span>⚛️</span>
-          </motion.div>
+            className="hero-accent-line hero-accent-line-top"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ delay: 1.5, duration: 0.8, ease: "easeOut" }}
+          />
           <motion.div
-            className="hero-floating-icon hero-floating-icon-2"
-            animate={{ y: [8, -8, 8], rotate: [0, -10, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          >
-            <span>🚀</span>
-          </motion.div>
-          <motion.div
-            className="hero-floating-icon hero-floating-icon-3"
-            animate={{ y: [-6, 10, -6], x: [-4, 4, -4] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          >
-            <span>💻</span>
-          </motion.div>
+            className="hero-accent-line hero-accent-line-bottom"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ delay: 1.8, duration: 0.8, ease: "easeOut" }}
+          />
+
+          {/* Small decorative dots */}
+          <div className="hero-dot hero-dot-1" />
+          <div className="hero-dot hero-dot-2" />
+          <div className="hero-dot hero-dot-3" />
         </motion.div>
       </div>
 
