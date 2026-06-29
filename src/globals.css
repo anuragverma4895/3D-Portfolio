@@ -2008,13 +2008,8 @@ img {
 }
 
 
-/* Animated glow rings around the portrait */
-.hero-glow-ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid;
-  pointer-events: none;
-}
+
+
 
 .hero-glow-ring-1 {
   width: 380px;
