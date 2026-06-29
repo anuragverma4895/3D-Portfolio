@@ -20,9 +20,6 @@ const SocialSidebar = lazy(() => import('./components/layout/SocialSidebar'));
 const ResumeButton = lazy(() => import('./components/layout/ResumeButton'));
 const CustomCursor = lazy(() => import('./components/layout/CustomCursor'));
 
-// Experience is disconnected (not deleted) — reconnect later when needed:
-// import Experience from './components/sections/Experience';
-
 // Lightweight placeholder for lazy sections
 const SectionFallback = ({ height = '20rem' }: { height?: string }) => (
   <div style={{ minHeight: height }} />
@@ -62,7 +59,10 @@ const App = () => {
   }, [handleSmoothScroll]);
 
   return (
-    <div className={`relative z-0 noise-bg theme-transition`} style={{ background: 'var(--bg-primary)' }}>
+    <div
+      className={`relative z-0 noise-bg theme-transition`}
+      style={{ background: 'var(--bg-primary)' }}
+    >
       {/* Custom cursor (desktop only) */}
       <Suspense fallback={null}>
         <CustomCursor />

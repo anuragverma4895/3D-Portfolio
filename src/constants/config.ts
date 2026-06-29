@@ -32,8 +32,6 @@ type TConfig = {
   } & TSection;
   sections: {
     about: Required<TSection>;
-    experience: TSection;
-    feedbacks: TSection;
     works: Required<TSection>;
   };
 };
@@ -72,14 +70,6 @@ export const config: TConfig = {
       h2: 'Overview.',
       content:
         "I don't just write code - I engineer experiences. As a Full-Stack Software Engineer specializing in the MERN stack, I build production-grade applications that are fast, secure, and built to scale. From real-time communication platforms powered by WebRTC and Socket.io to AI-integrated web apps and robust payment systems, I turn complex ideas into elegant, high-performance solutions. Proficient in JavaScript, TypeScript, React, Node.js, and modern cloud architectures, I bring a builder's mindset and a designer's eye to every project. Let's create something extraordinary together.",
-    },
-    experience: {
-      p: 'What I have done so far',
-      h2: 'Work Experience.',
-    },
-    feedbacks: {
-      p: 'What others say',
-      h2: 'Testimonials.',
     },
     works: {
       p: 'My work',

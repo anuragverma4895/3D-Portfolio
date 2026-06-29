@@ -1,11 +1,4 @@
-import type {
-  TNavLink,
-  TService,
-  TTechnology,
-  TExperience,
-  TTestimonial,
-  TProject,
-} from '../types';
+import type { TNavLink, TService, TTechnology, TProject } from '../types';
 
 import {
   backend,
@@ -149,61 +142,6 @@ const technologies: TTechnology[] = [
   {
     name: 'docker',
     icon: docker,
-  },
-];
-
-const experiences: TExperience[] = [
-  {
-    title: 'Full Stack MERN Developer',
-    companyName: 'Freelance & Independent Projects',
-    icon: reactjs,
-    iconBg: '#383E56',
-    date: 'Jan 2022 - Present',
-    points: [
-      'Architected and deployed production-grade MERN architectures utilizing React, Node.js, Express, and MongoDB.',
-      'Developed multiple high-availability systems with critical functionalities, such as reliable Razorpay payment processing gateways.',
-      'Integrated OpenAI and custom AI models into frontend systems for automated content generation and dynamic media synthesis.',
-      'Implemented responsive, accessible, and highly interactive user interfaces powered by Tailwind CSS, Framer Motion, and Three.js.',
-    ],
-  },
-  {
-    title: 'Real-Time Systems Engineer',
-    companyName: 'Open Source Projects',
-    icon: nodejs,
-    iconBg: '#E6DEDD',
-    date: '2023 - Present',
-    points: [
-      'Designed real-time 1-on-1 secure technical interview platforms enabling seamless audio/video transmission over WebRTC.',
-      'Engineered high-throughput WebSocket networks via Socket.io for low-latency live chat and active connection synchronization.',
-      'Built automated code execution engines facilitating real-time evaluations inside an isolated virtual environment.',
-    ],
-  },
-];
-
-const testimonials: TTestimonial[] = [
-  {
-    testimonial:
-      'I thought it was impossible to make a website as beautiful as our product, but Rick proved me wrong.',
-    name: 'Sara Lee',
-    designation: 'CFO',
-    company: 'Acme Co',
-    image: 'https://randomuser.me/api/portraits/women/4.jpg',
-  },
-  {
-    testimonial:
-      "I've never met a web developer who truly cares about their clients' success like Rick does.",
-    name: 'Chris Brown',
-    designation: 'COO',
-    company: 'DEF Corp',
-    image: 'https://randomuser.me/api/portraits/men/5.jpg',
-  },
-  {
-    testimonial:
-      "After Rick optimized our website, our traffic increased by 50%. We can't thank them enough!",
-    name: 'Lisa Wang',
-    designation: 'CTO',
-    company: '456 Enterprises',
-    image: 'https://randomuser.me/api/portraits/women/6.jpg',
   },
 ];
 
@@ -374,7 +312,8 @@ const aimlProjects: TAimlProject[] = [
       { name: 'vector-db', color: 'pink-text-gradient' },
     ],
     image: aimlRagPipeline,
-    sourceCodeLink: 'https://github.com/anuragverma4895/RAG-Pipeline-with-Automated-Answer-Evaluation',
+    sourceCodeLink:
+      'https://github.com/anuragverma4895/RAG-Pipeline-with-Automated-Answer-Evaluation',
   },
   {
     name: 'AI Image Generator',
@@ -390,4 +329,4 @@ const aimlProjects: TAimlProject[] = [
   },
 ];
 
-export { services, technologies, experiences, testimonials, projects, aimlProjects };
+export { services, technologies, projects, aimlProjects };

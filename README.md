@@ -1,6 +1,7 @@
 # Anurag Verma - 3D Portfolio
 
-A modern developer portfolio for Anurag Verma, built to showcase full-stack engineering, AI/ML projects, achievements, education, contact details, and an interactive 3D visual experience.
+A modern developer portfolio for Anurag Verma, built to showcase full-stack engineering, AI/ML
+projects, achievements, education, contact details, and an interactive 3D visual experience.
 
 Live demo: [portfolio-anurag-verma.vercel.app](https://portfolio-anurag-verma.vercel.app/)
 
@@ -8,7 +9,9 @@ Live demo: [portfolio-anurag-verma.vercel.app](https://portfolio-anurag-verma.ve
 
 ## Overview
 
-This portfolio is designed as a polished personal brand site for a Full-Stack Developer and AI Engineer. It combines a responsive React interface with animated hero content, interactive canvas backgrounds, 3D models, project cards, skill visuals, and a contact form.
+This portfolio is designed as a polished personal brand site for a Full-Stack Developer and AI
+Engineer. It combines a responsive React interface with animated hero content, interactive canvas
+backgrounds, 3D models, project cards, skill visuals, and a contact form.
 
 ## Features
 
@@ -23,6 +26,7 @@ This portfolio is designed as a polished personal brand site for a Full-Stack De
 ## Tech Stack
 
 Frontend:
+
 - React 18
 - TypeScript
 - Tailwind CSS
@@ -32,12 +36,14 @@ Frontend:
 - Drei
 
 Tooling:
+
 - Vite
 - ESLint
 - Prettier
 - PostCSS
 
 Integrations and assets:
+
 - EmailJS contact flow
 - GLTF 3D models
 - Local project images and resume PDF
@@ -57,7 +63,6 @@ src/
   hoc/                 Section wrapper utilities
   utils/               Motion helpers
 public/
-  desktop_pc/          3D desktop model files
   planet/              3D planet model files
 ```
 
@@ -122,7 +127,8 @@ npm run lint
 
 ## Deployment
 
-The project is Vite-based, so it can be deployed easily on Vercel, Netlify, Render, or any static hosting provider.
+The project is Vite-based, so it can be deployed easily on Vercel, Netlify, Render, or any static
+hosting provider.
 
 For Vercel:
 
