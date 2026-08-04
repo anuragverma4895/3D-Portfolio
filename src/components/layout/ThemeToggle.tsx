@@ -30,7 +30,7 @@ const ThemeToggle = () => {
         <motion.div
           className="theme-toggle-thumb"
           animate={{
-            x: isDark ? 0 : 22,
+            x: isDark ? 22 : 0,
             rotate: isDark ? 0 : 180,
           }}
           transition={{
