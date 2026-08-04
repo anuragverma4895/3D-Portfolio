@@ -29,6 +29,7 @@ import {
   aimlSalesAnalysis,
   aimlRagPipeline,
   aimlImageGenerator,
+  aimlAiCodingAgent,
 } from '../assets';
 
 export const navLinks: TNavLink[] = [
@@ -145,6 +146,7 @@ const technologies: TTechnology[] = [
   },
 ];
 
+/* ─── Full-Stack Development Projects (best first) ─── */
 const projects: TProject[] = [
   {
     name: 'AI Short Video Ads Generator',
@@ -265,7 +267,33 @@ export type TAimlProject = {
   sourceCodeLink: string;
 };
 
+/* ─── AI/ML & Data Science Projects (best first) ─── */
 const aimlProjects: TAimlProject[] = [
+  {
+    name: 'AI Coding Agent',
+    description:
+      'An autonomous Python agent that explores codebases, understands architecture, and implements product requirements using Gemini LLM with a ReAct reasoning loop. Features 6-phase workflow with tool calling for file operations, code search, and shell execution.',
+    tags: [
+      { name: 'LLM', color: 'blue-text-gradient' },
+      { name: 'ReAct', color: 'green-text-gradient' },
+      { name: 'agents', color: 'pink-text-gradient' },
+    ],
+    image: aimlAiCodingAgent,
+    sourceCodeLink: 'https://github.com/anuragverma4895/AI-Coding-Agent',
+  },
+  {
+    name: 'RAG Pipeline with Answer Evaluation',
+    description:
+      'An advanced Retrieval-Augmented Generation pipeline combining vector search with LLM-powered answer generation. Features automated evaluation metrics to benchmark answer quality, relevance, and factual accuracy against ground truth.',
+    tags: [
+      { name: 'LLM', color: 'blue-text-gradient' },
+      { name: 'RAG', color: 'green-text-gradient' },
+      { name: 'vector-db', color: 'pink-text-gradient' },
+    ],
+    image: aimlRagPipeline,
+    sourceCodeLink:
+      'https://github.com/anuragverma4895/RAG-Pipeline-with-Automated-Answer-Evaluation',
+  },
   {
     name: 'AI-Generated Text Detection',
     description:
@@ -277,6 +305,18 @@ const aimlProjects: TAimlProject[] = [
     ],
     image: aimlTextDetection,
     sourceCodeLink: 'https://github.com/anuragverma4895/AI-generated-text-detection',
+  },
+  {
+    name: 'AI Image Generator',
+    description:
+      'A generative AI application that creates high-quality images from text prompts using state-of-the-art diffusion models. Features an intuitive interface for prompt engineering, style customization, and batch image generation.',
+    tags: [
+      { name: 'generative-AI', color: 'blue-text-gradient' },
+      { name: 'diffusion', color: 'green-text-gradient' },
+      { name: 'python', color: 'pink-text-gradient' },
+    ],
+    image: aimlImageGenerator,
+    sourceCodeLink: 'https://github.com/anuragverma4895/Image-generator',
   },
   {
     name: 'Customer Churn Prediction',
@@ -301,31 +341,6 @@ const aimlProjects: TAimlProject[] = [
     ],
     image: aimlSalesAnalysis,
     sourceCodeLink: 'https://github.com/anuragverma4895/Sales-Data-Analysis-Business-Insights',
-  },
-  {
-    name: 'RAG Pipeline with Answer Evaluation',
-    description:
-      'An advanced Retrieval-Augmented Generation pipeline combining vector search with LLM-powered answer generation. Features automated evaluation metrics to benchmark answer quality, relevance, and factual accuracy against ground truth.',
-    tags: [
-      { name: 'LLM', color: 'blue-text-gradient' },
-      { name: 'RAG', color: 'green-text-gradient' },
-      { name: 'vector-db', color: 'pink-text-gradient' },
-    ],
-    image: aimlRagPipeline,
-    sourceCodeLink:
-      'https://github.com/anuragverma4895/RAG-Pipeline-with-Automated-Answer-Evaluation',
-  },
-  {
-    name: 'AI Image Generator',
-    description:
-      'A generative AI application that creates high-quality images from text prompts using state-of-the-art diffusion models. Features an intuitive interface for prompt engineering, style customization, and batch image generation.',
-    tags: [
-      { name: 'generative-AI', color: 'blue-text-gradient' },
-      { name: 'diffusion', color: 'green-text-gradient' },
-      { name: 'python', color: 'pink-text-gradient' },
-    ],
-    image: aimlImageGenerator,
-    sourceCodeLink: 'https://github.com/anuragverma4895/Image-generator',
   },
 ];
 

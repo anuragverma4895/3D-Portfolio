@@ -34,6 +34,7 @@ import aimlChurnPrediction from './aiml-churn-prediction.png';
 import aimlSalesAnalysis from './aiml-sales-analysis.png';
 import aimlRagPipeline from './aiml-rag-pipeline.png';
 import aimlImageGenerator from './aiml-image-generator.png';
+import aimlAiCodingAgent from './aiml-ai-coding-agent.png';
 
 export {
   logo,
@@ -69,4 +70,5 @@ export {
   aimlSalesAnalysis,
   aimlRagPipeline,
   aimlImageGenerator,
+  aimlAiCodingAgent,
 };

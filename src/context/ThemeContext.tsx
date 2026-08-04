@@ -17,7 +17,8 @@ export const useTheme = () => useContext(ThemeContext);
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(() => {
     const saved = localStorage.getItem("portfolio-theme");
-    return (saved === "light" ? "light" : "dark") as Theme;
+    if (saved === "dark" || saved === "light") return saved;
+    return "light";
   });
 
   useEffect(() => {
