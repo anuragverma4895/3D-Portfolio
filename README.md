@@ -5,7 +5,6 @@ projects, achievements, education, contact details, and an interactive 3D visual
 
 Live demo: [portfolio-anurag-verma.vercel.app](https://portfolio-anurag-verma.vercel.app/)
 
-![Portfolio preview](./src/assets/anurag-hero.png)
 
 ## Overview
 
