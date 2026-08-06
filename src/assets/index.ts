@@ -28,6 +28,7 @@ import videoInterview from './video-calling-interview-platform1.png';
 import paymentSystem from './payment1.png';
 import socialMedia from './SocialMedia1.png';
 import techStore from './TechStore1.png';
+import shopez from './shopez1.png';
 
 import aimlTextDetection from './aiml-text-detection.png';
 import aimlChurnPrediction from './aiml-churn-prediction.png';
@@ -65,6 +66,7 @@ export {
   paymentSystem,
   socialMedia,
   techStore,
+  shopez,
   aimlTextDetection,
   aimlChurnPrediction,
   aimlSalesAnalysis,

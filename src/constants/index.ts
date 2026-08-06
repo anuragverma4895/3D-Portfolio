@@ -23,6 +23,7 @@ import {
   paymentSystem,
   socialMedia,
   techStore,
+  shopez,
   threejs,
   aimlTextDetection,
   aimlChurnPrediction,
@@ -256,6 +257,28 @@ const projects: TProject[] = [
     image: techStore,
     sourceCodeLink: 'https://github.com/anuragverma4895/Ecommerce-Tech-Store',
     deployLink: 'https://ecommerce-tech-store-seven.vercel.app/',
+  },
+  {
+    name: 'SHOP-EZ',
+    description:
+      'A modern full-stack e-commerce platform with AI-powered product recommendations. Features JWT authentication, Razorpay payment integration, admin dashboard, and a FastAPI recommendation engine.',
+    tags: [
+      {
+        name: 'react',
+        color: 'blue-text-gradient',
+      },
+      {
+        name: 'fastapi',
+        color: 'green-text-gradient',
+      },
+      {
+        name: 'mongodb',
+        color: 'pink-text-gradient',
+      },
+    ],
+    image: shopez,
+    sourceCodeLink: 'https://github.com/anuragverma4895/SHOP-EZ',
+    deployLink: 'https://shop-ez-ob6b.onrender.com/',
   },
 ];
 
