@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useCallback } from 'react';
+import { lazy, Suspense, useEffect, useCallback, useRef } from 'react';
 
 import About from './components/sections/About';
 import Hero from './components/sections/Hero';
@@ -25,8 +25,12 @@ const SectionFallback = ({ height = '20rem' }: { height?: string }) => (
   <div style={{ minHeight: height }} />
 );
 
+const navEntranceVariants = ['left', 'right', 'up', 'center', 'right', 'left'] as const;
+const navEntranceClasses = navEntranceVariants.map((variant) => `section-open-${variant}`);
+
 const App = () => {
-  // Theme is applied via CSS variables through ThemeProvider
+  const navEntranceIndex = useRef(0);
+  const entranceTimers = useRef<number[]>([]);
 
   useEffect(() => {
     if (document.title !== config.html.title) {
@@ -34,29 +38,101 @@ const App = () => {
     }
   }, []);
 
+  const clearEntranceTimers = useCallback(() => {
+    entranceTimers.current.forEach((timer) => window.clearTimeout(timer));
+    entranceTimers.current = [];
+  }, []);
+
+  const playSectionEntrance = useCallback((element: HTMLElement) => {
+    clearEntranceTimers();
+
+    const variant = navEntranceVariants[
+      navEntranceIndex.current % navEntranceVariants.length
+    ];
+    navEntranceIndex.current += 1;
+
+    element.classList.remove('section-open-active', ...navEntranceClasses);
+    void element.offsetWidth;
+    element.classList.add('section-open-active', `section-open-${variant}`);
+
+    const cleanupTimer = window.setTimeout(() => {
+      element.classList.remove('section-open-active', `section-open-${variant}`);
+    }, 1050);
+
+    entranceTimers.current.push(cleanupTimer);
+  }, [clearEntranceTimers]);
+
+  const armSectionEntrance = useCallback((element: HTMLElement) => {
+    const rect = element.getBoundingClientRect();
+    const isAlreadyInView =
+      rect.top < window.innerHeight * 0.72 && rect.bottom > window.innerHeight * 0.18;
+
+    if (isAlreadyInView) {
+      playSectionEntrance(element);
+      return;
+    }
+
+    let observer: IntersectionObserver | null = null;
+    let hasPlayed = false;
+
+    const playOnce = () => {
+      if (hasPlayed) return;
+      hasPlayed = true;
+      observer?.disconnect();
+
+      const timer = window.setTimeout(() => playSectionEntrance(element), 80);
+      entranceTimers.current.push(timer);
+    };
+
+    observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          playOnce();
+        }
+      },
+      { threshold: 0.22, rootMargin: '-84px 0px -24% 0px' }
+    );
+
+    observer.observe(element);
+
+    const fallbackTimer = window.setTimeout(playOnce, 900);
+    entranceTimers.current.push(fallbackTimer);
+  }, [playSectionEntrance]);
+
   // Smooth scroll handler for anchor links
   const handleSmoothScroll = useCallback((e: MouseEvent) => {
     const target = e.target as HTMLElement;
-    const anchor = target.closest('a[href^="#"]');
+    const anchor = target.closest<HTMLAnchorElement>('a[href^="#"]');
     if (!anchor) return;
 
     const href = anchor.getAttribute('href');
     if (!href || href === '#') return;
 
-    const element = document.querySelector(href);
+    const sectionId = href.slice(1);
+    const element = document.getElementById(sectionId);
     if (!element) return;
 
     e.preventDefault();
+
+    if (anchor.dataset.navLink === 'true') {
+      armSectionEntrance(element);
+    }
+
     element.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
     });
-  }, []);
+
+    window.history.pushState(null, '', href);
+  }, [armSectionEntrance]);
 
   useEffect(() => {
     document.addEventListener('click', handleSmoothScroll);
-    return () => document.removeEventListener('click', handleSmoothScroll);
-  }, [handleSmoothScroll]);
+    return () => {
+      document.removeEventListener('click', handleSmoothScroll);
+      clearEntranceTimers();
+    };
+  }, [clearEntranceTimers, handleSmoothScroll]);
 
   return (
     <div

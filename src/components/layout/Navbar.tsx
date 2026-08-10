@@ -97,7 +97,7 @@ const Navbar = () => {
                   : "text-secondary hover:text-white"
               }`}
             >
-              <a href={`#${nav.id}`}>
+              <a href={`#${nav.id}`} data-nav-link="true">
                 {nav.title}
               </a>
             </li>
@@ -141,7 +141,7 @@ const Navbar = () => {
                     setToggle(false);
                   }}
                 >
-                  <a href={`#${nav.id}`}>{nav.title}</a>
+                  <a href={`#${nav.id}`} data-nav-link="true">{nav.title}</a>
                 </li>
               ))}
             </ul>
@@ -156,3 +156,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
