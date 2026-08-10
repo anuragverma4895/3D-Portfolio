@@ -98,9 +98,9 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
             {tags.map(tag => (
               <span
                 key={tag.name}
-                className={`text-[13px] font-medium px-3 py-1 rounded-full border border-white/[0.06] bg-white/[0.03] ${tag.color}`}
+                className={`text-[13px] font-medium px-3 py-1 rounded-full border border-white/[0.06] bg-white/[0.03]`}
               >
-                #{tag.name}
+                <span className={tag.color}>#{tag.name}</span>
               </span>
             ))}
           </div>
@@ -171,9 +171,9 @@ const AimlProjectCard: React.FC<{ index: number } & TAimlProject> = ({
             {tags.map(tag => (
               <span
                 key={tag.name}
-                className={`text-[13px] font-medium px-3 py-1 rounded-full border border-white/[0.06] bg-white/[0.03] ${tag.color}`}
+                className={`text-[13px] font-medium px-3 py-1 rounded-full border border-white/[0.06] bg-white/[0.03]`}
               >
-                #{tag.name}
+                <span className={tag.color}>#{tag.name}</span>
               </span>
             ))}
           </div>
