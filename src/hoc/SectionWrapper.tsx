@@ -57,7 +57,7 @@ const SectionWrapper = (
         variants={getSectionReveal(idName)}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.18 }}
+        viewport={{ once: true, amount: 0.02 }}
         className={`${styles.padding} scroll-showcase-section relative z-0 mx-auto max-w-7xl`}
         id={idName}
       >
