@@ -57,7 +57,7 @@ const App = () => {
 
     const cleanupTimer = window.setTimeout(() => {
       element.classList.remove('section-open-active', `section-open-${variant}`);
-    }, 1050);
+    }, 1650);
 
     entranceTimers.current.push(cleanupTimer);
   }, [clearEntranceTimers]);
@@ -80,7 +80,7 @@ const App = () => {
       hasPlayed = true;
       observer?.disconnect();
 
-      const timer = window.setTimeout(() => playSectionEntrance(element), 80);
+      const timer = window.setTimeout(() => playSectionEntrance(element), 120);
       entranceTimers.current.push(timer);
     };
 
@@ -95,7 +95,7 @@ const App = () => {
 
     observer.observe(element);
 
-    const fallbackTimer = window.setTimeout(playOnce, 900);
+    const fallbackTimer = window.setTimeout(playOnce, 1300);
     entranceTimers.current.push(fallbackTimer);
   }, [playSectionEntrance]);
 
@@ -198,3 +198,4 @@ const App = () => {
 };
 
 export default App;
+

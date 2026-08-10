@@ -308,7 +308,7 @@ function SkillsBallSection({
       initial={{ opacity: 0, y: 80, scale: 0.97, filter: 'blur(12px)' }}
       whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
       viewport={{ once: true, amount: 0.18 }}
-      transition={{ type: 'spring', stiffness: 82, damping: 18, mass: 0.7 }}
+      transition={{ type: 'spring', stiffness: 48, damping: 20, mass: 0.95 }}
       className="scroll-showcase-section relative overflow-hidden py-16 sm:py-20"
     >
       <span className="hash-span">&nbsp;</span>
@@ -340,7 +340,7 @@ function SkillsBallSection({
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.75 }}
             className="mx-auto mb-12 flex max-w-4xl flex-wrap items-center justify-center gap-3"
           >
             {skillCategories.map(cat => (
@@ -391,4 +391,5 @@ function SkillsBallSection({
 }
 
 export default SkillsBallSection;
+
 

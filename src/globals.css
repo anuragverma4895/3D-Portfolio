@@ -1373,7 +1373,7 @@ img {
 .section-open-active {
   position: relative;
   isolation: isolate;
-  animation-duration: 0.9s;
+  animation-duration: 1.45s;
   animation-fill-mode: both;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity, filter, clip-path;
@@ -1390,7 +1390,7 @@ img {
   background:
     linear-gradient(120deg, transparent 0%, rgba(0, 240, 255, 0.14) 45%, rgba(255, 0, 110, 0.1) 56%, transparent 100%),
     radial-gradient(circle at 50% 50%, rgba(145, 94, 255, 0.12), transparent 62%);
-  animation: section-focus-sheen 0.82s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: section-focus-sheen 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .section-open-left {
@@ -2223,6 +2223,7 @@ img {
     max-width: 100%;
   }
 }
+
 
 
 
