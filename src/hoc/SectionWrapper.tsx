@@ -37,11 +37,11 @@ const getSectionReveal = (idName: string): Variants => {
       filter: "blur(0px)",
       transition: {
         type: "spring",
-        stiffness: 48,
-        damping: 20,
-        mass: 0.95,
-        staggerChildren: 0.12,
-        delayChildren: 0.14,
+        stiffness: 28,
+        damping: 24,
+        mass: 1.35,
+        staggerChildren: 0.18,
+        delayChildren: 0.24,
       },
     },
   };
@@ -69,4 +69,5 @@ const SectionWrapper = (
   };
 
 export default SectionWrapper;
+
 

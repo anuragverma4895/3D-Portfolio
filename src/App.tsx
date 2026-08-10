@@ -31,6 +31,7 @@ const navEntranceClasses = navEntranceVariants.map((variant) => `section-open-${
 const App = () => {
   const navEntranceIndex = useRef(0);
   const entranceTimers = useRef<number[]>([]);
+  const entranceObserver = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
     if (document.title !== config.html.title) {
@@ -57,47 +58,44 @@ const App = () => {
 
     const cleanupTimer = window.setTimeout(() => {
       element.classList.remove('section-open-active', `section-open-${variant}`);
-    }, 1650);
+    }, 2650);
 
     entranceTimers.current.push(cleanupTimer);
   }, [clearEntranceTimers]);
 
   const armSectionEntrance = useCallback((element: HTMLElement) => {
+    clearEntranceTimers();
+
     const rect = element.getBoundingClientRect();
     const isAlreadyInView =
-      rect.top < window.innerHeight * 0.72 && rect.bottom > window.innerHeight * 0.18;
+      rect.top < window.innerHeight * 0.76 && rect.bottom > window.innerHeight * 0.2;
 
     if (isAlreadyInView) {
       playSectionEntrance(element);
       return;
     }
 
-    let observer: IntersectionObserver | null = null;
     let hasPlayed = false;
 
     const playOnce = () => {
       if (hasPlayed) return;
       hasPlayed = true;
-      observer?.disconnect();
 
-      const timer = window.setTimeout(() => playSectionEntrance(element), 120);
+      const timer = window.setTimeout(() => playSectionEntrance(element), 180);
       entranceTimers.current.push(timer);
     };
 
-    observer = new IntersectionObserver(
+    entranceObserver.current = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           playOnce();
         }
       },
-      { threshold: 0.22, rootMargin: '-84px 0px -24% 0px' }
+      { threshold: 0.45, rootMargin: '-92px 0px -12% 0px' }
     );
 
-    observer.observe(element);
-
-    const fallbackTimer = window.setTimeout(playOnce, 1300);
-    entranceTimers.current.push(fallbackTimer);
-  }, [playSectionEntrance]);
+    entranceObserver.current.observe(element);
+  }, [clearEntranceTimers, playSectionEntrance]);
 
   // Smooth scroll handler for anchor links
   const handleSmoothScroll = useCallback((e: MouseEvent) => {
@@ -198,4 +196,5 @@ const App = () => {
 };
 
 export default App;
+
 

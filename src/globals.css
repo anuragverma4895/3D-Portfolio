@@ -1373,7 +1373,7 @@ img {
 .section-open-active {
   position: relative;
   isolation: isolate;
-  animation-duration: 1.45s;
+  animation-duration: 2.35s;
   animation-fill-mode: both;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity, filter, clip-path;
@@ -1390,7 +1390,7 @@ img {
   background:
     linear-gradient(120deg, transparent 0%, rgba(0, 240, 255, 0.14) 45%, rgba(255, 0, 110, 0.1) 56%, transparent 100%),
     radial-gradient(circle at 50% 50%, rgba(145, 94, 255, 0.12), transparent 62%);
-  animation: section-focus-sheen 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: section-focus-sheen 1.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .section-open-left {
@@ -1412,8 +1412,8 @@ img {
 @keyframes section-open-left {
   0% {
     opacity: 0.22;
-    transform: translate3d(-120px, 0, 0) rotateY(-8deg) scale(0.96);
-    filter: blur(18px) saturate(0.8);
+    transform: translate3d(-230px, 0, 0) rotateY(-12deg) scale(0.92);
+    filter: blur(24px) saturate(0.72);
     clip-path: inset(0 100% 0 0 round 26px);
   }
   62% {
@@ -1430,8 +1430,8 @@ img {
 @keyframes section-open-right {
   0% {
     opacity: 0.22;
-    transform: translate3d(120px, 0, 0) rotateY(8deg) scale(0.96);
-    filter: blur(18px) saturate(0.8);
+    transform: translate3d(230px, 0, 0) rotateY(12deg) scale(0.92);
+    filter: blur(24px) saturate(0.72);
     clip-path: inset(0 0 0 100% round 26px);
   }
   62% {
@@ -1448,8 +1448,8 @@ img {
 @keyframes section-open-up {
   0% {
     opacity: 0.2;
-    transform: translate3d(0, 110px, 0) scale(0.96);
-    filter: blur(18px) saturate(0.8);
+    transform: translate3d(0, 210px, 0) scale(0.92);
+    filter: blur(24px) saturate(0.72);
     clip-path: inset(100% 0 0 0 round 26px);
   }
   62% {
@@ -1466,8 +1466,8 @@ img {
 @keyframes section-open-center {
   0% {
     opacity: 0.18;
-    transform: scale(0.84) rotateX(5deg);
-    filter: blur(20px) saturate(0.75);
+    transform: scale(0.68) rotateX(8deg);
+    filter: blur(26px) saturate(0.7);
     clip-path: circle(8% at 50% 50%);
   }
   70% {
@@ -2223,6 +2223,7 @@ img {
     max-width: 100%;
   }
 }
+
 
 
 
