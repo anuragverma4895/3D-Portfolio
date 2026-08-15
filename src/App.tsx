@@ -117,9 +117,16 @@ const App = () => {
     if (!element) return;
 
     e.preventDefault();
-    smoothScrollToElement(element);
+
+    if (isContactOpen) {
+      closeContact();
+      window.setTimeout(() => smoothScrollToElement(element), 0);
+    } else {
+      smoothScrollToElement(element);
+    }
+
     window.history.pushState(null, '', href);
-  }, [openContact]);
+  }, [closeContact, isContactOpen, openContact]);
 
   useEffect(() => {
     document.addEventListener('click', handleSmoothScroll);
@@ -188,19 +195,15 @@ const App = () => {
             <StarsCanvas />
           </Suspense>
 
-          <button
-            type="button"
-            onClick={closeContact}
-            aria-label="Close contact form"
-            className="fixed right-5 top-5 z-[90] flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.1] bg-white/[0.04] text-white/80 backdrop-blur-xl transition-all duration-300 hover:border-accent-cyan/40 hover:text-white hover:shadow-[0_0_24px_rgba(0,240,255,0.18)]"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
+          <Navbar contactOpen={isContactOpen} />
 
-          <div className="relative z-10 flex h-screen items-center justify-center px-0 py-0">
+          <Suspense fallback={null}>
+            <SocialSidebar />
+            <WhatsAppButton onClick={openContact} />
+            <ResumeButton />
+          </Suspense>
+
+          <div className="relative z-10 flex h-screen translate-y-8 items-center justify-center px-0 py-0">
             <Suspense fallback={<SectionFallback height="28rem" />}>
               <Contact />
             </Suspense>
