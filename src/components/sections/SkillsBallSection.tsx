@@ -305,11 +305,11 @@ function SkillsBallSection({
     <motion.section
       ref={sectionRef}
       id={id}
-      initial={{ opacity: 0, y: 80, scale: 0.97, filter: 'blur(12px)' }}
-      whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{ type: 'spring', stiffness: 28, damping: 24, mass: 0.95 }}
-      className="scroll-showcase-section relative overflow-hidden py-16 sm:py-20"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.05 }}
+      transition={{ type: 'tween', duration: 0.5, ease: 'easeOut' }}
+      className="relative overflow-hidden py-10 sm:py-16"
     >
       <span className="hash-span">&nbsp;</span>
       {/* Background glows */}

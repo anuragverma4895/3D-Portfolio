@@ -8,40 +8,19 @@ interface Props {
   idName: string;
 }
 
-type SectionEntrance = "left" | "right" | "up" | "down" | "center";
-
-const sectionEntranceById: Record<string, SectionEntrance> = {
-  about: "left",
-  education: "right",
-  achievements: "up",
-  work: "left",
-  contact: "center",
-};
-
-const getSectionReveal = (idName: string): Variants => {
-  const entrance = sectionEntranceById[idName] ?? "center";
-
+const getSectionReveal = (): Variants => {
   return {
     hidden: {
       opacity: 0,
-      x: entrance === "left" ? -90 : entrance === "right" ? 90 : 0,
-      y: entrance === "up" ? 80 : entrance === "down" ? -80 : 0,
-      scale: entrance === "center" ? 0.92 : 0.98,
-      filter: "blur(12px)",
+      y: 24,
     },
     show: {
       opacity: 1,
-      x: 0,
       y: 0,
-      scale: 1,
-      filter: "blur(0px)",
       transition: {
-        type: "spring",
-        stiffness: 28,
-        damping: 24,
-        mass: 1.35,
-        staggerChildren: 0.18,
-        delayChildren: 0.24,
+        type: "tween",
+        duration: 0.5,
+        ease: "easeOut",
       },
     },
   };
@@ -54,11 +33,11 @@ const SectionWrapper = (
   function HOC() {
     return (
       <motion.section
-        variants={getSectionReveal(idName)}
+        variants={getSectionReveal()}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.02 }}
-        className={`${styles.padding} scroll-showcase-section relative z-0 mx-auto max-w-7xl`}
+        viewport={{ once: true, amount: 0.05 }}
+        className={`${styles.padding} relative z-0 mx-auto max-w-7xl`}
         id={idName}
       >
         <span className="hash-span">&nbsp;</span>

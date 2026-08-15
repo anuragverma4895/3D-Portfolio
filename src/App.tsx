@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useCallback, useRef } from 'react';
+import { lazy, Suspense, useEffect, useCallback } from 'react';
 
 import About from './components/sections/About';
 import Hero from './components/sections/Hero';
@@ -25,84 +25,24 @@ const SectionFallback = ({ height = '20rem' }: { height?: string }) => (
   <div style={{ minHeight: height }} />
 );
 
-const navEntranceVariants = ['left', 'right', 'up', 'center', 'right', 'left'] as const;
-const navEntranceClasses = navEntranceVariants.map((variant) => `section-open-${variant}`);
-
-/** Scroll to an element with offset for the fixed navbar */
+/** Scroll to the first real content inside a section, accounting for the fixed navbar. */
 function smoothScrollToElement(element: HTMLElement) {
-  const navbarHeight = 100;
-  const elementTop = element.getBoundingClientRect().top + window.scrollY - navbarHeight;
-  window.scrollTo({ top: elementTop, behavior: 'smooth' });
+  const navbar = document.querySelector('nav');
+  const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 80;
+  const scrollAnchor =
+    element.querySelector<HTMLElement>(':scope > .hash-span + *') ?? element;
+  const elementTop =
+    scrollAnchor.getBoundingClientRect().top + window.scrollY - navbarHeight - 12;
+
+  window.scrollTo({ top: Math.max(0, elementTop), behavior: 'smooth' });
 }
 
 const App = () => {
-  const navEntranceIndex = useRef(0);
-  const entranceTimers = useRef<number[]>([]);
-  const entranceObserver = useRef<IntersectionObserver | null>(null);
-
   useEffect(() => {
     if (document.title !== config.html.title) {
       document.title = config.html.title;
     }
   }, []);
-
-  const clearEntranceTimers = useCallback(() => {
-    entranceTimers.current.forEach((timer) => window.clearTimeout(timer));
-    entranceTimers.current = [];
-  }, []);
-
-  const playSectionEntrance = useCallback((element: HTMLElement) => {
-    clearEntranceTimers();
-
-    const variant = navEntranceVariants[
-      navEntranceIndex.current % navEntranceVariants.length
-    ];
-    navEntranceIndex.current += 1;
-
-    element.classList.remove('section-open-active', ...navEntranceClasses);
-    void element.offsetWidth;
-    element.classList.add('section-open-active', `section-open-${variant}`);
-
-    const cleanupTimer = window.setTimeout(() => {
-      element.classList.remove('section-open-active', `section-open-${variant}`);
-    }, 3800);
-
-    entranceTimers.current.push(cleanupTimer);
-  }, [clearEntranceTimers]);
-
-  const armSectionEntrance = useCallback((element: HTMLElement) => {
-    clearEntranceTimers();
-
-    const rect = element.getBoundingClientRect();
-    const isAlreadyInView =
-      rect.top < window.innerHeight * 0.76 && rect.bottom > window.innerHeight * 0.2;
-
-    if (isAlreadyInView) {
-      playSectionEntrance(element);
-      return;
-    }
-
-    let hasPlayed = false;
-
-    const playOnce = () => {
-      if (hasPlayed) return;
-      hasPlayed = true;
-
-      const timer = window.setTimeout(() => playSectionEntrance(element), 180);
-      entranceTimers.current.push(timer);
-    };
-
-    entranceObserver.current = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          playOnce();
-        }
-      },
-      { threshold: 0.45, rootMargin: '-92px 0px -12% 0px' }
-    );
-
-    entranceObserver.current.observe(element);
-  }, [clearEntranceTimers, playSectionEntrance]);
 
   // Smooth scroll handler for anchor links
   const handleSmoothScroll = useCallback((e: MouseEvent) => {
@@ -118,23 +58,16 @@ const App = () => {
     if (!element) return;
 
     e.preventDefault();
-
-    if (anchor.dataset.navLink === 'true') {
-      armSectionEntrance(element);
-    }
-
     smoothScrollToElement(element);
-
     window.history.pushState(null, '', href);
-  }, [armSectionEntrance]);
+  }, []);
 
   useEffect(() => {
     document.addEventListener('click', handleSmoothScroll);
     return () => {
       document.removeEventListener('click', handleSmoothScroll);
-      clearEntranceTimers();
     };
-  }, [clearEntranceTimers, handleSmoothScroll]);
+  }, [handleSmoothScroll]);
 
   return (
     <div

@@ -1359,9 +1359,13 @@ img {
    HASH SPAN (Section anchor offset)
    ═══════════════════════════════════════════════════ */
 .hash-span {
-  margin-top: -100px;
-  padding-bottom: 100px;
   display: block;
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  top: -100px;
 }
 /* Section reveal polish for nav jumps and natural scroll */
 .scroll-showcase-section {
