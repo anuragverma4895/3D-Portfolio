@@ -77,8 +77,10 @@ const App = () => {
   useEffect(() => {
     if (!isContactOpen) return;
 
-    const originalOverflow = document.body.style.overflow;
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -89,7 +91,8 @@ const App = () => {
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.body.style.overflow = originalOverflow;
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [closeContact, isContactOpen]);
@@ -175,7 +178,7 @@ const App = () => {
 
       {isContactOpen && (
         <div
-          className="fixed inset-0 z-[80] overflow-y-auto theme-transition"
+          className="fixed inset-0 z-[80] overflow-hidden theme-transition"
           style={{ background: 'var(--bg-primary)' }}
           role="dialog"
           aria-modal="true"
@@ -197,7 +200,7 @@ const App = () => {
             </svg>
           </button>
 
-          <div className="relative z-10 flex min-h-screen items-center px-0 py-16 sm:py-20">
+          <div className="relative z-10 flex h-screen items-center justify-center px-0 py-0">
             <Suspense fallback={<SectionFallback height="28rem" />}>
               <Contact />
             </Suspense>

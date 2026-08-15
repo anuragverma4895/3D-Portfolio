@@ -47,11 +47,11 @@ const Contact = () => {
 
   return (
     <div
-      className={`flex flex-col-reverse gap-6 overflow-hidden xl:mt-8 xl:flex-row`}
+      className={`flex w-full flex-col-reverse items-center gap-6 overflow-hidden xl:flex-row`}
     >
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
-        className="glass-card flex-[0.75] rounded-2xl p-8"
+        className="glass-card w-full flex-[0.75] rounded-2xl p-6 sm:p-8"
       >
         <Header useMotion={false} {...config.contact} />
 
