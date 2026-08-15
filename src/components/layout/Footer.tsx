@@ -10,18 +10,44 @@ const Footer = () => {
           <p>
             © {currentYear} <span className="text-white font-medium">Anurag Verma</span>. All rights reserved.
           </p>
-          <div className="flex gap-6">
-            <span className="cursor-default transition-colors duration-200 hover:text-accent-cyan">Privacy Policy</span>
-            <span className="cursor-default transition-colors duration-200 hover:text-accent-cyan">
-              Terms of Service
-            </span>
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            <a
+              href="https://github.com/anuragverma4895"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors duration-200 hover:text-accent-cyan"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/anuragverma4895/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors duration-200 hover:text-accent-cyan"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://leetcode.com/u/AnuragVerma2035/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors duration-200 hover:text-accent-cyan"
+            >
+              LeetCode
+            </a>
+            <a
+              href="mailto:anuragverma4895@gmail.com"
+              className="transition-colors duration-200 hover:text-accent-cyan"
+            >
+              Email
+            </a>
           </div>
         </div>
 
-        {/* Built with love */}
+        {/* Built with passion */}
         <div className="mt-4 flex justify-center">
-          <span className="text-[12px] text-white/30">
-            Crafted with <span className="text-accent-magenta animate-pulse">♥</span> and lots of ☕
+          <span className="text-[12px] text-white/40">
+            Designed & Developed by Anurag Verma · MERN & AI Engineer
           </span>
         </div>
       </div>

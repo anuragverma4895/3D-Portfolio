@@ -152,7 +152,7 @@ const projects: TProject[] = [
   {
     name: 'AI Short Video Ads Generator',
     description:
-      'AI-powered platform to generate high-quality short video advertisements using product and model images with customizable outputs.',
+      'AI-driven platform that synthesizes high-converting video advertisements from product imagery and prompt configurations with customizable creative outputs.',
     tags: [
       {
         name: 'react',
@@ -174,7 +174,7 @@ const projects: TProject[] = [
   {
     name: 'Video Calling Interview Platform',
     description:
-      'A full-stack real-time interview platform enabling seamless 1-on-1 technical interviews with integrated video calling, live code editor, real-time chat, and automated code evaluation.',
+      'Full-stack real-time collaboration platform featuring WebRTC peer video streaming, low-latency Socket.io signaling, synchronized live code editing, and integrated evaluation tooling.',
     tags: [
       {
         name: 'react',
@@ -196,7 +196,7 @@ const projects: TProject[] = [
   {
     name: 'Payment Processing System',
     description:
-      'Production-grade full-stack payment gateway system inspired by Razorpay with idempotent transactions, retry mechanisms, webhook simulation, and secure payment processing.',
+      'Production-ready payment gateway architecture inspired by Razorpay, featuring idempotent transaction pipelines, automated retry protocols, and cryptographic webhook simulations.',
     tags: [
       {
         name: 'react',
@@ -218,7 +218,7 @@ const projects: TProject[] = [
   {
     name: 'Social Media Platform',
     description:
-      'A full-stack MERN social media platform with AI-powered post generation, authentication, real-time interactions, and modern UI.',
+      'Full-featured MERN social network incorporating AI post creation, JWT-based security, real-time messaging, activity feeds, and fluid interactive UI states.',
     tags: [
       {
         name: 'mern',
@@ -239,7 +239,8 @@ const projects: TProject[] = [
   },
   {
     name: 'Ecommerce Tech Store',
-    description: 'Full-stack tech e-commerce website built with React, Node.js, Express & MongoDB.',
+    description:
+      'Full-stack electronics storefront built with React, Node.js, Express & MongoDB featuring responsive catalogs, persistent cart state, and modular RESTful APIs.',
     tags: [
       {
         name: 'react',
@@ -261,7 +262,7 @@ const projects: TProject[] = [
   {
     name: 'SHOP-EZ',
     description:
-      'A modern full-stack e-commerce platform with AI-powered product recommendations. Features JWT authentication, Razorpay payment integration, admin dashboard, and a FastAPI recommendation engine.',
+      'Modern full-stack retail ecosystem with a dedicated FastAPI recommendation engine, Razorpay gateway integration, JWT authentication, and comprehensive administrative dashboards.',
     tags: [
       {
         name: 'react',
@@ -295,7 +296,7 @@ const aimlProjects: TAimlProject[] = [
   {
     name: 'AI Coding Agent',
     description:
-      'An autonomous Python agent that explores codebases, understands architecture, and implements product requirements using Gemini LLM with a ReAct reasoning loop. Features 6-phase workflow with tool calling for file operations, code search, and shell execution.',
+      'Autonomous agent engineered in Python that explores repositories, parses architecture, and implements user specifications via Gemini LLM with a 6-stage ReAct loop and safe tool execution.',
     tags: [
       { name: 'LLM', color: 'blue-text-gradient' },
       { name: 'ReAct', color: 'green-text-gradient' },
@@ -307,7 +308,7 @@ const aimlProjects: TAimlProject[] = [
   {
     name: 'RAG Pipeline with Answer Evaluation',
     description:
-      'An advanced Retrieval-Augmented Generation pipeline combining vector search with LLM-powered answer generation. Features automated evaluation metrics to benchmark answer quality, relevance, and factual accuracy against ground truth.',
+      'Enterprise-grade Retrieval-Augmented Generation pipeline combining vector search with LLM synthesis, featuring automated benchmark metrics for contextual relevance and factual accuracy.',
     tags: [
       { name: 'LLM', color: 'blue-text-gradient' },
       { name: 'RAG', color: 'green-text-gradient' },
@@ -320,7 +321,7 @@ const aimlProjects: TAimlProject[] = [
   {
     name: 'AI-Generated Text Detection',
     description:
-      'A deep learning-powered browser extension and pipeline that detects AI-generated text using transformer-based NLP models. Performs real-time analysis on web pages, PDFs, and pasted text with confidence scoring and detailed reporting.',
+      'Deep learning browser extension and server pipeline utilizing transformer NLP models for real-time classification of AI-synthesized text across web pages, documents, and direct input.',
     tags: [
       { name: 'NLP', color: 'blue-text-gradient' },
       { name: 'transformers', color: 'green-text-gradient' },
@@ -332,7 +333,7 @@ const aimlProjects: TAimlProject[] = [
   {
     name: 'AI Image Generator',
     description:
-      'A generative AI application that creates high-quality images from text prompts using state-of-the-art diffusion models. Features an intuitive interface for prompt engineering, style customization, and batch image generation.',
+      'Generative AI studio leveraging state-of-the-art diffusion models for high-fidelity text-to-image synthesis, intuitive prompt weighting, style customization, and batch generation.',
     tags: [
       { name: 'generative-AI', color: 'blue-text-gradient' },
       { name: 'diffusion', color: 'green-text-gradient' },
@@ -344,7 +345,7 @@ const aimlProjects: TAimlProject[] = [
   {
     name: 'Customer Churn Prediction',
     description:
-      'An end-to-end machine learning system that predicts customer churn using classification algorithms. Features comprehensive EDA, feature engineering, model comparison, and hyperparameter tuning to identify at-risk customers before they leave.',
+      'End-to-end predictive ML system performing feature engineering, exploratory data analysis, hyperparameter tuning, and classification algorithms to proactively identify at-risk client segments.',
     tags: [
       { name: 'scikit-learn', color: 'blue-text-gradient' },
       { name: 'pandas', color: 'green-text-gradient' },
@@ -356,7 +357,7 @@ const aimlProjects: TAimlProject[] = [
   {
     name: 'Sales Data Analysis & Business Insights',
     description:
-      'A comprehensive data analytics project extracting actionable business insights from large-scale sales datasets. Includes trend analysis, revenue forecasting, customer segmentation, and interactive visualization dashboards.',
+      'Comprehensive data analytics workflow extracting actionable strategic insights from large-scale sales telemetry, including trend identification, revenue forecasting, and cohort segmentation.',
     tags: [
       { name: 'data-analysis', color: 'blue-text-gradient' },
       { name: 'visualization', color: 'green-text-gradient' },

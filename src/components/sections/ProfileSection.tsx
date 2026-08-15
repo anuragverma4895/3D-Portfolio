@@ -70,9 +70,8 @@ const ProfileSection = () => {
         variants={fadeIn('up', 'tween', 0, 0.6)}
         className="mb-16 flex flex-col items-center text-center"
       >
-        <p className="max-w-lg text-[18px] italic text-secondary">
-          Built with passion, driven by innovation. Let&apos;s create something extraordinary
-          together.
+        <p className="max-w-xl text-[18px] font-medium text-secondary">
+          Engineered with precision, built for scale. Open to impactful engineering roles and client collaborations.
         </p>
       </motion.div>
 
@@ -94,12 +93,14 @@ const ProfileSection = () => {
             <a
               href={`mailto:${contactInfo.email}`}
               className="truncate text-[16px] text-white transition-all duration-200 hover:text-accent-cyan hover:glow-text"
+              aria-label={`Send email to ${contactInfo.email}`}
             >
               {contactInfo.email}
             </a>
             <a
               href={`tel:${contactInfo.phone}`}
               className="text-[16px] text-white transition-all duration-200 hover:text-accent-cyan"
+              aria-label={`Call phone number ${contactInfo.phone}`}
             >
               {contactInfo.phone}
             </a>
@@ -135,7 +136,7 @@ const ProfileSection = () => {
             <span className="gradient-text-magenta">PROFILES</span>
           </h4>
           <p className="mb-6 text-[14px] text-secondary">
-            Explore my coding profiles and professional platforms.
+            Connect with me across coding and professional networks.
           </p>
           <div className="grid grid-cols-2 gap-4">
             {socialLinks.map(link => (
@@ -144,6 +145,7 @@ const ProfileSection = () => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`Visit Anurag's ${link.name} profile`}
                 className="group flex min-w-0 flex-col items-center justify-center gap-2 rounded-2xl border border-white/[0.06] bg-white/[0.02] px-3 py-4 text-center transition-all duration-300 hover:-translate-y-2 hover:border-white/15 hover:bg-white/[0.05]"
                 style={{
                   ['--hover-glow' as string]: link.accent,
@@ -182,10 +184,9 @@ const ProfileSection = () => {
           <div className="absolute right-0 top-0 -mr-10 -mt-10 h-24 w-24 rounded-full animate-pulse-glow" style={{ background: 'rgba(0, 240, 255, 0.1)', filter: 'blur(40px)' }} />
           <div className="absolute bottom-0 left-0 -mb-10 -ml-6 h-28 w-28 rounded-full animate-pulse-glow" style={{ background: 'rgba(255, 0, 110, 0.08)', filter: 'blur(40px)', animationDelay: '1.5s' }} />
 
-          <h4 className="mb-4 text-[22px] font-bold text-white">Ready to start a project?</h4>
+          <h4 className="mb-4 text-[22px] font-bold text-white">Ready to collaborate?</h4>
           <p className="mb-5 max-w-xs text-[15px] leading-7 text-white/70">
-            From polished frontend experiences to scalable backend systems, let&apos;s build
-            something sharp and reliable.
+            From modern web applications to scalable backend architectures and AI pipelines, let&apos;s build something exceptional.
           </p>
           <div className="mb-6 flex flex-wrap justify-center gap-2">
             {ctaHighlights.map(item => (
@@ -203,7 +204,7 @@ const ProfileSection = () => {
           >
             Get in Touch →
           </a>
-          <p className="mt-4 text-[13px] text-white/50">Fast replies. Clear communication.</p>
+          <p className="mt-4 text-[13px] text-white/50">Fast response · Open to global opportunities</p>
         </motion.div>
       </div>
     </>

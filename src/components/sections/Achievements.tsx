@@ -95,7 +95,7 @@ const codingStats = [
 const achievements = [
   {
     title: 'AI-Generated Text Detection',
-    description: 'Built a deep learning browser extension for real-time AI text detection using transformer-based NLP models.',
+    description: 'Engineered a transformer NLP browser extension and server pipeline delivering real-time classification and confidence metrics.',
     type: 'Project',
     link: 'https://github.com/anuragverma4895/AI-generated-text-detection',
     icon: (
@@ -106,7 +106,7 @@ const achievements = [
   },
   {
     title: 'Real-Time Interview Platform',
-    description: 'Engineered a WebRTC-based 1-on-1 video calling interview platform with live code evaluation.',
+    description: 'Built a full-stack WebRTC interview suite with synchronized code editing, automated code runner, and WebSockets chat.',
     type: 'Project',
     link: 'https://video-calling-interview-platform-pjna.onrender.com/',
     sourceCode: 'https://github.com/anuragverma4895/Video-Calling-Interview-Platform',
@@ -119,7 +119,7 @@ const achievements = [
   },
   {
     title: 'Payment Processing System',
-    description: 'Built a production-grade payment gateway with idempotent transactions and webhook simulation.',
+    description: 'Architected an idempotent payment gateway pipeline with webhook simulations, retry algorithms, and transaction audit trails.',
     type: 'Project',
     link: 'https://payment-processing-system-theta.vercel.app/',
     sourceCode: 'https://github.com/anuragverma4895/payment-processing-system',
@@ -131,8 +131,8 @@ const achievements = [
     ),
   },
   {
-    title: 'Full Stack Development',
-    description: 'Proficient in MERN stack with 10+ deployed full-stack applications solving real-world problems.',
+    title: 'Full Stack Engineering',
+    description: 'Expertise across the MERN stack with 10+ production-deployed web apps featuring modern UI/UX and cloud deployments.',
     type: 'Skill',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -142,7 +142,7 @@ const achievements = [
   },
   {
     title: 'Competitive Programming',
-    description: '1000+ DSA problems solved across platforms. 650+ on LeetCode, 3-star rated on CodeChef with strong algorithmic fundamentals.',
+    description: '1000+ DSA problems solved across platforms (650+ LeetCode, 3-Star CodeChef) demonstrating deep algorithmic foundations.',
     type: 'Achievement',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00F0FF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -157,7 +157,7 @@ const achievements = [
   },
   {
     title: 'AI / ML Engineering',
-    description: 'Built RAG pipelines, churn prediction models, and generative AI applications using deep learning.',
+    description: 'Engineered ReAct autonomous agents, RAG vector pipelines, churn prediction systems, and generative diffusion tools.',
     type: 'Skill',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ec4899" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">

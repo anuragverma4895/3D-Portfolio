@@ -391,6 +391,3 @@ function SkillsBallSection({
 }
 
 export default SkillsBallSection;
-
-
-

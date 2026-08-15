@@ -17,53 +17,53 @@ interface IServiceCard {
 const ServiceCard: React.FC<IServiceCard> = ({ index, title, icon }) => (
   <Tilt
     glareEnable
-    glareMaxOpacity={0.1}
+    glareMaxOpacity={0.12}
     glareColor="#00F0FF"
     glarePosition="all"
     tiltEnable
-    tiltMaxAngleX={25}
-    tiltMaxAngleY={25}
+    tiltMaxAngleX={20}
+    tiltMaxAngleY={20}
     perspective={1000}
+    className="w-full h-full"
   >
-    <div className="max-w-[250px] w-full xs:w-[250px]">
-      <motion.div
-        variants={fadeIn("right", "spring", index * 0.5, 0.75)}
-        className="w-full rounded-[20px] p-[1px] relative group"
-        style={{
-          background: 'linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(255, 0, 110, 0.2))',
-        }}
-        whileHover={{
-          background: 'linear-gradient(135deg, rgba(0, 240, 255, 0.5), rgba(255, 0, 110, 0.5))',
-        }}
+    <motion.div
+      variants={fadeIn("right", "spring", index * 0.15, 0.75)}
+      className="w-full h-full rounded-[20px] p-[1px] relative group"
+      style={{
+        background: 'linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(255, 0, 110, 0.2))',
+      }}
+      whileHover={{
+        background: 'linear-gradient(135deg, rgba(0, 240, 255, 0.5), rgba(255, 0, 110, 0.5))',
+      }}
+    >
+      <div
+        className="service-card-inner flex h-full min-h-[220px] sm:min-h-[240px] flex-col items-center justify-center gap-4 rounded-[20px] px-6 py-6 relative overflow-hidden"
       >
+        {/* Background glow on hover */}
         <div
-          className="service-card-inner flex min-h-[280px] flex-col items-center justify-evenly rounded-[20px] px-12 py-5 relative overflow-hidden"
-        >
-          {/* Background glow on hover */}
-          <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            style={{
-              background: 'radial-gradient(circle at 50% 30%, rgba(0, 240, 255, 0.08), transparent 60%)',
-            }}
-          />
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle at 50% 30%, rgba(0, 240, 255, 0.08), transparent 60%)',
+          }}
+        />
 
-          <motion.img
-            src={icon}
-            alt={title}
-            className="h-16 w-16 object-contain relative z-10"
-            whileHover={{ scale: 1.2, rotate: 5 }}
-            transition={{ type: "spring", stiffness: 300 }}
-            style={{
-              filter: 'drop-shadow(0 0 12px rgba(0, 240, 255, 0.3))',
-            }}
-          />
+        <motion.img
+          src={icon}
+          alt={title}
+          className="h-14 w-14 object-contain relative z-10"
+          whileHover={{ scale: 1.15, rotate: 5 }}
+          transition={{ type: "spring", stiffness: 300 }}
+          style={{
+            filter: 'drop-shadow(0 0 12px rgba(0, 240, 255, 0.3))',
+          }}
+          loading="lazy"
+        />
 
-          <h3 className="text-center text-[20px] font-bold text-white relative z-10">
-            {title}
-          </h3>
-        </div>
-      </motion.div>
-    </div>
+        <h3 className="text-center text-[16px] sm:text-[18px] font-bold text-white relative z-10 leading-snug">
+          {title}
+        </h3>
+      </div>
+    </motion.div>
   </Tilt>
 );
 
@@ -164,9 +164,11 @@ const About = () => {
         }} />
       </motion.div>
 
-      <div className="mt-20 flex flex-wrap gap-10 max-sm:justify-center">
+      <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
         {services.map((service, index) => (
-          <ServiceCard key={service.title} index={index} {...service} />
+          <div key={service.title} className={index === services.length - 1 ? "col-span-2 sm:col-span-1 lg:col-span-1" : ""}>
+            <ServiceCard index={index} {...service} />
+          </div>
         ))}
       </div>
     </>

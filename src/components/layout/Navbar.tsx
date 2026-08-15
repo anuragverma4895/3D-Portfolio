@@ -59,6 +59,7 @@ const Navbar = () => {
 
   return (
     <nav
+      aria-label="Main Navigation"
       className={`${
         styles.paddingX
       } fixed top-0 z-20 flex w-full items-center py-5 transition-all duration-500 ${
@@ -71,13 +72,14 @@ const Navbar = () => {
         <a
           href="#"
           className="flex items-center gap-2 group"
+          aria-label={`${config.html.title} - Back to top`}
           onClick={(e) => {
             e.preventDefault();
             handleLogoClick();
           }}
         >
           <div className="relative">
-            <img src={logo} alt="logo" className="h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-110" />
+            <img src={logo} alt="" className="h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-110" />
             <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ boxShadow: '0 0 15px rgba(0, 240, 255, 0.4)' }} />
           </div>
           <p className="flex cursor-pointer text-[18px] font-bold text-white group-hover:text-accent-cyan transition-colors duration-300">
@@ -110,12 +112,19 @@ const Navbar = () => {
         </div>
 
         <div className="flex flex-1 items-center justify-end sm:hidden">
-          <img
-            src={toggle ? close : menu}
-            alt="menu"
-            className="h-[28px] w-[28px] object-contain cursor-pointer"
+          <button
+            type="button"
+            className="flex items-center justify-center p-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-cyan/50"
+            aria-label={toggle ? "Close Navigation Menu" : "Open Navigation Menu"}
+            aria-expanded={toggle}
             onClick={() => setToggle(!toggle)}
-          />
+          >
+            <img
+              src={toggle ? close : menu}
+              alt=""
+              className="h-[28px] w-[28px] object-contain cursor-pointer"
+            />
+          </button>
 
           {/* Mobile menu with glassmorphism */}
           <div

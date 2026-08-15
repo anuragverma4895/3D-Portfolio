@@ -28,6 +28,13 @@ const SectionFallback = ({ height = '20rem' }: { height?: string }) => (
 const navEntranceVariants = ['left', 'right', 'up', 'center', 'right', 'left'] as const;
 const navEntranceClasses = navEntranceVariants.map((variant) => `section-open-${variant}`);
 
+/** Scroll to an element with offset for the fixed navbar */
+function smoothScrollToElement(element: HTMLElement) {
+  const navbarHeight = 100;
+  const elementTop = element.getBoundingClientRect().top + window.scrollY - navbarHeight;
+  window.scrollTo({ top: elementTop, behavior: 'smooth' });
+}
+
 const App = () => {
   const navEntranceIndex = useRef(0);
   const entranceTimers = useRef<number[]>([]);
@@ -58,7 +65,7 @@ const App = () => {
 
     const cleanupTimer = window.setTimeout(() => {
       element.classList.remove('section-open-active', `section-open-${variant}`);
-    }, 2650);
+    }, 3800);
 
     entranceTimers.current.push(cleanupTimer);
   }, [clearEntranceTimers]);
@@ -116,10 +123,7 @@ const App = () => {
       armSectionEntrance(element);
     }
 
-    element.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
+    smoothScrollToElement(element);
 
     window.history.pushState(null, '', href);
   }, [armSectionEntrance]);
@@ -196,5 +200,3 @@ const App = () => {
 };
 
 export default App;
-
-

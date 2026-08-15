@@ -21,8 +21,8 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
 }) => {
   return (
     <motion.div
-      variants={fadeIn('up', 'spring', index * 0.3, 0.75)}
-      className="w-full sm:w-[calc(50%-14px)]"
+      variants={fadeIn('up', 'spring', index * 0.2, 0.75)}
+      className="w-full sm:w-[calc(50%-14px)] flex"
     >
       <Tilt
         glareEnable
@@ -34,7 +34,7 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
         tiltMaxAngleY={15}
         className="w-full"
       >
-        <div className="glass-card card-lift group w-full rounded-2xl p-5 relative overflow-hidden">
+        <div className="glass-card card-lift group w-full h-full rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between">
           {/* Hover glow */}
           <div
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
@@ -43,58 +43,65 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
             }}
           />
 
-          <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-            <img
-              src={image}
-              alt={name}
-              className="h-full w-full rounded-xl object-cover object-top transition-transform duration-700 group-hover:scale-110"
-            />
+          <div>
+            <div className="relative aspect-video w-full overflow-hidden rounded-xl">
+              <img
+                src={image}
+                alt={`${name} preview`}
+                className="h-full w-full rounded-xl object-cover object-top transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+              />
 
-            {/* Gradient overlay on hover */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#030014]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
+              {/* Gradient overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030014]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl pointer-events-none" />
 
-            {/* Action buttons */}
-            <div className="card-img_hover absolute inset-0 m-3 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-              {deployLink && (
-                <div
-                  onClick={() => window.open(deployLink, '_blank')}
+              {/* Action buttons */}
+              <div className="card-img_hover absolute inset-0 m-3 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                {deployLink && (
+                  <button
+                    type="button"
+                    onClick={() => window.open(deployLink, '_blank')}
+                    className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 backdrop-blur-md transition-all duration-300 hover:border-accent-cyan/50 hover:shadow-glow-cyan"
+                    style={{ background: 'rgba(3, 0, 20, 0.7)' }}
+                    title="Live Demo"
+                    aria-label={`Open live demo of ${name}`}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-[50%] w-[50%] text-white"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => window.open(sourceCodeLink, '_blank')}
                   className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 backdrop-blur-md transition-all duration-300 hover:border-accent-cyan/50 hover:shadow-glow-cyan"
                   style={{ background: 'rgba(3, 0, 20, 0.7)' }}
-                  title="Live Deployment"
+                  title="Source Code"
+                  aria-label={`View source code for ${name} on GitHub`}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-[50%] w-[50%] text-white"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
-                </div>
-              )}
-              <div
-                onClick={() => window.open(sourceCodeLink, '_blank')}
-                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 backdrop-blur-md transition-all duration-300 hover:border-accent-cyan/50 hover:shadow-glow-cyan"
-                style={{ background: 'rgba(3, 0, 20, 0.7)' }}
-                title="Source Code"
-              >
-                <img src={github} alt="github" className="h-1/2 w-1/2 object-contain" />
+                  <img src={github} alt="" className="h-1/2 w-1/2 object-contain" />
+                </button>
               </div>
+            </div>
+
+            <div className="mt-5 relative z-10">
+              <h3 className="text-[22px] sm:text-[24px] font-bold text-white group-hover:gradient-text-cyan transition-colors duration-300">{name}</h3>
+              <p className="text-secondary mt-2 text-[14px] leading-[22px]">{description}</p>
             </div>
           </div>
 
-          <div className="mt-5 relative z-10">
-            <h3 className="text-[24px] font-bold text-white group-hover:gradient-text-cyan transition-colors duration-300">{name}</h3>
-            <p className="text-secondary mt-2 text-[14px] leading-[22px]">{description}</p>
-          </div>
-
-          <div className="mt-4 flex flex-wrap gap-2 relative z-10">
+          <div className="mt-4 flex flex-wrap gap-2 relative z-10 pt-2">
             {tags.map(tag => (
               <span
                 key={tag.name}
@@ -120,8 +127,8 @@ const AimlProjectCard: React.FC<{ index: number } & TAimlProject> = ({
 }) => {
   return (
     <motion.div
-      variants={fadeIn('up', 'spring', index * 0.3, 0.75)}
-      className="w-full sm:w-[calc(50%-14px)]"
+      variants={fadeIn('up', 'spring', index * 0.2, 0.75)}
+      className="w-full sm:w-[calc(50%-14px)] flex"
     >
       <Tilt
         glareEnable
@@ -133,7 +140,7 @@ const AimlProjectCard: React.FC<{ index: number } & TAimlProject> = ({
         tiltMaxAngleY={20}
         className="w-full"
       >
-        <div className="aiml-card card-lift group w-full rounded-2xl p-5 relative overflow-hidden">
+        <div className="aiml-card card-lift group w-full h-full rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between">
           {/* Animated background glow */}
           <div
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
@@ -142,32 +149,38 @@ const AimlProjectCard: React.FC<{ index: number } & TAimlProject> = ({
             }}
           />
 
-          <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-            <img
-              src={image}
-              alt={name}
-              className="h-full w-full rounded-xl object-cover object-top transition-transform duration-500 group-hover:scale-105"
-            />
+          <div>
+            <div className="relative aspect-video w-full overflow-hidden rounded-xl">
+              <img
+                src={image}
+                alt={`${name} preview`}
+                className="h-full w-full rounded-xl object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-[#030014]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030014]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl pointer-events-none" />
 
-            <div className="absolute inset-0 m-3 flex justify-end items-start opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div
-                onClick={() => window.open(sourceCodeLink, '_blank')}
-                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 backdrop-blur-md hover:border-accent-magenta/50 hover:shadow-glow-magenta transition-all duration-300"
-                style={{ background: 'rgba(3, 0, 20, 0.7)' }}
-                title="View Source Code"
-              >
-                <img src={github} alt="github" className="h-1/2 w-1/2 object-contain" />
+              <div className="absolute inset-0 m-3 flex justify-end items-start opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <button
+                  type="button"
+                  onClick={() => window.open(sourceCodeLink, '_blank')}
+                  className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 backdrop-blur-md hover:border-accent-magenta/50 hover:shadow-glow-magenta transition-all duration-300"
+                  style={{ background: 'rgba(3, 0, 20, 0.7)' }}
+                  title="View Source Code"
+                  aria-label={`View source code for ${name} on GitHub`}
+                >
+                  <img src={github} alt="" className="h-1/2 w-1/2 object-contain" />
+                </button>
               </div>
+            </div>
+
+            <div className="mt-5 relative z-10">
+              <h3 className="text-[22px] sm:text-[24px] font-bold text-white group-hover:text-pink-200 transition-colors duration-300">{name}</h3>
+              <p className="text-secondary mt-2 text-[14px] leading-[22px]">{description}</p>
             </div>
           </div>
 
-          <div className="mt-5 relative z-10">
-            <h3 className="text-[22px] sm:text-[24px] font-bold text-white group-hover:text-pink-200 transition-colors duration-300">{name}</h3>
-            <p className="text-secondary mt-2 text-[14px] leading-[22px]">{description}</p>
-          </div>
-          <div className="mt-4 flex flex-wrap gap-2 relative z-10">
+          <div className="mt-4 flex flex-wrap gap-2 relative z-10 pt-2">
             {tags.map(tag => (
               <span
                 key={tag.name}
