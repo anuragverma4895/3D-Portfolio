@@ -66,17 +66,6 @@ const ResumeButton = () => {
           <polyline points="9 15 12 18 15 15" />
         </svg>
       </motion.button>
-
-      {/* Vertical line above button */}
-      <motion.div
-        initial={{ height: 0 }}
-        animate={{ height: '4rem' }}
-        transition={{ delay: 2.5, duration: 0.8 }}
-        className="absolute right-1/2 translate-x-1/2 bottom-full mb-3 w-[1px]"
-        style={{
-          background: 'linear-gradient(to top, rgba(0, 240, 255, 0.3), transparent)',
-        }}
-      />
     </motion.div>
   );
 };

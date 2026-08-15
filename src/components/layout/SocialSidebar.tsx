@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import codeChefLogo from '../../assets/codechef.svg';
 
 const socialLinks = [
   {
@@ -39,7 +38,14 @@ const socialLinks = [
     url: 'https://www.codechef.com/users/anuragverma203',
     hoverColor: '#fb923c',
     icon: (
-      <img src={codeChefLogo} alt="CodeChef" className="w-[24px] h-[24px] rounded-full object-cover" style={{ objectPosition: 'left' }} />
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M7.2 10.4c-1.8-.5-3.2-1.8-3.2-3.4 0-2 2-3.6 4.5-3.6.8 0 1.5.2 2.1.5C11.4 2.7 12.8 2 14.4 2c2.5 0 4.6 1.7 4.6 3.8 0 1.6-1.2 2.9-2.9 3.5" />
+        <path d="M6.7 10.1c.2 1.8.5 3.8 1 5.6.4 1.5 1.8 2.5 3.3 2.5h2c1.6 0 2.9-1 3.3-2.5.5-1.8.8-3.7 1-5.6" />
+        <path d="M8 21h8" />
+        <path d="M10 13h.01" />
+        <path d="M14 13h.01" />
+        <path d="M10 16c1.1.7 2.9.7 4 0" />
+      </svg>
     ),
   },
 ];
@@ -90,17 +96,6 @@ const SocialSidebar = () => {
           </span>
         </motion.a>
       ))}
-
-      {/* Connecting line */}
-      <motion.div
-        initial={{ height: 0 }}
-        animate={{ height: '3rem' }}
-        transition={{ delay: 2.5, duration: 0.6 }}
-        className="w-[1px]"
-        style={{
-          background: 'linear-gradient(180deg, rgba(0, 240, 255, 0.3), transparent)',
-        }}
-      />
     </motion.div>
   );
 };
