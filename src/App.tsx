@@ -157,6 +157,7 @@ const App = () => {
   }, [handleSmoothScroll]);
 
   const isContactOverlay = activeOverlaySection === 'contact';
+  const isAboutOverlay = activeOverlaySection === 'about';
 
   return (
     <div
