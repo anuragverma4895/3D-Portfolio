@@ -135,6 +135,15 @@ const App = () => {
     if (!href || href === '#') return;
 
     const sectionId = href.slice(1);
+
+    if (sectionId === 'home') {
+      e.preventDefault();
+      closeOverlaySection();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.history.pushState(null, '', '/');
+      return;
+    }
+
     if (isOverlaySectionId(sectionId)) {
       e.preventDefault();
       openOverlaySection(sectionId);
@@ -147,7 +156,7 @@ const App = () => {
     e.preventDefault();
     smoothScrollToElement(element);
     window.history.pushState(null, '', href);
-  }, [openOverlaySection]);
+  }, [openOverlaySection, closeOverlaySection]);
 
   useEffect(() => {
     document.addEventListener('click', handleSmoothScroll);
@@ -157,7 +166,6 @@ const App = () => {
   }, [handleSmoothScroll]);
 
   const isContactOverlay = activeOverlaySection === 'contact';
-  const isAboutOverlay = activeOverlaySection === 'about';
 
   return (
     <div

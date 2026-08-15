@@ -12,7 +12,7 @@ type NavbarProps = {
 };
 
 const Navbar = ({ activeSection = null, contactOpen = false }: NavbarProps) => {
-  const [active, setActive] = useState<string | null>();
+  const [active, setActive] = useState<string | null>("home");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const rafRef = useRef<number>(0);
@@ -28,7 +28,7 @@ const Navbar = ({ activeSection = null, contactOpen = false }: NavbarProps) => {
 
         setScrolled(scrollTop > 100);
         if (scrollTop <= 100) {
-          setActive("");
+          setActive("home");
         }
 
         const sections = document.querySelectorAll("section[id]");
