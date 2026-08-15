@@ -21,10 +21,16 @@ const ResumeButton = lazy(() => import('./components/layout/ResumeButton'));
 const WhatsAppButton = lazy(() => import('./components/layout/WhatsAppButton'));
 const CustomCursor = lazy(() => import('./components/layout/CustomCursor'));
 
+const overlaySectionIds = ['about', 'skills', 'education', 'achievements', 'work', 'contact'] as const;
+type OverlaySectionId = (typeof overlaySectionIds)[number];
+
 // Lightweight placeholder for lazy sections
 const SectionFallback = ({ height = '20rem' }: { height?: string }) => (
   <div style={{ minHeight: height }} />
 );
+
+const isOverlaySectionId = (sectionId: string): sectionId is OverlaySectionId =>
+  overlaySectionIds.includes(sectionId as OverlaySectionId);
 
 /** Scroll to the first real content inside a section, accounting for the fixed navbar. */
 function smoothScrollToElement(element: HTMLElement) {
@@ -39,21 +45,42 @@ function smoothScrollToElement(element: HTMLElement) {
 }
 
 const App = () => {
-  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [activeOverlaySection, setActiveOverlaySection] = useState<OverlaySectionId | null>(null);
 
-  const openContact = useCallback(() => {
-    setIsContactOpen(true);
-    if (window.location.hash !== '#contact') {
-      window.history.pushState(null, '', '#contact');
+  const openOverlaySection = useCallback((sectionId: OverlaySectionId) => {
+    setActiveOverlaySection(sectionId);
+    const nextHash = `#${sectionId}`;
+    if (window.location.hash !== nextHash) {
+      window.history.pushState(null, '', nextHash);
     }
   }, []);
 
-  const closeContact = useCallback(() => {
-    setIsContactOpen(false);
-    if (window.location.hash === '#contact') {
+  const closeOverlaySection = useCallback(() => {
+    setActiveOverlaySection(null);
+    const currentHash = window.location.hash.slice(1);
+    if (isOverlaySectionId(currentHash)) {
       window.history.pushState(null, '', window.location.pathname + window.location.search);
     }
   }, []);
+
+  const renderOverlayContent = () => {
+    switch (activeOverlaySection) {
+      case 'about':
+        return <About />;
+      case 'skills':
+        return <SkillsBallSection skills={technologies} />;
+      case 'education':
+        return <Education />;
+      case 'achievements':
+        return <Achievements />;
+      case 'work':
+        return <Works />;
+      case 'contact':
+        return <Contact />;
+      default:
+        return null;
+    }
+  };
 
   useEffect(() => {
     if (document.title !== config.html.title) {
@@ -62,20 +89,21 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const syncContactFromHash = () => {
-      setIsContactOpen(window.location.hash === '#contact');
+    const syncOverlayFromHash = () => {
+      const sectionId = window.location.hash.slice(1);
+      setActiveOverlaySection(isOverlaySectionId(sectionId) ? sectionId : null);
     };
 
-    syncContactFromHash();
-    window.addEventListener('popstate', syncContactFromHash);
+    syncOverlayFromHash();
+    window.addEventListener('popstate', syncOverlayFromHash);
 
     return () => {
-      window.removeEventListener('popstate', syncContactFromHash);
+      window.removeEventListener('popstate', syncOverlayFromHash);
     };
   }, []);
 
   useEffect(() => {
-    if (!isContactOpen) return;
+    if (!activeOverlaySection) return;
 
     const originalBodyOverflow = document.body.style.overflow;
     const originalHtmlOverflow = document.documentElement.style.overflow;
@@ -84,7 +112,7 @@ const App = () => {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        closeContact();
+        closeOverlaySection();
       }
     };
 
@@ -95,9 +123,9 @@ const App = () => {
       document.documentElement.style.overflow = originalHtmlOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [closeContact, isContactOpen]);
+  }, [activeOverlaySection, closeOverlaySection]);
 
-  // Smooth scroll handler for anchor links
+  // Smooth scroll handler for non-overlay anchor links; section links open page-style overlays.
   const handleSmoothScroll = useCallback((e: MouseEvent) => {
     const target = e.target as HTMLElement;
     const anchor = target.closest<HTMLAnchorElement>('a[href^="#"]');
@@ -106,27 +134,20 @@ const App = () => {
     const href = anchor.getAttribute('href');
     if (!href || href === '#') return;
 
-    if (href === '#contact') {
+    const sectionId = href.slice(1);
+    if (isOverlaySectionId(sectionId)) {
       e.preventDefault();
-      openContact();
+      openOverlaySection(sectionId);
       return;
     }
 
-    const sectionId = href.slice(1);
     const element = document.getElementById(sectionId);
     if (!element) return;
 
     e.preventDefault();
-
-    if (isContactOpen) {
-      closeContact();
-      window.setTimeout(() => smoothScrollToElement(element), 0);
-    } else {
-      smoothScrollToElement(element);
-    }
-
+    smoothScrollToElement(element);
     window.history.pushState(null, '', href);
-  }, [closeContact, isContactOpen, openContact]);
+  }, [openOverlaySection]);
 
   useEffect(() => {
     document.addEventListener('click', handleSmoothScroll);
@@ -134,6 +155,8 @@ const App = () => {
       document.removeEventListener('click', handleSmoothScroll);
     };
   }, [handleSmoothScroll]);
+
+  const isContactOverlay = activeOverlaySection === 'contact';
 
   return (
     <div
@@ -146,7 +169,7 @@ const App = () => {
       </Suspense>
 
       <div className="bg-hero-pattern bg-cover bg-center bg-no-repeat">
-        <Navbar contactOpen={isContactOpen} />
+        <Navbar activeSection={activeOverlaySection} />
         <Hero />
       </div>
 
@@ -183,29 +206,35 @@ const App = () => {
         <Footer />
       </div>
 
-      {isContactOpen && (
+      {activeOverlaySection && (
         <div
           className="fixed inset-0 z-[80] overflow-hidden theme-transition"
           style={{ background: 'var(--bg-primary)' }}
           role="dialog"
           aria-modal="true"
-          aria-label="Contact form"
+          aria-label={`${activeOverlaySection} page`}
         >
           <Suspense fallback={null}>
             <StarsCanvas />
           </Suspense>
 
-          <Navbar contactOpen={isContactOpen} />
+          <Navbar activeSection={activeOverlaySection} />
 
           <Suspense fallback={null}>
             <SocialSidebar />
-            <WhatsAppButton onClick={openContact} />
+            <WhatsAppButton onClick={() => openOverlaySection('contact')} />
             <ResumeButton />
           </Suspense>
 
-          <div className="relative z-10 flex h-screen translate-y-8 items-center justify-center px-0 py-0">
+          <div
+            className={
+              isContactOverlay
+                ? 'relative z-10 flex h-screen translate-y-8 items-center justify-center px-0 py-0'
+                : 'overlay-page-scroll relative z-10 h-screen pt-28 pb-12'
+            }
+          >
             <Suspense fallback={<SectionFallback height="28rem" />}>
-              <Contact />
+              {renderOverlayContent()}
             </Suspense>
           </div>
         </div>
@@ -213,7 +242,7 @@ const App = () => {
 
       <Suspense fallback={null}>
         <SocialSidebar />
-        <WhatsAppButton onClick={openContact} />
+        <WhatsAppButton onClick={() => openOverlaySection('contact')} />
         <ResumeButton />
       </Suspense>
     </div>

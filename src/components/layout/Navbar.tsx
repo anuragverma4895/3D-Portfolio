@@ -7,10 +7,11 @@ import { config } from "../../constants/config";
 import ThemeToggle from "./ThemeToggle";
 
 type NavbarProps = {
+  activeSection?: string | null;
   contactOpen?: boolean;
 };
 
-const Navbar = ({ contactOpen = false }: NavbarProps) => {
+const Navbar = ({ activeSection = null, contactOpen = false }: NavbarProps) => {
   const [active, setActive] = useState<string | null>();
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -61,7 +62,7 @@ const Navbar = ({ contactOpen = false }: NavbarProps) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  const displayedActive = contactOpen ? "contact" : active;
+  const displayedActive = activeSection ?? (contactOpen ? "contact" : active);
 
   return (
     <nav

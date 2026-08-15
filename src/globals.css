@@ -2239,3 +2239,12 @@ img {
     padding: 12px 20px;
   }
 }
+
+.overlay-page-scroll {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.overlay-page-scroll::-webkit-scrollbar {
+  display: none;
+}
