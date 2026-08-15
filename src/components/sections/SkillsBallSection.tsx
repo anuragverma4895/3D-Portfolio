@@ -309,7 +309,7 @@ function SkillsBallSection({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.05 }}
       transition={{ type: 'tween', duration: 0.5, ease: 'easeOut' }}
-      className="relative overflow-hidden py-10 sm:py-16"
+      className="relative overflow-hidden py-8 sm:py-10"
     >
       <span className="hash-span">&nbsp;</span>
       {/* Background glows */}
