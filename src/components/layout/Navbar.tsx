@@ -6,7 +6,11 @@ import { logo, menu, close } from "../../assets";
 import { config } from "../../constants/config";
 import ThemeToggle from "./ThemeToggle";
 
-const Navbar = () => {
+type NavbarProps = {
+  contactOpen?: boolean;
+};
+
+const Navbar = ({ contactOpen = false }: NavbarProps) => {
   const [active, setActive] = useState<string | null>();
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -57,6 +61,8 @@ const Navbar = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
+  const displayedActive = contactOpen ? "contact" : active;
+
   return (
     <nav
       aria-label="Main Navigation"
@@ -92,9 +98,9 @@ const Navbar = () => {
             <li
               key={nav.id}
               className={`nav-underline ${
-                active === nav.id ? "active" : ""
+                displayedActive === nav.id ? "active" : ""
               } cursor-pointer text-[16px] font-medium transition-all duration-300 ${
-                active === nav.id
+                displayedActive === nav.id
                   ? "nav-link-active"
                   : "text-secondary hover:text-white"
               }`}
@@ -144,7 +150,7 @@ const Navbar = () => {
                 <li
                   key={nav.id}
                   className={`cursor-pointer text-[16px] font-medium transition-colors duration-200 ${
-                    active === nav.id ? "text-accent-cyan" : "text-secondary hover:text-white"
+                    displayedActive === nav.id ? "text-accent-cyan" : "text-secondary hover:text-white"
                   }`}
                   onClick={() => {
                     setToggle(false);

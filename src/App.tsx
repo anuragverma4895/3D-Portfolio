@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useCallback } from 'react';
+import { lazy, Suspense, useEffect, useCallback, useState } from 'react';
 
 import About from './components/sections/About';
 import Hero from './components/sections/Hero';
@@ -18,6 +18,7 @@ const ProfileSection = lazy(() => import('./components/sections/ProfileSection')
 const Contact = lazy(() => import('./components/sections/Contact'));
 const SocialSidebar = lazy(() => import('./components/layout/SocialSidebar'));
 const ResumeButton = lazy(() => import('./components/layout/ResumeButton'));
+const WhatsAppButton = lazy(() => import('./components/layout/WhatsAppButton'));
 const CustomCursor = lazy(() => import('./components/layout/CustomCursor'));
 
 // Lightweight placeholder for lazy sections
@@ -38,11 +39,60 @@ function smoothScrollToElement(element: HTMLElement) {
 }
 
 const App = () => {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
+  const openContact = useCallback(() => {
+    setIsContactOpen(true);
+    if (window.location.hash !== '#contact') {
+      window.history.pushState(null, '', '#contact');
+    }
+  }, []);
+
+  const closeContact = useCallback(() => {
+    setIsContactOpen(false);
+    if (window.location.hash === '#contact') {
+      window.history.pushState(null, '', window.location.pathname + window.location.search);
+    }
+  }, []);
+
   useEffect(() => {
     if (document.title !== config.html.title) {
       document.title = config.html.title;
     }
   }, []);
+
+  useEffect(() => {
+    const syncContactFromHash = () => {
+      setIsContactOpen(window.location.hash === '#contact');
+    };
+
+    syncContactFromHash();
+    window.addEventListener('popstate', syncContactFromHash);
+
+    return () => {
+      window.removeEventListener('popstate', syncContactFromHash);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isContactOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeContact();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [closeContact, isContactOpen]);
 
   // Smooth scroll handler for anchor links
   const handleSmoothScroll = useCallback((e: MouseEvent) => {
@@ -53,6 +103,12 @@ const App = () => {
     const href = anchor.getAttribute('href');
     if (!href || href === '#') return;
 
+    if (href === '#contact') {
+      e.preventDefault();
+      openContact();
+      return;
+    }
+
     const sectionId = href.slice(1);
     const element = document.getElementById(sectionId);
     if (!element) return;
@@ -60,7 +116,7 @@ const App = () => {
     e.preventDefault();
     smoothScrollToElement(element);
     window.history.pushState(null, '', href);
-  }, []);
+  }, [openContact]);
 
   useEffect(() => {
     document.addEventListener('click', handleSmoothScroll);
@@ -80,7 +136,7 @@ const App = () => {
       </Suspense>
 
       <div className="bg-hero-pattern bg-cover bg-center bg-no-repeat">
-        <Navbar />
+        <Navbar contactOpen={isContactOpen} />
         <Hero />
       </div>
 
@@ -114,18 +170,44 @@ const App = () => {
         <Suspense fallback={<SectionFallback height="28rem" />}>
           <ProfileSection />
         </Suspense>
-
-        <SectionDivider />
-
-        {/* Get in Touch form */}
-        <Suspense fallback={<SectionFallback height="28rem" />}>
-          <Contact />
-        </Suspense>
         <Footer />
       </div>
 
+      {isContactOpen && (
+        <div
+          className="fixed inset-0 z-[80] overflow-y-auto theme-transition"
+          style={{ background: 'var(--bg-primary)' }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Contact form"
+        >
+          <Suspense fallback={null}>
+            <StarsCanvas />
+          </Suspense>
+
+          <button
+            type="button"
+            onClick={closeContact}
+            aria-label="Close contact form"
+            className="fixed right-5 top-5 z-[90] flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.1] bg-white/[0.04] text-white/80 backdrop-blur-xl transition-all duration-300 hover:border-accent-cyan/40 hover:text-white hover:shadow-[0_0_24px_rgba(0,240,255,0.18)]"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+
+          <div className="relative z-10 flex min-h-screen items-center px-0 py-16 sm:py-20">
+            <Suspense fallback={<SectionFallback height="28rem" />}>
+              <Contact />
+            </Suspense>
+          </div>
+        </div>
+      )}
+
       <Suspense fallback={null}>
         <SocialSidebar />
+        <WhatsAppButton onClick={openContact} />
         <ResumeButton />
       </Suspense>
     </div>
