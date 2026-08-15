@@ -7,8 +7,8 @@ type WhatsAppButtonProps = {
 const WhatsAppIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
+    width="34"
+    height="34"
     viewBox="0 0 24 24"
     fill="currentColor"
     aria-hidden="true"
@@ -23,7 +23,7 @@ const WhatsAppButton = ({ onClick }: WhatsAppButtonProps) => {
       initial={{ x: 80, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ delay: 1.7, duration: 0.8, ease: 'easeOut' }}
-      className="fixed right-5 bottom-24 z-30 hidden md:flex"
+      className="fixed right-5 bottom-36 z-30 hidden md:flex"
     >
       <motion.button
         type="button"
@@ -31,28 +31,25 @@ const WhatsAppButton = ({ onClick }: WhatsAppButtonProps) => {
         aria-label="Open contact form on WhatsApp"
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.94 }}
-        className="group relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-white/[0.08] text-green-400 transition-all duration-300 hover:text-white"
+        className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-full text-white transition-all duration-300"
         style={{
-          background: 'rgba(12, 10, 30, 0.72)',
-          backdropFilter: 'blur(12px)',
-          boxShadow: '0 0 18px rgba(34, 197, 94, 0.12)',
+          background: '#00C853',
+          boxShadow: '0 8px 26px rgba(0, 200, 83, 0.34), 0 0 0 1px rgba(255, 255, 255, 0.16)',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = 'rgba(34, 197, 94, 0.45)';
-          e.currentTarget.style.boxShadow = '0 0 30px rgba(34, 197, 94, 0.28), 0 0 60px rgba(0, 240, 255, 0.08)';
+          e.currentTarget.style.boxShadow = '0 10px 34px rgba(0, 200, 83, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.22)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
-          e.currentTarget.style.boxShadow = '0 0 18px rgba(34, 197, 94, 0.12)';
+          e.currentTarget.style.boxShadow = '0 8px 26px rgba(0, 200, 83, 0.34), 0 0 0 1px rgba(255, 255, 255, 0.16)';
         }}
       >
         <div
-          className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          className="absolute inset-0 opacity-70 transition-opacity duration-300 group-hover:opacity-100"
           style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.22), rgba(0, 240, 255, 0.06), transparent 72%)',
+            background: 'radial-gradient(circle at 34% 24%, rgba(255,255,255,0.26), rgba(255,255,255,0) 42%)',
           }}
         />
-        <span className="relative z-10 flex h-6 w-6 items-center justify-center">
+        <span className="relative z-10 flex h-9 w-9 items-center justify-center">
           <WhatsAppIcon />
         </span>
       </motion.button>
