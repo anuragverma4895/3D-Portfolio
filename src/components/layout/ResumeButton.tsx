@@ -1,19 +1,18 @@
 import { motion } from 'framer-motion';
-import resumePDF from '../../assets/Anurag_Verma_Resume.pdf';
 
 const ResumeButton = () => {
   const handleResumeClick = () => {
     // Open in new tab and trigger download
     const link = document.createElement('a');
-    link.href = resumePDF;
-    link.download = 'Anurag_Verma_Resume.pdf';
+    link.href = '/resume.pdf';
+    link.download = 'resume.pdf';
     link.target = '_blank';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
     // Also open in new tab for viewing
-    window.open(resumePDF, '_blank');
+    window.open('/resume.pdf', '_blank');
   };
 
   return (
